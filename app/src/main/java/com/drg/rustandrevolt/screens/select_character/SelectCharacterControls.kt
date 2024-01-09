@@ -16,68 +16,62 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.drg.rustandrevolt.R
 
-class SelectCharacterControls {
-    companion object{
-        @Preview
-        @Composable
-        fun create() {
-//Columna 2 (SlidePictureBox + label nombre personaje)
-            Column (modifier = Modifier
+@Composable
+fun SelectCharacterControls() {
+    //Columna 2 (SlidePictureBox + label nombre personaje)
+    Column (modifier = Modifier
+        .fillMaxWidth()
+        .border(1.dp, Color.Green)
+        .fillMaxHeight(0.85f)
+    ){
+        Text(text = "Columna 2")
+
+        Row (
+            modifier = Modifier
                 .fillMaxWidth()
-                .border(1.dp, Color.Green)
-                .fillMaxHeight(0.85f)
-            ){
-                Text(text = "Columna 2")
+                .fillMaxHeight(0.90f)
+                .border(1.dp, Color.Black)
+                .align(Alignment.CenterHorizontally),
+            Arrangement.SpaceBetween
+        ) {
+            //Boton Atras
+            Button(modifier = Modifier
+                .align(Alignment.CenterVertically)
+                .padding(start = 15.dp)
+                , onClick = { }
+            ) {
+                Text("<-")
+            }
 
-                Row (
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .fillMaxHeight(0.90f)
-                        .border(1.dp, Color.Black)
-                        .align(Alignment.CenterHorizontally),
-                    Arrangement.SpaceBetween
-                ) {
-                    //Boton Atras
-                    Button(modifier = Modifier
-                        .align(Alignment.CenterVertically)
-                        .padding(start = 15.dp)
-                        , onClick = { }
-                    ) {
-                        Text("<-")
-                    }
+            //Imagen Personaje
+            Image(
+                painter = painterResource(R.drawable.imagedflt),
+                contentDescription = null,
+                modifier = Modifier
+                    .size(width = 230.dp, height = 400.dp)
+                    .border(1.dp, Color.Black)
+                    .align(Alignment.CenterVertically)
+            )
 
-                    //Imagen Personaje
-                    Image(
-                        painter = painterResource(R.drawable.imagedflt),
-                        contentDescription = null,
-                        modifier = Modifier
-                            .size(width = 230.dp, height = 400.dp)
-                            .border(1.dp, Color.Black)
-                            .align(Alignment.CenterVertically)
-                    )
-
-                    //Boton Adelante
-                    Button(modifier = Modifier
-                        .align(Alignment.CenterVertically)
-                        .padding(end = 15.dp)
-                        , onClick = { }
-                    ) {
-                        Text("->")
-                    }
-                }
-
-                Text(
-                    "Nombre Personaje",
-                    fontSize = 20.sp,
-                    modifier = Modifier
-                        .align(Alignment.CenterHorizontally)
-                )
+            //Boton Adelante
+            Button(modifier = Modifier
+                .align(Alignment.CenterVertically)
+                .padding(end = 15.dp)
+                , onClick = { }
+            ) {
+                Text("->")
             }
         }
+
+        Text(
+            "Nombre Personaje",
+            fontSize = 20.sp,
+            modifier = Modifier
+                .align(Alignment.CenterHorizontally)
+        )
     }
 }

@@ -13,10 +13,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.drg.rustandrevolt.navigation.AppScreens
 
 @Composable
-fun optionsScreen(navController: NavController) {
+fun OptionsScreen(navController: NavController) {
     Column (modifier = Modifier
         .fillMaxSize(),
         verticalArrangement = Arrangement.Center,

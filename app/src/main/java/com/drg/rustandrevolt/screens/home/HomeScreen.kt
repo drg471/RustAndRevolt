@@ -12,7 +12,7 @@ import androidx.navigation.NavController
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun homeScreen(navController: NavController) {
+fun HomeScreen(navController: NavController) {
     //Scaffold con una barra de aplicaciones y un cuerpo de contenido simple
     Scaffold(
         topBar = {
@@ -28,6 +28,6 @@ fun homeScreen(navController: NavController) {
         }
     ) { paddingValues ->
         //Llama a la función que muestra los elementos de la pantalla Home
-        HomeElements.create(paddingValues = paddingValues, navController = navController)
+        HomeScreenElements(paddingValues = paddingValues, navController = navController)
     }
 }

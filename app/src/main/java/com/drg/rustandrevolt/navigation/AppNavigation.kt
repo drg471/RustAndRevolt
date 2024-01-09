@@ -4,10 +4,10 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.drg.rustandrevolt.screens.combat.combatScreen
-import com.drg.rustandrevolt.screens.home.homeScreen
-import com.drg.rustandrevolt.screens.options.optionsScreen
-import com.drg.rustandrevolt.screens.select_character.selectCharacterScreen
+import com.drg.rustandrevolt.screens.combat.CombatScreen
+import com.drg.rustandrevolt.screens.home.HomeScreen
+import com.drg.rustandrevolt.screens.options.OptionsScreen
+import com.drg.rustandrevolt.screens.select_character.SelectCharacterScreen
 
 @Composable
 fun AppNavigation(){
@@ -17,16 +17,16 @@ fun AppNavigation(){
     //NavHost con las llamadas a las pantallas
     NavHost(navController = navController, startDestination = AppScreens.HomeScreen.route){
         composable(route = AppScreens.HomeScreen.route){
-            homeScreen(navController)
+            HomeScreen(navController)
         }
         composable(route = AppScreens.OptionsScreen.route){
-            optionsScreen(navController)
+            OptionsScreen(navController)
         }
         composable(route = AppScreens.SelectCharacterScreen.route){
-            selectCharacterScreen(navController)
+            SelectCharacterScreen(navController)
         }
         composable(route = AppScreens.CombatScreen.route){
-            combatScreen(navController)
+            CombatScreen(navController)
         }
     }
 }

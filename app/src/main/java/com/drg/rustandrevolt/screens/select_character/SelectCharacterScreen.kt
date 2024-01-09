@@ -16,7 +16,7 @@ import androidx.navigation.NavController
 import com.drg.rustandrevolt.navigation.AppScreens
 
 @Composable
-fun selectCharacterScreen(navController: NavController) {
+fun SelectCharacterScreen(navController: NavController) {
 
     //Columna principal
     Column(
@@ -26,10 +26,10 @@ fun selectCharacterScreen(navController: NavController) {
     ) {
 
         //Controles seleccion tipo de personajes
-        SelectTypeControls.create()
+        SelectCharacterTypeControls()
 
         //Controles seleccion tipos de personajes
-        SelectCharacterControls.create()
+        SelectCharacterControls()
 
         //Boton Jugar
         Button(modifier = Modifier
