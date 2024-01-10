@@ -26,7 +26,7 @@ import androidx.navigation.NavController
 import com.drg.rustandrevolt.navigation.AppScreens
 
 @Composable
-fun PlayerControls(navController: NavController) {
+fun PlayerControls(navigateToHomeScreen : () -> Unit) {
     var vidaJugador : Float = 0.8f
 
     Column (modifier = Modifier
@@ -70,7 +70,7 @@ fun PlayerControls(navController: NavController) {
                 .background(Color.White)
                 .height(120.dp)
                 .width(70.dp),
-                onClick = { navController.navigate(route = AppScreens.HomeScreen.route) },
+                onClick = { navigateToHomeScreen() },
                 colors = ButtonDefaults.buttonColors(containerColor = Color.Green),
                 shape = RoundedCornerShape(10.dp),
                 contentPadding = PaddingValues(0.dp)

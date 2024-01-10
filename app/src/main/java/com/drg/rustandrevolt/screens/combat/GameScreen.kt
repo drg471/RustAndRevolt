@@ -17,6 +17,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -24,6 +25,9 @@ import com.drg.rustandrevolt.R
 
 @Composable
 fun GameScreen() {
+    val context = LocalContext.current
+    val enemyName : String = context.getString(R.string.enemyName)
+
     //Pantalla de juego
 
     var vidaEnemigo : Float = 0.2f
@@ -37,7 +41,7 @@ fun GameScreen() {
         Text(text = "Pantalla juego", fontSize = 15.sp)
 
         //Texto Nombre Enemigo
-        Text(text = "Nombre Enemigo", fontSize = 18.sp)
+        Text(text = enemyName, fontSize = 18.sp)
 
         //Vida Enemigo
         LinearProgressIndicator(

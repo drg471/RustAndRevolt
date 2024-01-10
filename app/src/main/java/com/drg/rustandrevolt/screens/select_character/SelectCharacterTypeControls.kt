@@ -18,12 +18,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.drg.rustandrevolt.R
 
 @Composable
 fun SelectCharacterTypeControls() {
+    val context = LocalContext.current
+    val selectCharacter : String = context.getString(R.string.selectCharacter)
+
     //Columna 1 (label + botones tipos personaje)
     Column (modifier = Modifier
         .fillMaxWidth()
@@ -34,7 +39,7 @@ fun SelectCharacterTypeControls() {
         //Titulo - Seleccion de Personaje
         Text(text = "Columna 1")
         Text(
-            text = "Selección Personaje",
+            text = selectCharacter,
             fontSize = 24.sp,
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)

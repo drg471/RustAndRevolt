@@ -15,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -22,6 +23,9 @@ import com.drg.rustandrevolt.R
 
 @Composable
 fun SelectCharacterControls() {
+    val context = LocalContext.current
+    val characterName : String = context.getString(R.string.characterName)
+
     //Columna 2 (SlidePictureBox + label nombre personaje)
     Column (modifier = Modifier
         .fillMaxWidth()
@@ -68,7 +72,7 @@ fun SelectCharacterControls() {
         }
 
         Text(
-            "Nombre Personaje",
+            characterName,
             fontSize = 20.sp,
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)

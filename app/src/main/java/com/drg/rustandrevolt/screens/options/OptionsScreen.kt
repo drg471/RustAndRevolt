@@ -11,11 +11,17 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.drg.rustandrevolt.R
 
 @Composable
-fun OptionsScreen(navController: NavController) {
+fun OptionsScreen(navigateToHomeScreen : () -> Unit) {
+    val context = LocalContext.current
+    val buttonSoundOnOff : String = context.getString(R.string.button_sound_onoff)
+    val buttonReturn : String = context.getString(R.string.button_return)
+
     Column (modifier = Modifier
         .fillMaxSize(),
         verticalArrangement = Arrangement.Center,
@@ -28,7 +34,7 @@ fun OptionsScreen(navController: NavController) {
             .height(40.dp)
             .width(200.dp), onClick = { }
         ) {
-            Text("SONIDO ON/OFF")
+            Text(buttonSoundOnOff)
         }
 
         //Boton volver a pantalla Home
@@ -36,9 +42,9 @@ fun OptionsScreen(navController: NavController) {
             .align(Alignment.CenterHorizontally)
             .padding(top = 16.dp)
             .height(40.dp)
-            .width(200.dp), onClick = { navController.popBackStack() } //Vuelve a la ultima página guardada en pila
+            .width(200.dp), onClick = { navigateToHomeScreen() } //Vuelve a la ultima página guardada en pila
         ) {
-            Text("VOLVER")
+            Text(buttonReturn)
         }
     }
 }

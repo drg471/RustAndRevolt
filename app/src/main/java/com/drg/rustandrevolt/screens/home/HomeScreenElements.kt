@@ -17,6 +17,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -25,7 +26,10 @@ import com.drg.rustandrevolt.R
 import com.drg.rustandrevolt.navigation.AppScreens
 
 @Composable
-fun HomeScreenElements(paddingValues: PaddingValues, navController: NavController) {
+fun HomeScreenElements(paddingValues: PaddingValues, navigateToOptionsScreen : () -> Unit, navigateToSelectCharacterScreen : () -> Unit) {
+    val context = LocalContext.current
+    val buttonStartGame : String = context.getString(R.string.button_start_game)
+    val buttonOptions : String = context.getString(R.string.button_options)
 
     //Columna principal
     Column(
@@ -51,9 +55,11 @@ fun HomeScreenElements(paddingValues: PaddingValues, navController: NavControlle
             .align(Alignment.CenterHorizontally)
             .padding(top = 16.dp)
             .height(40.dp)
-            .width(200.dp), onClick = { navController.navigate(route = AppScreens.SelectCharacterScreen.route) }
+            .width(200.dp), onClick = {
+                navigateToSelectCharacterScreen()
+            }
         ) {
-            Text("INICIAR PARTIDA")
+            Text(buttonStartGame)
         }
 
         //Boton Opciones
@@ -61,9 +67,11 @@ fun HomeScreenElements(paddingValues: PaddingValues, navController: NavControlle
             .align(Alignment.CenterHorizontally)
             .padding(top = 16.dp)
             .height(40.dp)
-            .width(200.dp), onClick = { navController.navigate(route = AppScreens.OptionsScreen.route) }
+            .width(200.dp), onClick = {
+                navigateToOptionsScreen()
+            }
         ) {
-            Text("OPCIONES")
+            Text(buttonOptions)
         }
     }
 }

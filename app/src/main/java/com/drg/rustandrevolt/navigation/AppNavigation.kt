@@ -16,17 +16,32 @@ fun AppNavigation(){
 
     //NavHost con las llamadas a las pantallas
     NavHost(navController = navController, startDestination = AppScreens.HomeScreen.route){
-        composable(route = AppScreens.HomeScreen.route){
-            HomeScreen(navController)
+        composable(route = AppScreens.HomeScreen.route) { navBackStackEntry ->
+            val navigateToOptionsScreen: () -> Unit = {
+                navController.navigate(AppScreens.OptionsScreen.route)
+            }
+            val navigateToSelectCharacterScreen: () -> Unit = {
+                navController.navigate(AppScreens.SelectCharacterScreen.route)
+            }
+            HomeScreen(navigateToOptionsScreen, navigateToSelectCharacterScreen)
         }
-        composable(route = AppScreens.OptionsScreen.route){
-            OptionsScreen(navController)
+        composable(route = AppScreens.OptionsScreen.route){ navBackStackEntry ->
+            val navigateToHomeScreen: () -> Unit = {
+                navController.navigate(AppScreens.HomeScreen.route)
+            }
+            OptionsScreen(navigateToHomeScreen)
         }
-        composable(route = AppScreens.SelectCharacterScreen.route){
-            SelectCharacterScreen(navController)
+        composable(route = AppScreens.SelectCharacterScreen.route){ navBackStackEntry ->
+            val navigateToCombatScreen : () -> Unit = {
+                navController.navigate(AppScreens.CombatScreen.route)
+            }
+            SelectCharacterScreen(navigateToCombatScreen)
         }
-        composable(route = AppScreens.CombatScreen.route){
-            CombatScreen(navController)
+        composable(route = AppScreens.CombatScreen.route){ navBackStackEntry ->
+            val navigateToHomeScreen : () -> Unit = {
+                navController.navigate(AppScreens.HomeScreen.route)
+            }
+            CombatScreen(navigateToHomeScreen)
         }
     }
 }
