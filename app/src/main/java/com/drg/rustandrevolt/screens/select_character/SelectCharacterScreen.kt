@@ -11,12 +11,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.drg.rustandrevolt.R
 import com.drg.rustandrevolt.navigation.AppScreens
 
 @Composable
-fun selectCharacterScreen(navController: NavController) {
+fun SelectCharacterScreen(navigateToCombatScreen : () -> Unit) {
+    val context = LocalContext.current
+    val buttonPlay : String = context.getString(R.string.button_play)
 
     //Columna principal
     Column(
@@ -26,19 +30,21 @@ fun selectCharacterScreen(navController: NavController) {
     ) {
 
         //Controles seleccion tipo de personajes
-        SelectTypeControls.create()
+        SelectCharacterTypeControls()
 
         //Controles seleccion tipos de personajes
-        SelectCharacterControls.create()
+        SelectCharacterControls()
 
         //Boton Jugar
         Button(modifier = Modifier
             .background(Color.White)
             .align(Alignment.CenterHorizontally)
             .padding(top = 16.dp),
-            onClick = { navController.navigate(route = AppScreens.CombatScreen.route) }
+            onClick = {
+                navigateToCombatScreen()
+            }
         ) {
-            Text("JUGAR")
+            Text(buttonPlay)
         }
     }
 }

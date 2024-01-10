@@ -17,95 +17,93 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.drg.rustandrevolt.R
 
-class GameScreen {
-    companion object{
-        @Preview
-        @Composable
-        fun create() {
-            //Pantalla de juego
+@Composable
+fun GameScreen() {
+    val context = LocalContext.current
+    val enemyName : String = context.getString(R.string.enemyName)
 
-            var vidaEnemigo : Float = 0.2f
+    //Pantalla de juego
 
-            //Columna -> Nombre Enemigo + Vida Enemigo + box imagenes personajes
-            Column(modifier = Modifier
+    var vidaEnemigo : Float = 0.2f
+
+    //Columna -> Nombre Enemigo + Vida Enemigo + box imagenes personajes
+    Column(modifier = Modifier
+        .fillMaxWidth()
+        .border(1.dp, Color.Red)
+        .fillMaxHeight(0.7f)
+    ) {
+        Text(text = "Pantalla juego", fontSize = 15.sp)
+
+        //Texto Nombre Enemigo
+        Text(text = enemyName, fontSize = 18.sp)
+
+        //Vida Enemigo
+        LinearProgressIndicator(
+            progress = vidaEnemigo,
+            modifier = Modifier
                 .fillMaxWidth()
-                .border(1.dp, Color.Red)
-                .fillMaxHeight(0.7f)
-            ) {
-                Text(text = "Pantalla juego", fontSize = 15.sp)
+                .height(15.dp),
+            color = if (vidaEnemigo < 0.3f) Color.Red else if (vidaEnemigo < 0.6f && vidaEnemigo > 0.3f) Color.Yellow else Color.Green
+        )
 
-                //Texto Nombre Enemigo
-                Text(text = "Nombre Enemigo", fontSize = 18.sp)
+        //Contenedor de Imagenes de Personajes en la batalla
+        Box(
+            modifier = Modifier.fillMaxSize()
+        ){
+            //Fila Imagen enemigo + daño
+            Row (
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(300.dp)
+                    .border(1.dp, Color.Black),
+                horizontalArrangement = Arrangement.End
 
-                //Vida Enemigo
-                LinearProgressIndicator(
-                    progress = vidaEnemigo,
+            ){
+                Text(
+                    text = "-15",
+                    fontSize = 50.sp,
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .height(15.dp),
-                    color = if (vidaEnemigo < 0.3f) Color.Red else if (vidaEnemigo < 0.6f && vidaEnemigo > 0.3f) Color.Yellow else Color.Green
+                        .border(1.dp, Color.Black)
+                        .align(Alignment.CenterVertically)
                 )
 
-                //Contenedor de Imagenes de Personajes en la batalla
-                Box(
-                    modifier = Modifier.fillMaxSize()
-                ){
-                    //Fila Imagen enemigo + daño
-                    Row (
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(300.dp)
-                            .border(1.dp, Color.Black),
-                        horizontalArrangement = Arrangement.End
+                Image(
+                    painter = painterResource(R.drawable.imagedflt),
+                    contentDescription = null,
+                    modifier = Modifier
+                        .size(width = 150.dp, height = 300.dp)
+                        .border(1.dp, Color.Black)
+                )
+            }
 
-                    ){
-                        Text(
-                            text = "-15",
-                            fontSize = 50.sp,
-                            modifier = Modifier
-                                .border(1.dp, Color.Black)
-                                .align(Alignment.CenterVertically)
-                        )
-
-                        Image(
-                            painter = painterResource(R.drawable.imagedflt),
-                            contentDescription = null,
-                            modifier = Modifier
-                                .size(width = 150.dp, height = 300.dp)
-                                .border(1.dp, Color.Black)
-                        )
-                    }
-
-                    //Fila Imagen jugador + daño
-                    Row (
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(210.dp)
-                            .border(1.dp, Color.Black).align(Alignment.BottomStart)
-                    ) {
-                        Image(
-                            painter = painterResource(R.drawable.imageusrdflt),
-                            contentDescription = null,
-                            modifier = Modifier
-                                .size(width = 230.dp, height = 175.dp)
-                                .border(1.dp, Color.Black)
-                                .align(Alignment.Bottom)
-                        )
-                        Text(
-                            text = "-5",
-                            fontSize = 50.sp,
-                            modifier = Modifier
-                                .border(1.dp, Color.Black)
-                                .align(Alignment.CenterVertically)
-                        )
-                    }
-                }
+            //Fila Imagen jugador + daño
+            Row (
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(210.dp)
+                    .border(1.dp, Color.Black).align(Alignment.BottomStart)
+            ) {
+                Image(
+                    painter = painterResource(R.drawable.imageusrdflt),
+                    contentDescription = null,
+                    modifier = Modifier
+                        .size(width = 230.dp, height = 175.dp)
+                        .border(1.dp, Color.Black)
+                        .align(Alignment.Bottom)
+                )
+                Text(
+                    text = "-5",
+                    fontSize = 50.sp,
+                    modifier = Modifier
+                        .border(1.dp, Color.Black)
+                        .align(Alignment.CenterVertically)
+                )
             }
         }
     }

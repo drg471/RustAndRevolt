@@ -1,0 +1,17 @@
+<!-- res/values/values-en/strings.xml -->
+<!-- Idioma inglés -->
+<resources>
+    <!-- Home -->
+    <string name="app_name">Rust And Revolt</string>
+    <string name="button_start_game">START GAME</string>
+    <string name="button_options">OPTIONS</string>
+    <!-- options -->
+    <string name="button_sound_onoff">SOUND ON/OFF</string>
+    <string name="button_return">BACK</string>
+    <!-- character selection -->
+    <string name="button_play">PLAY</string>
+    <string name="selectCharacter">Character Selection</string>
+    <string name="characterName">Character Name</string>
+    <!-- combat -->
+    <string name="enemyName">Enemy Name</string>
+</resources>
