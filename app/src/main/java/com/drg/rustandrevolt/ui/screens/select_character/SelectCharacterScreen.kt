@@ -15,7 +15,10 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.drg.rustandrevolt.R
+import com.drg.rustandrevolt.entities.Rebel
 import com.drg.rustandrevolt.ui.navigation.AppScreens
+import com.drg.rustandrevolt.viewmodels.CharacterSelectionViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
 @Composable
 fun SelectCharacterScreen(navigateToCombatScreen : () -> Unit) {

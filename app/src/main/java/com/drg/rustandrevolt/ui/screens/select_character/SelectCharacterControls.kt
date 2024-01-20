@@ -20,11 +20,19 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.drg.rustandrevolt.R
+import com.drg.rustandrevolt.entities.Character
+import com.drg.rustandrevolt.viewmodels.CharacterSelectionViewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 
 @Composable
-fun SelectCharacterControls() {
+fun SelectCharacterControls(viewModel : CharacterSelectionViewModel = hiltViewModel()) {
     val context = LocalContext.current
-    val characterName : String = context.getString(R.string.characterName)
+
+    //Obtiene la lista de personajes y el indice actual del viewmodel
+    val characterList = viewModel.characterList
+    var currentCharacterIndex = viewModel.currentCharacterIndex
+
+    var currentCharacter = characterList.getOrNull(currentCharacterIndex)
 
     //Columna 2 (SlidePictureBox + label nombre personaje)
     Column (modifier = Modifier
@@ -46,7 +54,7 @@ fun SelectCharacterControls() {
             Button(modifier = Modifier
                 .align(Alignment.CenterVertically)
                 .padding(start = 15.dp)
-                , onClick = { }
+                , onClick = { viewModel.showPreviousCharacter() }
             ) {
                 Text("<-")
             }
@@ -65,17 +73,24 @@ fun SelectCharacterControls() {
             Button(modifier = Modifier
                 .align(Alignment.CenterVertically)
                 .padding(end = 15.dp)
-                , onClick = { }
+                , onClick = { viewModel.showNextCharacter() }
             ) {
                 Text("->")
             }
         }
 
-        Text(
-            characterName,
-            fontSize = 20.sp,
-            modifier = Modifier
-                .align(Alignment.CenterHorizontally)
-        )
+        //***********************************
+        //Mostrar el nombre del personaje actual
+        currentCharacter?.let { character ->
+            Text(
+                character.name,
+                fontSize = 20.sp,
+                modifier = Modifier
+                    .align(Alignment.CenterHorizontally)
+            )
+        }
+        //***********************************
+
     }
 }
+
