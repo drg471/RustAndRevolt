@@ -1,4 +1,4 @@
-package com.drg.rustandrevolt.navigation
+package com.drg.rustandrevolt.ui.navigation
 
 //Clase con las rutas de las pantallas para el navController
 sealed class AppScreens(val route: String){

@@ -1,4 +1,4 @@
-package com.drg.rustandrevolt.screens.home
+package com.drg.rustandrevolt.ui.screens.home
 
 import android.content.Context
 import android.content.res.Resources

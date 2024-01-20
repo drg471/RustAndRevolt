@@ -1,4 +1,4 @@
-package com.drg.rustandrevolt.screens.select_character
+package com.drg.rustandrevolt.ui.screens.select_character
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -15,7 +15,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.drg.rustandrevolt.R
-import com.drg.rustandrevolt.navigation.AppScreens
+import com.drg.rustandrevolt.ui.navigation.AppScreens
 
 @Composable
 fun SelectCharacterScreen(navigateToCombatScreen : () -> Unit) {

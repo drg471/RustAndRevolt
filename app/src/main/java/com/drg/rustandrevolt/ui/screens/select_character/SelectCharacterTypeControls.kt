@@ -1,4 +1,4 @@
-package com.drg.rustandrevolt.screens.select_character
+package com.drg.rustandrevolt.ui.screens.select_character
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border

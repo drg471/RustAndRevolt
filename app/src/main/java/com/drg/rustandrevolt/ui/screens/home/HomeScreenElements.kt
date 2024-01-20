@@ -1,4 +1,4 @@
-package com.drg.rustandrevolt.screens.home
+package com.drg.rustandrevolt.ui.screens.home
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -23,7 +23,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.drg.rustandrevolt.R
-import com.drg.rustandrevolt.navigation.AppScreens
+import com.drg.rustandrevolt.ui.navigation.AppScreens
 
 @Composable
 fun HomeScreenElements(paddingValues: PaddingValues, navigateToOptionsScreen : () -> Unit, navigateToSelectCharacterScreen : () -> Unit) {

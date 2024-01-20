@@ -1,4 +1,4 @@
-package com.drg.rustandrevolt.screens.options
+package com.drg.rustandrevolt.ui.screens.options
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

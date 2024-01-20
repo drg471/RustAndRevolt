@@ -1,4 +1,4 @@
-package com.drg.rustandrevolt.screens.combat
+package com.drg.rustandrevolt.ui.screens.combat
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -23,7 +23,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.drg.rustandrevolt.navigation.AppScreens
+import com.drg.rustandrevolt.ui.navigation.AppScreens
 
 @Composable
 fun PlayerControls(navigateToHomeScreen : () -> Unit) {

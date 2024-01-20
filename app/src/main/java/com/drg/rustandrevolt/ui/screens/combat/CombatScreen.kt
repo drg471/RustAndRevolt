@@ -1,4 +1,4 @@
-package com.drg.rustandrevolt.screens.combat
+package com.drg.rustandrevolt.ui.screens.combat
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer

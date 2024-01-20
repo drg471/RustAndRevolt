@@ -1,13 +1,13 @@
-package com.drg.rustandrevolt.navigation
+package com.drg.rustandrevolt.ui.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.drg.rustandrevolt.screens.combat.CombatScreen
-import com.drg.rustandrevolt.screens.home.HomeScreen
-import com.drg.rustandrevolt.screens.options.OptionsScreen
-import com.drg.rustandrevolt.screens.select_character.SelectCharacterScreen
+import com.drg.rustandrevolt.ui.screens.combat.CombatScreen
+import com.drg.rustandrevolt.ui.screens.home.HomeScreen
+import com.drg.rustandrevolt.ui.screens.options.OptionsScreen
+import com.drg.rustandrevolt.ui.screens.select_character.SelectCharacterScreen
 
 @Composable
 fun AppNavigation(){
