@@ -3,12 +3,14 @@ package com.drg.rustandrevolt.viewmodels
 import androidx.compose.runtime.*
 import androidx.lifecycle.ViewModel
 import com.drg.rustandrevolt.entities.Character
-import com.drg.rustandrevolt.entities.Rebel
+import com.drg.rustandrevolt.usecases.RebelsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class CharacterSelectionViewModel @Inject constructor() : ViewModel() {
+class CharacterSelectionViewModel @Inject constructor(
+    private val getRebelsUseCase : RebelsUseCase
+) : ViewModel() {
 
     //Variables mutables para regenerar vista Compose
     var characterList by mutableStateOf<MutableList<Character>>(mutableListOf())
@@ -19,14 +21,7 @@ class CharacterSelectionViewModel @Inject constructor() : ViewModel() {
 
     //init = inicializa el viewmodel con una lista de personajes
     init {
-        var rebel1 : Character = Rebel ("Rebelde 1")
-        characterList.add(rebel1)
-        var rebel2 : Character = Rebel ("Rebelde 2")
-        characterList.add(rebel2)
-        var rebel3 : Character = Rebel ("Rebelde 3")
-        characterList.add(rebel3)
-        var rebel4 : Character = Rebel ("Rebelde 4")
-        characterList.add(rebel4)
+        characterList = getRebelsUseCase.getAll()
     }
 
     fun showNextCharacter() {
