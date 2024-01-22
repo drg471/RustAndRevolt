@@ -3,7 +3,7 @@ package com.drg.rustandrevolt.entities
 import javax.inject.Inject
 import kotlin.random.Random
 
-class Rebel (name : String) : Character (name){
+class Engineer (name : String) : Character (name){
     override fun attack(objective: Character, attackType: Int) {
         super.damageAttacking  = 0
 
