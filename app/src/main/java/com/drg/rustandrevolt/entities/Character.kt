@@ -22,7 +22,7 @@ abstract class Character(var name : String) {
     var remainingVeryStrongAttacks : Int = totalVeryStrongAttacks
     var damageAttacking : Int = initialChargeForSpecialAttack
 
-    var life : Int = 1
+    var life : Int = totalLife
         get() = field
         set (value){
             field = when {
