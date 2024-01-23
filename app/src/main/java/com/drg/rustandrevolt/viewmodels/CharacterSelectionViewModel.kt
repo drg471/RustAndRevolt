@@ -37,20 +37,22 @@ class CharacterSelectionViewModel @Inject constructor(
     }
 
     fun loadMachineList(){
-        characterList.clear()
-        currentCharacterIndex = 0
+        resetDataList()
         characterList = machinesUseCase.getAll()
     }
 
     fun loadRebelList(){
-        characterList.clear()
-        currentCharacterIndex = 0
+        resetDataList()
         characterList = rebelsUseCase.getAll()
     }
 
     fun loadEngineerList(){
+        resetDataList()
+        characterList = engineersUseCase.getAll()
+    }
+
+    fun resetDataList(){
         characterList.clear()
         currentCharacterIndex = 0
-        characterList = engineersUseCase.getAll()
     }
 }

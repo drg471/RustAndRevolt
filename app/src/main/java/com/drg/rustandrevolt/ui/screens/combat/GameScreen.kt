@@ -21,16 +21,20 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.drg.rustandrevolt.R
+import com.drg.rustandrevolt.viewmodels.CombatViewModel
 
 @Composable
-fun GameScreen() {
+fun GameScreen(viewModel : CombatViewModel = hiltViewModel()) {
     val context = LocalContext.current
-    val enemyName : String = context.getString(R.string.enemyName)
+    var enemyAILife = viewModel.mutableEnemyAILife
+    var enemyAIDamage = viewModel.mutableEnemyAIDamage
+    var playerDamage = viewModel.mutablePlayerDamage
+    var playerDamageRedColor = viewModel.mutablePlayerDamageRedColor
 
     //Pantalla de juego
 
-    var vidaEnemigo : Float = 0.2f
 
     //Columna -> Nombre Enemigo + Vida Enemigo + box imagenes personajes
     Column(modifier = Modifier
@@ -41,15 +45,15 @@ fun GameScreen() {
         Text(text = "Pantalla juego", fontSize = 15.sp)
 
         //Texto Nombre Enemigo
-        Text(text = enemyName, fontSize = 18.sp)
+        Text(text = viewModel.characterEnemyAI.name, fontSize = 18.sp)
 
         //Vida Enemigo
         LinearProgressIndicator(
-            progress = vidaEnemigo,
+            progress = enemyAILife,
             modifier = Modifier
                 .fillMaxWidth()
                 .height(15.dp),
-            color = if (vidaEnemigo < 0.3f) Color.Red else if (vidaEnemigo < 0.6f && vidaEnemigo > 0.3f) Color.Yellow else Color.Green
+            color = if (enemyAILife < 0.3f) Color.Red else if (enemyAILife < 0.6f && enemyAILife > 0.3f) Color.Yellow else Color.Green
         )
 
         //Contenedor de Imagenes de Personajes en la batalla
@@ -66,12 +70,14 @@ fun GameScreen() {
 
             ){
                 Text(
-                    text = "-15",
+                    text = enemyAIDamage,
                     fontSize = 50.sp,
                     modifier = Modifier
                         .border(1.dp, Color.Black)
-                        .align(Alignment.CenterVertically)
+                        .align(Alignment.CenterVertically),
+                    color = Color.Red
                 )
+
 
                 Image(
                     painter = painterResource(R.drawable.imagedflt),
@@ -98,11 +104,12 @@ fun GameScreen() {
                         .align(Alignment.Bottom)
                 )
                 Text(
-                    text = "-5",
+                    text = playerDamage,
                     fontSize = 50.sp,
                     modifier = Modifier
                         .border(1.dp, Color.Black)
-                        .align(Alignment.CenterVertically)
+                        .align(Alignment.CenterVertically),
+                    color = if (playerDamageRedColor) Color.Red else Color.Green
                 )
             }
         }
