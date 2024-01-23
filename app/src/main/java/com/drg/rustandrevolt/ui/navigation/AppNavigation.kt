@@ -41,7 +41,10 @@ fun AppNavigation(){
             val navigateToHomeScreen : () -> Unit = {
                 navController.navigate(AppScreens.HomeScreen.route)
             }
-            CombatScreen(navigateToHomeScreen)
+            val navigateToSelectCharacterScreen: () -> Unit = {
+                navController.navigate(AppScreens.SelectCharacterScreen.route)
+            }
+            CombatScreen(navigateToHomeScreen,navigateToSelectCharacterScreen)
         }
     }
 }

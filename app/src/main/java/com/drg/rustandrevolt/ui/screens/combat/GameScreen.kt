@@ -32,6 +32,7 @@ fun GameScreen(viewModel : CombatViewModel = hiltViewModel()) {
     var enemyAIDamage = viewModel.mutableEnemyAIDamage
     var playerDamage = viewModel.mutablePlayerDamage
     var playerDamageRedColor = viewModel.mutablePlayerDamageRedColor
+    var enemyAIDamageRedColor = viewModel.mutableEnemyAIDamageRedColor
 
     //Pantalla de juego
 
@@ -75,7 +76,7 @@ fun GameScreen(viewModel : CombatViewModel = hiltViewModel()) {
                     modifier = Modifier
                         .border(1.dp, Color.Black)
                         .align(Alignment.CenterVertically),
-                    color = Color.Red
+                    color = if (enemyAIDamageRedColor) Color.Red else Color.Green
                 )
 
 

@@ -8,7 +8,10 @@ import com.drg.rustandrevolt.entities.Machine
 import com.drg.rustandrevolt.entities.Rebel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import android.os.Handler
+import com.drg.rustandrevolt.entities.regenerateLifeWithPotions
+import com.drg.rustandrevolt.ui.navigation.AppScreens
 import javax.inject.Inject
+import kotlin.random.Random
 
 const val normalAttack = 1
 const val strongAttack = 2
@@ -28,7 +31,7 @@ class CombatViewModel @Inject constructor() : ViewModel() {
         private set
     var mutablePlayerLife by mutableStateOf(characterPlayer.life.toFloat()/100)
         private set
-    var mutablePlayerChargeSpecialAttack by mutableStateOf(characterPlayer.chargeForSpecialAttack.toFloat()/100)
+    var mutablePlayerChargeSpecialAttack by mutableStateOf((characterPlayer.chargeForSpecialAttack.toFloat()/100)*2)
         private set
     var mutablePlayerRemainingHealPotions by mutableStateOf(characterPlayer.remainingHealPotions)
         private set
@@ -46,24 +49,31 @@ class CombatViewModel @Inject constructor() : ViewModel() {
         private set
     var mutablePlayerDamageRedColor by mutableStateOf(true)
         private set
+    var mutableEnemyAIDamageRedColor by mutableStateOf(true)
+        private set
     var mutablePlayerDamage by mutableStateOf("")
         private set
+    var mutableShowBtnEndGame by mutableStateOf(false)
+        private set
+
+    //****************************************************************
+    //PLAYER
 
     fun playerHealSequence(){
-        mutableShowSeqText = true
         characterPlayer.heal()
         mutablePlayerRemainingHealPotions = characterPlayer.remainingHealPotions
-        mutableSeqtext = "Te has curado! (+15 de vida)"
+        mutableShowSeqText = true
+        mutableSeqtext = "Te has curado! (+${regenerateLifeWithPotions} de vida)"
         mutablePlayerDamageRedColor = false
-        mutablePlayerDamage = "+15"
+        mutablePlayerDamage = "+${regenerateLifeWithPotions}"
         mutablePlayerLife = characterPlayer.life.toFloat()/100
         handler.postDelayed({
-            // Realiza alguna acción después de la pausa
+            //Realiza acción después de la pausa
             mutableShowSeqText = false
             mutablePlayerDamage = ""
             mutablePlayerDamageRedColor = true
             enableBtnsPlayerControl()
-        }, 1250) // 1250 milisegundos
+        }, 1500) // 1500 milisegundos
     }
 
     fun playerAttackSequence (attackType : Int){
@@ -74,18 +84,94 @@ class CombatViewModel @Inject constructor() : ViewModel() {
         mutableEnemyAILife = characterEnemyAI.life.toFloat()/100
 
         handler.postDelayed({
-            mutableShowSeqText = false
             mutableEnemyAIDamage = ""
             mutablePlayerChargeSpecialAttack = (characterPlayer.chargeForSpecialAttack.toFloat()/100)*2
             enableBtnsPlayerControl()
-        }, 1250)
 
-/*        if (!checkWinner()){
-            enemyAISequence()
+            if (!checkWinner()){
+                enemyAISequence()
+            }
+            else{
+                showWinnerTextAndReturnCharacterSelectionScreen()
+            }
+        }, 1500)
+
+    }
+    //****************************************************************
+    //ENEMY AI
+
+    fun enemyAISequence (){
+        if (characterEnemyAI.life < 30 && characterEnemyAI.remainingHealPotions > 0){
+            characterEnemyAI.heal()
+            mutableShowSeqText = true
+            mutableSeqtext = "${characterEnemyAI.name} se ha curado! (+${regenerateLifeWithPotions} de vida)"
+            mutableEnemyAIDamageRedColor = false
+            mutableEnemyAIDamage = "+${regenerateLifeWithPotions}"
+            mutableEnemyAILife = characterEnemyAI.life.toFloat()/100
+
+            handler.postDelayed({
+                mutableEnemyAIDamage = ""
+                mutableEnemyAIDamageRedColor = true
+                enemyAIAttackSequence()
+            }, 1500)
         }
-*/
+        else{
+            enemyAIAttackSequence()
+        }
     }
 
+    fun enemyAIAttackSequence(){
+        var attackOption : Int = 0
+
+        //Atack
+        if (characterEnemyAI.checkEspecialAttack()){
+            attackOption = specialAttack
+        }
+        else{ //Realiza ataque aleatorio
+            attackOption = getEnemyAiTypeAttack()
+        }
+
+        characterEnemyAI.attack(characterPlayer, attackOption)
+
+        mutableShowSeqText = true
+        when{
+            attackOption != specialAttack -> mutableSeqtext = "${characterEnemyAI.name} ha realizado un ataque con ${characterEnemyAI.damageAttacking}pts. de daño"
+            else -> mutableSeqtext = "${characterEnemyAI.name} ha realizado SUPER ATAQUE!!! con ${characterEnemyAI.damageAttacking}pts. de daño"
+        }
+        mutablePlayerDamage = "-${characterEnemyAI.damageAttacking}"
+        mutablePlayerLife = characterPlayer.life.toFloat()/100
+
+        handler.postDelayed({
+            mutablePlayerDamage = ""
+
+            if (!checkWinner()){
+                mutableShowSeqText = false
+            }
+            else{
+                showWinnerTextAndReturnCharacterSelectionScreen()
+            }
+        }, 1500)
+    }
+
+    fun getEnemyAiTypeAttack (): Int {
+
+        if (characterEnemyAI.remainingStrongAttacks > 0 && characterEnemyAI.remainingVeryStrongAttacks > 0){
+            return Random.nextInt(normalAttack, veryStrongAttack + 1)
+        }
+        if (characterEnemyAI.remainingStrongAttacks == 0 && characterEnemyAI.remainingVeryStrongAttacks > 0){
+            var optionAttack : Int = 0
+            while (optionAttack == strongAttack){
+                optionAttack = Random.nextInt(normalAttack, veryStrongAttack + 1)
+            }
+            return optionAttack
+        }
+        if (characterEnemyAI.remainingStrongAttacks > 0 && characterEnemyAI.remainingVeryStrongAttacks == 0){
+            return Random.nextInt(normalAttack, strongAttack + 1)
+        }
+
+        return normalAttack
+    }
+    //****************************************************************
     fun enableBtnsPlayerControl(){
         if (characterPlayer.remainingHealPotions > 0){
             mutableEnableBtnHeal = true
@@ -115,4 +201,28 @@ class CombatViewModel @Inject constructor() : ViewModel() {
             mutableEnableBtnSpecialAttack = false
         }
     }
+
+    fun checkWinner () : Boolean{
+        if (characterPlayer.life <= 0){
+            return true
+        }
+        if (characterEnemyAI.life <= 0){
+            return true
+        }
+        return false
+    }
+
+    fun showWinnerTextAndReturnCharacterSelectionScreen(){
+        when{
+            characterPlayer.life <= 0 -> mutableSeqtext = "${characterEnemyAI.name} ha ganado..."
+            else -> mutableSeqtext = "Has ganado!"
+        }
+
+        handler.postDelayed({
+            mutableShowSeqText = false
+            mutableShowBtnEndGame = true
+        }, 3000)
+
+    }
+    //****************************************************************
 }

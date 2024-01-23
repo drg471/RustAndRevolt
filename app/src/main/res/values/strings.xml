@@ -14,4 +14,5 @@
     <string name="characterName">Nombre Personaje</string>
     <!-- combate -->
     <string name="enemyName">Nombre Enemigo</string>
+    <string name="button_end_game">FIN PARTIDA</string>
 </resources>

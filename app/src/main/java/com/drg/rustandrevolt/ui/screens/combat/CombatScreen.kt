@@ -12,7 +12,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 
 @Composable
-fun CombatScreen(navigateToHomeScreen : () -> Unit) {
+fun CombatScreen(navigateToHomeScreen : () -> Unit, navigateToSelectCharacterScreen : () -> Unit) {
 
     //Columna Principal
     Column (modifier = Modifier
@@ -28,6 +28,6 @@ fun CombatScreen(navigateToHomeScreen : () -> Unit) {
             .height(20.dp))
 
         //Contenedor controles del jugador
-        PlayerControls(navigateToHomeScreen)
+        PlayerControls(navigateToHomeScreen, navigateToSelectCharacterScreen)
     }
 }

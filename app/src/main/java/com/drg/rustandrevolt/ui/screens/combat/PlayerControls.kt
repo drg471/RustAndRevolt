@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
@@ -21,9 +22,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.drg.rustandrevolt.R
 import com.drg.rustandrevolt.entities.normalAttack
 import com.drg.rustandrevolt.entities.specialAttack
 import com.drg.rustandrevolt.entities.strongAttack
@@ -31,7 +34,9 @@ import com.drg.rustandrevolt.entities.veryStrongAttack
 import com.drg.rustandrevolt.viewmodels.CombatViewModel
 
 @Composable
-fun PlayerControls(navigateToHomeScreen : () -> Unit, viewModel : CombatViewModel = hiltViewModel()) {
+fun PlayerControls(navigateToHomeScreen : () -> Unit, navigateToSelectCharacterScreen : () -> Unit, viewModel : CombatViewModel = hiltViewModel()) {
+    val context = LocalContext.current
+    val buttonEndGame : String = context.getString(R.string.button_end_game)
 
     var playerLife = viewModel.mutablePlayerLife
     var playerChargeSpecialAttack = viewModel.mutablePlayerChargeSpecialAttack
@@ -41,6 +46,7 @@ fun PlayerControls(navigateToHomeScreen : () -> Unit, viewModel : CombatViewMode
     var enableBtnStrongAttack = viewModel.mutableEnableBtnStrongAttack
     var enableBtnVeryStrongAttack = viewModel.mutableEnableBtnVeryStrongAttack
     var enableBtnSpecialAttack = viewModel.mutableEnableBtnSpecialAttack
+    var enableBtnEndGame = viewModel.mutableShowBtnEndGame
 
     Column (modifier = Modifier
         .fillMaxWidth()
@@ -84,6 +90,20 @@ fun PlayerControls(navigateToHomeScreen : () -> Unit, viewModel : CombatViewMode
             ) {
                 Text(text = viewModel.mutableSeqtext, fontSize = 20.sp)
             }
+        }
+        else if (enableBtnEndGame){
+            //Boton partida finalizada
+            Button(modifier = Modifier
+                .align(Alignment.CenterHorizontally)
+                .padding(top = 16.dp)
+                .height(40.dp)
+                .width(200.dp), onClick = {
+                navigateToSelectCharacterScreen()
+            }
+            ) {
+                Text(buttonEndGame)
+            }
+
         }
         else{
             //Fila de botones

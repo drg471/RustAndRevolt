@@ -3,6 +3,7 @@ package com.drg.rustandrevolt.entities
 import android.util.Log
 
 private const val healPotions = 3
+const val regenerateLifeWithPotions = 20
 private const val totalStrongAttacks = 7
 private const val totalVeryStrongAttacks = 5
 private const val initialChargeForSpecialAttack = 0
@@ -21,7 +22,7 @@ abstract class Character(var name : String) {
     var remainingVeryStrongAttacks : Int = totalVeryStrongAttacks
     var damageAttacking : Int = initialChargeForSpecialAttack
 
-    var life : Int = totalLife
+    var life : Int = 1
         get() = field
         set (value){
             field = when {
@@ -46,7 +47,7 @@ abstract class Character(var name : String) {
 
     fun heal(){
         if (remainingHealPotions > 0){
-            life += 15
+            life += regenerateLifeWithPotions
             Log.e("HEAAAL", life.toString())
             remainingHealPotions --
         }

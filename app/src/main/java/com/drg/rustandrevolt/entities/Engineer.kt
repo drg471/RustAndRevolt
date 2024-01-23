@@ -20,7 +20,7 @@ class Engineer (name : String) : Character (name){
                 super.remainingVeryStrongAttacks --
             }
             specialAttack -> { // especial
-                super.damageAttacking = Random.nextInt(25,30)
+                super.damageAttacking = Random.nextInt(30,35)
                 super.chargeForSpecialAttack = 0
             }
         }
