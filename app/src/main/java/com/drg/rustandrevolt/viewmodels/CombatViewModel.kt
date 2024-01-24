@@ -8,6 +8,7 @@ import com.drg.rustandrevolt.entities.Machine
 import com.drg.rustandrevolt.entities.Rebel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import android.os.Handler
+import com.drg.rustandrevolt.RandomEnemyAI
 import com.drg.rustandrevolt.entities.Player
 import com.drg.rustandrevolt.entities.regenerateLifeWithPotions
 import com.drg.rustandrevolt.ui.navigation.AppScreens
@@ -22,11 +23,12 @@ const val specialAttack = 4
 
 @HiltViewModel
 class CombatViewModel @Inject constructor(
-    private val playerUseCase: PlayerUseCase
+    private val playerUseCase: PlayerUseCase,
+    private val randomEnemyAI: RandomEnemyAI
 ) : ViewModel() {
 
     val characterPlayer : Character = playerUseCase.getPlayer().currentGameCharacter
-    val characterEnemyAI : Character = Machine("Maquina 1")
+    val characterEnemyAI : Character = randomEnemyAI.getRandomEnemyAI()
 
     private val handler = Handler(Looper.getMainLooper())
 
