@@ -8,8 +8,10 @@ import com.drg.rustandrevolt.entities.Machine
 import com.drg.rustandrevolt.entities.Rebel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import android.os.Handler
+import com.drg.rustandrevolt.entities.Player
 import com.drg.rustandrevolt.entities.regenerateLifeWithPotions
 import com.drg.rustandrevolt.ui.navigation.AppScreens
+import com.drg.rustandrevolt.usecases.PlayerUseCase
 import javax.inject.Inject
 import kotlin.random.Random
 
@@ -19,9 +21,13 @@ const val veryStrongAttack = 3
 const val specialAttack = 4
 
 @HiltViewModel
-class CombatViewModel @Inject constructor() : ViewModel() {
-    val characterPlayer : Character = Rebel("Rebelde 1")
+class CombatViewModel @Inject constructor(
+    private val playerUseCase: PlayerUseCase
+) : ViewModel() {
+
+    val characterPlayer : Character = playerUseCase.getPlayer().currentGameCharacter
     val characterEnemyAI : Character = Machine("Maquina 1")
+
     private val handler = Handler(Looper.getMainLooper())
 
     //Variables mutables para regenerar vista Compose

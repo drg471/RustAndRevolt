@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import com.drg.rustandrevolt.entities.Character
 import com.drg.rustandrevolt.usecases.EngineersUseCase
 import com.drg.rustandrevolt.usecases.MachinesUseCase
+import com.drg.rustandrevolt.usecases.PlayerUseCase
 import com.drg.rustandrevolt.usecases.RebelsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -13,8 +14,11 @@ import javax.inject.Inject
 class CharacterSelectionViewModel @Inject constructor(
     private val rebelsUseCase : RebelsUseCase,
     private val machinesUseCase : MachinesUseCase,
-    private val engineersUseCase : EngineersUseCase
+    private val engineersUseCase : EngineersUseCase,
+    private val playerUseCase: PlayerUseCase
 ) : ViewModel() {
+
+    private val player = playerUseCase.getPlayer()
 
     //Variables mutables para regenerar vista Compose
     var characterList by mutableStateOf<MutableList<Character>>(mutableListOf())
@@ -30,29 +34,38 @@ class CharacterSelectionViewModel @Inject constructor(
 
     fun showNextCharacter() {
         currentCharacterIndex = (currentCharacterIndex + 1) % characterList.size
+        updatePlayerCharacter()
     }
 
     fun showPreviousCharacter() {
         currentCharacterIndex = (currentCharacterIndex - 1 + characterList.size) % characterList.size
+        updatePlayerCharacter()
     }
 
     fun loadMachineList(){
         resetDataList()
         characterList = machinesUseCase.getAll()
+        updatePlayerCharacter()
     }
 
     fun loadRebelList(){
         resetDataList()
         characterList = rebelsUseCase.getAll()
+        updatePlayerCharacter()
     }
 
     fun loadEngineerList(){
         resetDataList()
         characterList = engineersUseCase.getAll()
+        updatePlayerCharacter()
     }
 
     fun resetDataList(){
         characterList.clear()
         currentCharacterIndex = 0
+    }
+
+    fun updatePlayerCharacter(){
+        player.currentGameCharacter = characterList.get(currentCharacterIndex)
     }
 }
