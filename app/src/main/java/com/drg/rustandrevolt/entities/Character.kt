@@ -4,8 +4,8 @@ import android.util.Log
 
 private const val healPotions = 3
 const val regenerateLifeWithPotions = 20
-private const val totalStrongAttacks = 7
-private const val totalVeryStrongAttacks = 5
+const val totalStrongAttacks = 6
+const val totalVeryStrongAttacks = 4
 private const val initialChargeForSpecialAttack = 0
 private const val totalLife = 100
 private const val totalChargeForSpecialAttack = 50

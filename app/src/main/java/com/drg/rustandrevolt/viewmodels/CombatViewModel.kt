@@ -11,6 +11,8 @@ import android.os.Handler
 import com.drg.rustandrevolt.RandomEnemyAI
 import com.drg.rustandrevolt.entities.Player
 import com.drg.rustandrevolt.entities.regenerateLifeWithPotions
+import com.drg.rustandrevolt.entities.totalStrongAttacks
+import com.drg.rustandrevolt.entities.totalVeryStrongAttacks
 import com.drg.rustandrevolt.ui.navigation.AppScreens
 import com.drg.rustandrevolt.usecases.PlayerUseCase
 import javax.inject.Inject
@@ -157,9 +159,13 @@ class CombatViewModel @Inject constructor(
 
     fun getEnemyAiTypeAttack (): Int {
 
-        if (characterEnemyAI.remainingStrongAttacks > 0 && characterEnemyAI.remainingVeryStrongAttacks > 0){
+        if (characterEnemyAI.remainingStrongAttacks > (totalStrongAttacks -2) || characterEnemyAI.remainingVeryStrongAttacks > (totalVeryStrongAttacks -2)){
+            return Random.nextInt(strongAttack, veryStrongAttack + 1)
+        }
+        else if (characterEnemyAI.remainingStrongAttacks > 0 && characterEnemyAI.remainingVeryStrongAttacks > 0){
             return Random.nextInt(normalAttack, veryStrongAttack + 1)
         }
+
         if (characterEnemyAI.remainingStrongAttacks == 0 && characterEnemyAI.remainingVeryStrongAttacks > 0){
             var optionAttack : Int = 0
             while (optionAttack == strongAttack){
@@ -167,6 +173,7 @@ class CombatViewModel @Inject constructor(
             }
             return optionAttack
         }
+
         if (characterEnemyAI.remainingStrongAttacks > 0 && characterEnemyAI.remainingVeryStrongAttacks == 0){
             return Random.nextInt(normalAttack, strongAttack + 1)
         }
