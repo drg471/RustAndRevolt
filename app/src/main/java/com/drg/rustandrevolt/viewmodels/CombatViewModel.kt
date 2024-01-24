@@ -96,11 +96,9 @@ class CombatViewModel @Inject constructor(
             mutablePlayerChargeSpecialAttack = (characterPlayer.chargeForSpecialAttack.toFloat()/100)*2
             enableBtnsPlayerControl()
 
-            if (!checkWinner()){
-                enemyAISequence()
-            }
-            else{
-                showWinnerTextAndReturnCharacterSelectionScreen()
+            when{
+                !checkWinner() -> enemyAISequence()
+                else -> showWinnerTextAndReturnCharacterSelectionScreen()
             }
         }, 1500)
 
@@ -132,11 +130,9 @@ class CombatViewModel @Inject constructor(
         var attackOption : Int = 0
 
         //Atack
-        if (characterEnemyAI.checkEspecialAttack()){
-            attackOption = specialAttack
-        }
-        else{ //Realiza ataque aleatorio
-            attackOption = getEnemyAiTypeAttack()
+        when{
+            characterEnemyAI.checkEspecialAttack() -> attackOption = specialAttack
+            else -> attackOption = getEnemyAiTypeAttack() //Realiza ataque aleatorio
         }
 
         characterEnemyAI.attack(characterPlayer, attackOption)
@@ -152,11 +148,9 @@ class CombatViewModel @Inject constructor(
         handler.postDelayed({
             mutablePlayerDamage = ""
 
-            if (!checkWinner()){
-                mutableShowSeqText = false
-            }
-            else{
-                showWinnerTextAndReturnCharacterSelectionScreen()
+            when{
+                !checkWinner() -> mutableShowSeqText = false
+                else -> showWinnerTextAndReturnCharacterSelectionScreen()
             }
         }, 1500)
     }
@@ -180,41 +174,31 @@ class CombatViewModel @Inject constructor(
         return normalAttack
     }
     //****************************************************************
+
     fun enableBtnsPlayerControl(){
-        if (characterPlayer.remainingHealPotions > 0){
-            mutableEnableBtnHeal = true
-        }
-        else{
-            mutableEnableBtnHeal = false
+        when{
+            characterPlayer.remainingHealPotions > 0 -> mutableEnableBtnHeal = true
+            else -> mutableEnableBtnHeal = false
         }
 
-        if (characterPlayer.remainingStrongAttacks > 0){
-            mutableEnableBtnStrongAttack = true
-        }
-        else{
-            mutableEnableBtnStrongAttack = false
+        when{
+            characterPlayer.remainingStrongAttacks > 0 -> mutableEnableBtnStrongAttack = true
+            else -> mutableEnableBtnStrongAttack = false
         }
 
-        if (characterPlayer.remainingVeryStrongAttacks > 0){
-            mutableEnableBtnVeryStrongAttack = true
-        }
-        else{
-            mutableEnableBtnVeryStrongAttack = false
+        when{
+            characterPlayer.remainingVeryStrongAttacks > 0 -> mutableEnableBtnVeryStrongAttack = true
+            else -> mutableEnableBtnVeryStrongAttack = false
         }
 
-        if (characterPlayer.checkEspecialAttack()){
-            mutableEnableBtnSpecialAttack = true
-        }
-        else{
-            mutableEnableBtnSpecialAttack = false
+        when{
+            characterPlayer.checkEspecialAttack() -> mutableEnableBtnSpecialAttack = true
+            else -> mutableEnableBtnSpecialAttack = false
         }
     }
 
     fun checkWinner () : Boolean{
-        if (characterPlayer.life <= 0){
-            return true
-        }
-        if (characterEnemyAI.life <= 0){
+        if (characterPlayer.life <= 0 || characterEnemyAI.life <= 0){
             return true
         }
         return false
@@ -229,6 +213,8 @@ class CombatViewModel @Inject constructor(
         handler.postDelayed({
             mutableShowSeqText = false
             mutableShowBtnEndGame = true
+            characterPlayer.resetCharacterData()
+            characterEnemyAI.resetCharacterData()
         }, 3000)
 
     }
