@@ -27,6 +27,12 @@ class RandomEnemyAI @Inject constructor(
             allCharactersList.addAll(machinesList)
             allCharactersList.addAll(engineersList)
 
+            /*var randomCharacter : Character = allCharactersList.get(Random.nextInt(0,allCharactersList.count() + 1))
+
+            while (randomCharacter is ){
+
+            }*/
+
             return allCharactersList.get(Random.nextInt(0,allCharactersList.count() + 1))
         }
 }

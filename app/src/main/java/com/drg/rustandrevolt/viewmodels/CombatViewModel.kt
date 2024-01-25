@@ -167,7 +167,7 @@ class CombatViewModel @Inject constructor(
         }
 
         if (characterEnemyAI.remainingStrongAttacks == 0 && characterEnemyAI.remainingVeryStrongAttacks > 0){
-            var optionAttack : Int = 0
+            var optionAttack : Int = strongAttack
             while (optionAttack == strongAttack){
                 optionAttack = Random.nextInt(normalAttack, veryStrongAttack + 1)
             }

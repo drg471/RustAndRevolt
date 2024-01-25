@@ -7,20 +7,27 @@ class Engineer (name : String) : Character (name){
     override fun attack(objective: Character, attackType: Int) {
         super.damageAttacking  = 0
 
+        if (objective is Rebel){
+            super.damageAttacking += 2
+        }
+
         when (attackType){
             normalAttack -> { // normal
-                super.damageAttacking = Random.nextInt(1,5)
+                super.damageAttacking += Random.nextInt(3,7)
             }
             strongAttack -> { // fuerte
-                super.damageAttacking = Random.nextInt(5,10)
+                super.damageAttacking += Random.nextInt(7,13)
                 super.remainingStrongAttacks --
             }
             veryStrongAttack -> { // +fuerte
-                super.damageAttacking = Random.nextInt(15,20)
+                super.damageAttacking += Random.nextInt(13,25)
                 super.remainingVeryStrongAttacks --
             }
             specialAttack -> { // especial
-                super.damageAttacking = Random.nextInt(30,35)
+                if (objective is Machine){
+                    super.damageAttacking += 5
+                }
+                super.damageAttacking += Random.nextInt(30,35)
                 super.chargeForSpecialAttack = 0
             }
         }

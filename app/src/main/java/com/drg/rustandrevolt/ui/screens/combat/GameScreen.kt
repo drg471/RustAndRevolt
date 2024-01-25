@@ -54,7 +54,7 @@ fun GameScreen(viewModel : CombatViewModel = hiltViewModel()) {
             modifier = Modifier
                 .fillMaxWidth()
                 .height(15.dp),
-            color = if (enemyAILife < 0.3f) Color.Red else if (enemyAILife < 0.6f && enemyAILife > 0.3f) Color.Yellow else Color.Green
+            color = if (enemyAILife < 0.25f) Color.Red else if (enemyAILife < 0.5f && enemyAILife > 0.3f) Color.Yellow else Color.Green
         )
 
         //Contenedor de Imagenes de Personajes en la batalla

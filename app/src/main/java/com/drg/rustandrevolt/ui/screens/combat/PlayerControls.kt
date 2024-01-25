@@ -61,7 +61,7 @@ fun PlayerControls(navigateToHomeScreen : () -> Unit, navigateToSelectCharacterS
             modifier = Modifier
                 .fillMaxWidth()
                 .height(15.dp),
-            color = if (playerLife < 0.3f) Color.Red else if (playerLife < 0.6f && playerLife > 0.3f) Color.Yellow else Color.Green,
+            color = if (playerLife < 0.25f) Color.Red else if (playerLife < 0.5f && playerLife > 0.3f) Color.Yellow else Color.Green,
         )
 
         Spacer(modifier = Modifier
