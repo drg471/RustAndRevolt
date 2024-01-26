@@ -31,8 +31,10 @@ fun SelectCharacterControls(viewModel : CharacterSelectionViewModel = hiltViewMo
     //Obtiene la lista de personajes y el indice actual del viewmodel
     val characterList = viewModel.characterList
     var currentCharacterIndex = viewModel.currentCharacterIndex
-
     var currentCharacter = characterList.getOrNull(currentCharacterIndex)
+
+    var characterImageResource : Int = R.drawable.imagedflt
+
 
     //Columna 2 (SlidePictureBox + label nombre personaje)
     Column (modifier = Modifier
@@ -61,7 +63,7 @@ fun SelectCharacterControls(viewModel : CharacterSelectionViewModel = hiltViewMo
 
             //Imagen Personaje
             Image(
-                painter = painterResource(R.drawable.imagedflt),
+                painter = painterResource(characterImageResource),
                 contentDescription = null,
                 modifier = Modifier
                     .size(width = 230.dp, height = 400.dp)
