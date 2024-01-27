@@ -39,9 +39,9 @@ private val LightColorScheme = lightColorScheme(
 
 @Composable
 fun RustAndRevoltTheme(
-    //darkTheme: Boolean = false (fuerza a la app verse en modo claro)
-    //darkTheme: Boolean = isSystemInDarkTheme(),
-    darkTheme: Boolean = false,
+    //darkTheme: Boolean = false (¿fuerza a la app verse en modo claro?)
+    //darkTheme: Boolean = false,
+    darkTheme: Boolean = isSystemInDarkTheme(),
     // Dynamic color is available on Android 12+
     dynamicColor: Boolean = true,
     content: @Composable () -> Unit
