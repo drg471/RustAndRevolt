@@ -26,7 +26,7 @@ const val specialAttack = 4
 @HiltViewModel
 class CombatViewModel @Inject constructor(
     private val playerUseCase: PlayerUseCase,
-    private val randomEnemyAI: RandomEnemyAI
+    private val randomEnemyAI: RandomEnemyAI,
 ) : ViewModel() {
 
     val characterPlayer : Character = playerUseCase.getPlayer().currentGameCharacter
@@ -218,12 +218,20 @@ class CombatViewModel @Inject constructor(
         }
 
         handler.postDelayed({
+            mutableSeqtext = "${playerUseCase.getPlayer().name} has hecho ${gameScore()} pts"
+        }, 1500)
+
+        handler.postDelayed({
             mutableShowSeqText = false
             mutableShowBtnEndGame = true
             characterPlayer.resetCharacterData()
             characterEnemyAI.resetCharacterData()
         }, 3000)
 
+    }
+
+    fun gameScore() : Int {
+        return (characterPlayer.life * 250) + (characterEnemyAI.life * 250)
     }
     //****************************************************************
 }

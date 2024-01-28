@@ -1,6 +1,7 @@
 package com.drg.rustandrevolt.entities
 
 import android.util.Log
+import javax.inject.Inject
 
 private const val healPotions = 3
 const val regenerateLifeWithPotions = 20
@@ -15,7 +16,7 @@ const val strongAttack = 2
 const val veryStrongAttack = 3
 const val specialAttack = 4
 
-abstract class Character(var name : String) {
+abstract class Character constructor (var name : String) {
 
     var remainingHealPotions : Int = healPotions
     var remainingStrongAttacks : Int = totalStrongAttacks
@@ -48,7 +49,6 @@ abstract class Character(var name : String) {
     fun heal(){
         if (remainingHealPotions > 0){
             life += regenerateLifeWithPotions
-            Log.e("HEAAAL", life.toString())
             remainingHealPotions --
         }
     }

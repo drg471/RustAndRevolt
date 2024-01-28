@@ -18,8 +18,6 @@ class CharacterSelectionViewModel @Inject constructor(
     private val playerUseCase: PlayerUseCase
 ) : ViewModel() {
 
-    private val player = playerUseCase.getPlayer()
-
     //Variables mutables para regenerar vista Compose
     var characterList by mutableStateOf<MutableList<Character>>(mutableListOf())
         private set
@@ -66,6 +64,6 @@ class CharacterSelectionViewModel @Inject constructor(
     }
 
     fun updatePlayerCharacter(){
-        player.currentGameCharacter = characterList.get(currentCharacterIndex)
+        playerUseCase.setCharacter(characterList.get(currentCharacterIndex))
     }
 }
