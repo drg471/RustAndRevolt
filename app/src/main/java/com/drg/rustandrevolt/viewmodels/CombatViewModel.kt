@@ -93,6 +93,7 @@ class CombatViewModel @Inject constructor(
         mutableEnemyAIDamage = "-${characterPlayer.damageAttacking}"
         mutableEnemyAILife = characterEnemyAI.life.toFloat()/100
 
+
         handler.postDelayed({
             mutableEnemyAIDamage = ""
             mutablePlayerChargeSpecialAttack = (characterPlayer.chargeForSpecialAttack.toFloat()/100)*2
@@ -109,23 +110,27 @@ class CombatViewModel @Inject constructor(
     //ENEMY AI
 
     fun enemyAISequence (){
-        if (characterEnemyAI.life < 30 && characterEnemyAI.remainingHealPotions > 0){
-            characterEnemyAI.heal()
-            mutableShowSeqText = true
-            mutableSeqtext = "${characterEnemyAI.name} se ha curado! (+${regenerateLifeWithPotions} de vida)"
-            mutableEnemyAIDamageRedColor = false
-            mutableEnemyAIDamage = "+${regenerateLifeWithPotions}"
-            mutableEnemyAILife = characterEnemyAI.life.toFloat()/100
+        mutableSeqtext = "Turno de ${characterEnemyAI.name}"
 
-            handler.postDelayed({
-                mutableEnemyAIDamage = ""
-                mutableEnemyAIDamageRedColor = true
+        handler.postDelayed({
+            if (characterEnemyAI.life < 30 && characterEnemyAI.remainingHealPotions > 0){
+                characterEnemyAI.heal()
+                mutableShowSeqText = true
+                mutableSeqtext = "${characterEnemyAI.name} se ha curado! (+${regenerateLifeWithPotions} de vida)"
+                mutableEnemyAIDamageRedColor = false
+                mutableEnemyAIDamage = "+${regenerateLifeWithPotions}"
+                mutableEnemyAILife = characterEnemyAI.life.toFloat()/100
+
+                handler.postDelayed({
+                    mutableEnemyAIDamage = ""
+                    mutableEnemyAIDamageRedColor = true
+                    enemyAIAttackSequence()
+                }, 1500)
+            }
+            else{
                 enemyAIAttackSequence()
-            }, 1500)
-        }
-        else{
-            enemyAIAttackSequence()
-        }
+            }
+        }, 1500)
     }
 
     fun enemyAIAttackSequence(){
