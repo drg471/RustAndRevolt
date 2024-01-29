@@ -219,14 +219,16 @@ class CombatViewModel @Inject constructor(
 
         handler.postDelayed({
             mutableSeqtext = "${playerUseCase.getPlayer().name} has hecho ${gameScore()} pts"
-        }, 1500)
 
-        handler.postDelayed({
-            mutableShowSeqText = false
-            mutableShowBtnEndGame = true
-            characterPlayer.resetCharacterData()
-            characterEnemyAI.resetCharacterData()
-        }, 3000)
+            handler.postDelayed({
+                mutableShowSeqText = false
+                mutableShowBtnEndGame = true
+                characterPlayer.resetCharacterData()
+                characterEnemyAI.resetCharacterData()
+            }, 2500)
+                            }, 2500)
+
+
 
     }
 
