@@ -28,11 +28,15 @@ import com.drg.rustandrevolt.viewmodels.CombatViewModel
 @Composable
 fun GameScreen(viewModel : CombatViewModel = hiltViewModel()) {
     val context = LocalContext.current
+    viewModel.context = context
+
     var enemyAILife = viewModel.mutableEnemyAILife
     var enemyAIDamage = viewModel.mutableEnemyAIDamage
     var playerDamage = viewModel.mutablePlayerDamage
     var playerDamageRedColor = viewModel.mutablePlayerDamageRedColor
     var enemyAIDamageRedColor = viewModel.mutableEnemyAIDamageRedColor
+    var playerImage : Int = viewModel.imagePlayerCombat
+    var enemyImage : Int = viewModel.imageEnemyCombat
 
     //Pantalla de juego
 
@@ -81,7 +85,7 @@ fun GameScreen(viewModel : CombatViewModel = hiltViewModel()) {
 
 
                 Image(
-                    painter = painterResource(R.drawable.imagedflt),
+                    painter = painterResource(enemyImage),
                     contentDescription = null,
                     modifier = Modifier
                         .size(width = 150.dp, height = 300.dp)
@@ -97,7 +101,7 @@ fun GameScreen(viewModel : CombatViewModel = hiltViewModel()) {
                     .border(1.dp, Color.Black).align(Alignment.BottomStart)
             ) {
                 Image(
-                    painter = painterResource(R.drawable.imageusrdflt),
+                    painter = painterResource(playerImage),
                     contentDescription = null,
                     modifier = Modifier
                         .size(width = 230.dp, height = 175.dp)

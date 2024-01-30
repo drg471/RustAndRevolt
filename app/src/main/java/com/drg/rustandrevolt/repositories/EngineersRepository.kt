@@ -5,8 +5,26 @@ import javax.inject.Singleton
 
 @Singleton
 class EngineersRepository @Inject constructor() {
-    fun getEngineers() : List<String>{
-        val engineersNameList : List<String> = listOf("Ingeniero 1", "Ingeniero 2")
-        return engineersNameList
+    fun getEngineers() : MutableList<MutableList<String>>{
+        val engineersDataList : MutableList<MutableList<String>> = mutableListOf()
+
+        val engineer1DataList : MutableList<String> = mutableListOf(
+            "Ingeniero 1",
+            "imagedflt5",
+            "imageusrdflt",
+            "imagedflt5"
+        )
+
+        val engineer2DataList : MutableList<String> = mutableListOf(
+            "Ingeniero 2",
+            "imagedflt6",
+            "imageusrdflt",
+            "imagedflt6"
+        )
+
+        engineersDataList.add(engineer1DataList)
+        engineersDataList.add(engineer2DataList)
+
+        return engineersDataList
     }
 }

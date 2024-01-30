@@ -1,6 +1,7 @@
 package com.drg.rustandrevolt.usecases
 
 import com.drg.rustandrevolt.entities.Character
+import com.drg.rustandrevolt.entities.Engineer
 import com.drg.rustandrevolt.entities.Machine
 import com.drg.rustandrevolt.repositories.MachinesRepository
 import javax.inject.Inject
@@ -11,13 +12,20 @@ class MachinesUseCase @Inject constructor(
     private val machineRepository: MachinesRepository
 ) {
     fun getAll () : MutableList<Character> {
-        val machineNameList = machineRepository.getMachines()
-        val machineList : MutableList<Character> = mutableListOf()
+        val machinesDataList = machineRepository.getMachines()
+        val machinesList : MutableList<Character> = mutableListOf()
 
-        for (machineName in machineNameList){
-            machineList.add(Machine(machineName))
+        for (machineDataList in machinesDataList){
+            machinesList.add(
+                Engineer(
+                    machineDataList.get(0),
+                    machineDataList.get(1),
+                    machineDataList.get(2),
+                    machineDataList.get(3)
+                )
+            )
         }
 
-        return machineList
+        return machinesList
     }
 }

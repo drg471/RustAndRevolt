@@ -1,7 +1,6 @@
 package com.drg.rustandrevolt.entities
 
-import android.util.Log
-import javax.inject.Inject
+import com.drg.rustandrevolt.usecases.PlayerUseCase
 
 private const val healPotions = 3
 const val regenerateLifeWithPotions = 20
@@ -16,7 +15,12 @@ const val strongAttack = 2
 const val veryStrongAttack = 3
 const val specialAttack = 4
 
-abstract class Character constructor (var name : String) {
+abstract class Character constructor (
+    var name : String,
+    var imageCardResource : String,
+    var imageCombatPlayerResource : String,
+    var imageCombatEnemyResource : String,
+    ) {
 
     var remainingHealPotions : Int = healPotions
     var remainingStrongAttacks : Int = totalStrongAttacks

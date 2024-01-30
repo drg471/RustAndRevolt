@@ -3,7 +3,17 @@ package com.drg.rustandrevolt.entities
 import javax.inject.Inject
 import kotlin.random.Random
 
-class Engineer (name : String) : Character (name){
+class Engineer (
+    name : String,
+    imageCardResource: String,
+    imageCombatPlayerResource: String,
+    imageCombatEnemyResource: String
+) : Character (
+    name,
+    imageCardResource,
+    imageCombatPlayerResource,
+    imageCombatEnemyResource
+){
     override fun attack(objective: Character, attackType: Int) {
         super.damageAttacking  = 0
 

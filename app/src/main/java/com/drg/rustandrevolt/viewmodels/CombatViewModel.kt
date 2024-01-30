@@ -1,19 +1,18 @@
 package com.drg.rustandrevolt.viewmodels
 
+import android.content.Context
 import android.os.Looper
 import androidx.compose.runtime.*
 import androidx.lifecycle.ViewModel
 import com.drg.rustandrevolt.entities.Character
-import com.drg.rustandrevolt.entities.Machine
-import com.drg.rustandrevolt.entities.Rebel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import android.os.Handler
+import com.drg.rustandrevolt.AppContextSingleton
+import com.drg.rustandrevolt.R
 import com.drg.rustandrevolt.RandomEnemyAI
-import com.drg.rustandrevolt.entities.Player
 import com.drg.rustandrevolt.entities.regenerateLifeWithPotions
 import com.drg.rustandrevolt.entities.totalStrongAttacks
 import com.drg.rustandrevolt.entities.totalVeryStrongAttacks
-import com.drg.rustandrevolt.ui.navigation.AppScreens
 import com.drg.rustandrevolt.usecases.PlayerUseCase
 import javax.inject.Inject
 import kotlin.random.Random
@@ -29,8 +28,13 @@ class CombatViewModel @Inject constructor(
     private val randomEnemyAI: RandomEnemyAI,
 ) : ViewModel() {
 
+    var context : Context = AppContextSingleton.getContext()
+
     val characterPlayer : Character = playerUseCase.getPlayer().currentGameCharacter
     val characterEnemyAI : Character = randomEnemyAI.getRandomEnemyAI()
+
+    var imagePlayerCombat : Int = getImagePlayer(characterPlayer)
+    var imageEnemyCombat : Int = getImageEnemy(characterEnemyAI)
 
     private val handler = Handler(Looper.getMainLooper())
 
@@ -66,6 +70,20 @@ class CombatViewModel @Inject constructor(
     var mutableShowBtnEndGame by mutableStateOf(false)
         private set
 
+    //****************************************************************
+    fun getImagePlayer(player : Character) : Int{
+        if (context!= null){
+            return context!!.resources.getIdentifier(player.imageCombatPlayerResource, "drawable", context!!.packageName)
+        }
+        return R.drawable.imageusrdflt
+    }
+
+    fun getImageEnemy(enemy : Character) : Int{
+        if (context!= null){
+            return context!!.resources.getIdentifier(enemy.imageCombatEnemyResource, "drawable", context!!.packageName)
+        }
+        return R.drawable.imagedflt
+    }
     //****************************************************************
     //PLAYER
 
@@ -223,7 +241,7 @@ class CombatViewModel @Inject constructor(
         }
 
         handler.postDelayed({
-            mutableSeqtext = "${playerUseCase.getPlayer().name} has hecho ${gameScore()} pts"
+            mutableSeqtext = "${playerUseCase.getPlayer().name} has hecho ${calculateGameScore()} pts."
 
             handler.postDelayed({
                 mutableShowSeqText = false
@@ -237,8 +255,11 @@ class CombatViewModel @Inject constructor(
 
     }
 
-    fun gameScore() : Int {
-        return (characterPlayer.life * 250) + (characterEnemyAI.life * 250)
+    fun calculateGameScore() : Int {
+        var score = (characterPlayer.life * 250) + (characterPlayer.remainingHealPotions * 500) + (characterPlayer.remainingStrongAttacks * 150) + (characterPlayer.remainingVeryStrongAttacks * 250)
+        playerUseCase.getPlayer().score = score
+        return score
     }
+
     //****************************************************************
 }

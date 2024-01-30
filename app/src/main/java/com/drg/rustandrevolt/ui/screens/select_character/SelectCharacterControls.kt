@@ -1,5 +1,6 @@
 package com.drg.rustandrevolt.ui.screens.select_character
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -23,18 +24,20 @@ import com.drg.rustandrevolt.R
 import com.drg.rustandrevolt.entities.Character
 import com.drg.rustandrevolt.viewmodels.CharacterSelectionViewModel
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.drg.rustandrevolt.AppContextSingleton
 
 @Composable
 fun SelectCharacterControls(viewModel : CharacterSelectionViewModel = hiltViewModel()) {
     val context = LocalContext.current
+    viewModel.context = context
+    AppContextSingleton.setContext(context)
 
     //Obtiene la lista de personajes y el indice actual del viewmodel
     val characterList = viewModel.characterList
     var currentCharacterIndex = viewModel.currentCharacterIndex
     var currentCharacter = characterList.getOrNull(currentCharacterIndex)
 
-    var characterImageResource : Int = R.drawable.imagedflt
-
+    var characterImageResource : Int = viewModel.currentImageIndex
 
     //Columna 2 (SlidePictureBox + label nombre personaje)
     Column (modifier = Modifier

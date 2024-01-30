@@ -11,11 +11,17 @@ class EngineersUseCase @Inject constructor(
     private val engineersRepository: EngineersRepository
 ) {
     fun getAll() : MutableList<Character>{
-        val engineersNameList = engineersRepository.getEngineers()
+        val engineersDataList = engineersRepository.getEngineers()
         val engineersList : MutableList<Character> = mutableListOf()
 
-        for (engineerName in engineersNameList){
-            engineersList.add(Engineer(engineerName))
+        for (engineerDataList in engineersDataList){
+            engineersList.add(
+                Engineer(
+                    engineerDataList.get(0),
+                    engineerDataList.get(1),
+                    engineerDataList.get(2),
+                    engineerDataList.get(3)
+                ))
         }
 
         return engineersList
