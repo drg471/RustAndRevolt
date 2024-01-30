@@ -17,7 +17,7 @@ import com.drg.rustandrevolt.ui.screens.home.HomeScreen
 import com.drg.rustandrevolt.ui.screens.select_character.SelectCharacterScreen
 
 @Composable
-fun CombatScreen(navigateToHomeScreen : () -> Unit, navigateToSelectCharacterScreen : () -> Unit) {
+fun CombatScreen(navigateToHomeScreen : () -> Unit) {
 
     //Columna Principal
     Column (modifier = Modifier
@@ -33,7 +33,7 @@ fun CombatScreen(navigateToHomeScreen : () -> Unit, navigateToSelectCharacterScr
             .height(20.dp))
 
         //Contenedor controles del jugador
-        PlayerControls(navigateToHomeScreen, navigateToSelectCharacterScreen)
+        PlayerControls(navigateToHomeScreen)
     }
 }
 
@@ -50,7 +50,6 @@ fun CombatScreenPreview() {
     }
 
     CombatScreen(
-        navigateToSelectCharacterScreen = { navigateToSelectCharacterScreen() },
         navigateToHomeScreen = { navigateToHomeScreen() }
     )
 }

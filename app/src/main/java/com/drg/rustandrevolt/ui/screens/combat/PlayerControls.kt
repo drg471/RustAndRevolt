@@ -34,7 +34,7 @@ import com.drg.rustandrevolt.entities.veryStrongAttack
 import com.drg.rustandrevolt.viewmodels.CombatViewModel
 
 @Composable
-fun PlayerControls(navigateToHomeScreen : () -> Unit, navigateToSelectCharacterScreen : () -> Unit, viewModel : CombatViewModel = hiltViewModel()) {
+fun PlayerControls(navigateToHomeScreen : () -> Unit, viewModel : CombatViewModel = hiltViewModel()) {
     val context = LocalContext.current
     val buttonEndGame : String = context.getString(R.string.button_end_game)
 
@@ -98,7 +98,7 @@ fun PlayerControls(navigateToHomeScreen : () -> Unit, navigateToSelectCharacterS
                 .padding(top = 16.dp)
                 .height(40.dp)
                 .width(200.dp), onClick = {
-                navigateToSelectCharacterScreen()
+                navigateToHomeScreen()
             }
             ) {
                 Text(buttonEndGame)

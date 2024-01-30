@@ -26,7 +26,12 @@ import com.drg.rustandrevolt.R
 import com.drg.rustandrevolt.ui.navigation.AppScreens
 
 @Composable
-fun HomeScreenElements(paddingValues: PaddingValues, navigateToOptionsScreen : () -> Unit, navigateToSelectCharacterScreen : () -> Unit) {
+fun HomeScreenElements(
+    paddingValues: PaddingValues,
+    navigateToOptionsScreen : () -> Unit,
+    navigateToSelectCharacterScreen : () -> Unit,
+    navigavigateToPlayerScreen : () -> Unit
+) {
     val context = LocalContext.current
     val buttonStartGame : String = context.getString(R.string.button_start_game)
     val buttonOptions : String = context.getString(R.string.button_options)
@@ -60,6 +65,18 @@ fun HomeScreenElements(paddingValues: PaddingValues, navigateToOptionsScreen : (
             }
         ) {
             Text(buttonStartGame)
+        }
+
+        //Boton Player
+        Button(modifier = Modifier
+            .align(Alignment.CenterHorizontally)
+            .padding(top = 16.dp)
+            .height(40.dp)
+            .width(200.dp), onClick = {
+            navigavigateToPlayerScreen()
+            }
+        ) {
+            Text("JUGADOR")
         }
 
         //Boton Opciones

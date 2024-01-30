@@ -22,7 +22,11 @@ import com.drg.rustandrevolt.ui.theme.RustAndRevoltTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen(navigateToOptionsScreen : () -> Unit, navigateToSelectCharacterScreen : () -> Unit) {
+fun HomeScreen(
+    navigateToOptionsScreen : () -> Unit,
+    navigateToSelectCharacterScreen : () -> Unit,
+    navigavigateToPlayerScreen : () -> Unit
+) {
     val context = LocalContext.current
     val appName : String = context.getString(R.string.app_name)
 
@@ -41,7 +45,7 @@ fun HomeScreen(navigateToOptionsScreen : () -> Unit, navigateToSelectCharacterSc
         }
     ) { paddingValues ->
         //Llama a la función que muestra los elementos de la pantalla Home
-        HomeScreenElements(paddingValues = paddingValues, navigateToOptionsScreen, navigateToSelectCharacterScreen)
+        HomeScreenElements(paddingValues = paddingValues, navigateToOptionsScreen, navigateToSelectCharacterScreen, navigavigateToPlayerScreen)
     }
 }
 
@@ -58,7 +62,8 @@ fun HomeScreenPreview() {
         ) {
             HomeScreen(
                 navigateToOptionsScreen = {},
-                navigateToSelectCharacterScreen = {}
+                navigateToSelectCharacterScreen = {},
+                navigavigateToPlayerScreen = {}
             )
         }
     }

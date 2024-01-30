@@ -1,8 +1,9 @@
-package com.drg.rustandrevolt.ui.screens.options
+package com.drg.rustandrevolt.ui.screens.player
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -18,18 +19,20 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.drg.rustandrevolt.R
 import com.drg.rustandrevolt.ui.screens.home.HomeScreen
 import com.drg.rustandrevolt.ui.theme.RustAndRevoltTheme
+import com.drg.rustandrevolt.usecases.PlayerUseCase
+import com.drg.rustandrevolt.viewmodels.PlayerViewModel
 
 @Composable
-fun OptionsScreen(
-    navigateToHomeScreen : () -> Unit,
-    navigateToInstructionsScreen : () -> Unit
-) {
+fun PlayerScreen(navigateToHomeScreen : () -> Unit, viewModel: PlayerViewModel = hiltViewModel()) {
     val context = LocalContext.current
-    val buttonSoundOnOff : String = context.getString(R.string.button_sound_onoff)
+    val playerName : String = viewModel.mutablePlayerName
+    val playerScore : String = viewModel.mutablePlayerScore
     val buttonReturn : String = context.getString(R.string.button_return)
 
     Column (modifier = Modifier
@@ -37,25 +40,26 @@ fun OptionsScreen(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ){
-        //Boton Quitar Sonido App
-        Button(modifier = Modifier
-            .align(Alignment.CenterHorizontally)
-            .padding(top = 16.dp)
-            .height(40.dp)
-            .width(200.dp), onClick = { }
-        ) {
-            Text(buttonSoundOnOff)
-        }
 
-        //Boton Quitar Sonido App
-        Button(modifier = Modifier
-            .align(Alignment.CenterHorizontally)
-            .padding(top = 16.dp)
-            .height(40.dp)
-            .width(200.dp), onClick = { navigateToInstructionsScreen() }
-        ) {
-            Text("INSTRUCCIONES")
-        }
+        //Nombre Player
+        Text(
+            text = playerName,
+            fontSize = 24.sp,
+            modifier = Modifier
+                .align(Alignment.CenterHorizontally)
+        )
+
+        Spacer(modifier = Modifier.height(10.dp))
+
+        //Puntuacion Player
+        Text(
+            text = playerScore + " pts.",
+            fontSize = 24.sp,
+            modifier = Modifier
+                .align(Alignment.CenterHorizontally)
+        )
+
+        Spacer(modifier = Modifier.height(100.dp))
 
         //Boton volver a pantalla Home
         Button(modifier = Modifier
@@ -71,7 +75,7 @@ fun OptionsScreen(
 
 @Composable
 @Preview
-fun OptionsScreenPreview() {
+fun PlayerScreenPreview() {
     val context = LocalContext.current
     val darkTheme = isSystemInDarkTheme()
     RustAndRevoltTheme(darkTheme = false){
@@ -79,9 +83,8 @@ fun OptionsScreenPreview() {
             color = MaterialTheme.colorScheme.background,
             contentColor = LocalContentColor.current
         ) {
-            OptionsScreen(
+            PlayerScreen(
                 navigateToHomeScreen = {},
-                navigateToInstructionsScreen = {}
             )
         }
     }
