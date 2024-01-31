@@ -7,9 +7,9 @@ import androidx.lifecycle.ViewModel
 import com.drg.rustandrevolt.entities.Character
 import dagger.hilt.android.lifecycle.HiltViewModel
 import android.os.Handler
-import com.drg.rustandrevolt.AppContextSingleton
+import com.drg.rustandrevolt.service.AppContextSingleton
 import com.drg.rustandrevolt.R
-import com.drg.rustandrevolt.RandomEnemyAI
+import com.drg.rustandrevolt.service.RandomEnemyAI
 import com.drg.rustandrevolt.entities.regenerateLifeWithPotions
 import com.drg.rustandrevolt.entities.totalStrongAttacks
 import com.drg.rustandrevolt.entities.totalVeryStrongAttacks

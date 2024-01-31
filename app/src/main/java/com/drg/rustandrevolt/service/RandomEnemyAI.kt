@@ -1,4 +1,4 @@
-package com.drg.rustandrevolt
+package com.drg.rustandrevolt.service
 
 import com.drg.rustandrevolt.entities.Character
 import com.drg.rustandrevolt.usecases.EngineersUseCase

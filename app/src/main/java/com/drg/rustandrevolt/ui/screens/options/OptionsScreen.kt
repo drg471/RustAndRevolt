@@ -30,6 +30,7 @@ fun OptionsScreen(
 ) {
     val context = LocalContext.current
     val buttonSoundOnOff : String = context.getString(R.string.button_sound_onoff)
+    val buttonInstructions : String = context.getString(R.string.button_instructions)
     val buttonReturn : String = context.getString(R.string.button_return)
 
     Column (modifier = Modifier
@@ -54,7 +55,7 @@ fun OptionsScreen(
             .height(40.dp)
             .width(200.dp), onClick = { navigateToInstructionsScreen() }
         ) {
-            Text("INSTRUCCIONES")
+            Text(buttonInstructions)
         }
 
         //Boton volver a pantalla Home

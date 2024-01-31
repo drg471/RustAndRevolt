@@ -6,6 +6,7 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -21,9 +22,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import com.drg.rustandrevolt.R
-import com.drg.rustandrevolt.ui.navigation.AppScreens
 
 @Composable
 fun HomeScreenElements(
@@ -34,7 +33,9 @@ fun HomeScreenElements(
 ) {
     val context = LocalContext.current
     val buttonStartGame : String = context.getString(R.string.button_start_game)
+    val buttonPlayer : String = context.getString(R.string.button_player)
     val buttonOptions : String = context.getString(R.string.button_options)
+    val buttonExit : String = context.getString(R.string.button_exit)
 
     //Columna principal
     Column(
@@ -54,6 +55,8 @@ fun HomeScreenElements(
                 .border(1.dp, Color.Black)
                 .align(Alignment.CenterHorizontally)
         )
+
+        Spacer(modifier = Modifier.height(20.dp))
 
         //Boton Iniciar Partida
         Button(modifier = Modifier
@@ -76,7 +79,7 @@ fun HomeScreenElements(
             navigavigateToPlayerScreen()
             }
         ) {
-            Text("JUGADOR")
+            Text(buttonPlayer)
         }
 
         //Boton Opciones
@@ -89,6 +92,20 @@ fun HomeScreenElements(
             }
         ) {
             Text(buttonOptions)
+        }
+
+        Spacer(modifier = Modifier.height(20.dp))
+
+        //Boton Salir
+        Button(modifier = Modifier
+            .align(Alignment.CenterHorizontally)
+            .padding(top = 16.dp)
+            .height(40.dp)
+            .width(200.dp), onClick = {
+            System.exit(0)
+            }
+        ) {
+            Text(buttonExit)
         }
     }
 }

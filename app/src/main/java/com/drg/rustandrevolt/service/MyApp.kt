@@ -1,4 +1,4 @@
-package com.drg.rustandrevolt
+package com.drg.rustandrevolt.service
 
 import android.content.Context
 

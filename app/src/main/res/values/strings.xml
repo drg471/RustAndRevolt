@@ -4,9 +4,12 @@
     <!-- Home -->
     <string name="app_name">Rust And Revolt</string>
     <string name="button_start_game">INICIAR PARTIDA</string>
+    <string name="button_player">JUGADOR</string>
     <string name="button_options">OPCIONES</string>
+    <string name="button_exit">SALIR</string>
     <!-- opciones -->
     <string name="button_sound_onoff">SONIDO ON/OFF</string>
+    <string name="button_instructions">INSTRUCCIONES</string>
     <string name="button_return">VOLVER</string>
     <!-- seleccíón personaje -->
     <string name="button_play">JUGAR</string>
