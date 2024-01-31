@@ -1,4 +1,4 @@
-package com.drg.rustandrevolt.screens.home
+package com.drg.rustandrevolt.ui.screens.home
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -6,6 +6,7 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -21,15 +22,20 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import com.drg.rustandrevolt.R
-import com.drg.rustandrevolt.navigation.AppScreens
 
 @Composable
-fun HomeScreenElements(paddingValues: PaddingValues, navigateToOptionsScreen : () -> Unit, navigateToSelectCharacterScreen : () -> Unit) {
+fun HomeScreenElements(
+    paddingValues: PaddingValues,
+    navigateToOptionsScreen : () -> Unit,
+    navigateToSelectCharacterScreen : () -> Unit,
+    navigavigateToPlayerScreen : () -> Unit
+) {
     val context = LocalContext.current
     val buttonStartGame : String = context.getString(R.string.button_start_game)
+    val buttonPlayer : String = context.getString(R.string.button_player)
     val buttonOptions : String = context.getString(R.string.button_options)
+    val buttonExit : String = context.getString(R.string.button_exit)
 
     //Columna principal
     Column(
@@ -50,6 +56,8 @@ fun HomeScreenElements(paddingValues: PaddingValues, navigateToOptionsScreen : (
                 .align(Alignment.CenterHorizontally)
         )
 
+        Spacer(modifier = Modifier.height(20.dp))
+
         //Boton Iniciar Partida
         Button(modifier = Modifier
             .align(Alignment.CenterHorizontally)
@@ -62,6 +70,18 @@ fun HomeScreenElements(paddingValues: PaddingValues, navigateToOptionsScreen : (
             Text(buttonStartGame)
         }
 
+        //Boton Player
+        Button(modifier = Modifier
+            .align(Alignment.CenterHorizontally)
+            .padding(top = 16.dp)
+            .height(40.dp)
+            .width(200.dp), onClick = {
+            navigavigateToPlayerScreen()
+            }
+        ) {
+            Text(buttonPlayer)
+        }
+
         //Boton Opciones
         Button(modifier = Modifier
             .align(Alignment.CenterHorizontally)
@@ -72,6 +92,20 @@ fun HomeScreenElements(paddingValues: PaddingValues, navigateToOptionsScreen : (
             }
         ) {
             Text(buttonOptions)
+        }
+
+        Spacer(modifier = Modifier.height(20.dp))
+
+        //Boton Salir
+        Button(modifier = Modifier
+            .align(Alignment.CenterHorizontally)
+            .padding(top = 16.dp)
+            .height(40.dp)
+            .width(200.dp), onClick = {
+            System.exit(0)
+            }
+        ) {
+            Text(buttonExit)
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.drg.rustandrevolt.screens.select_character
+package com.drg.rustandrevolt.ui.screens.select_character
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
@@ -19,12 +19,22 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.drg.rustandrevolt.R
+import com.drg.rustandrevolt.viewmodels.CharacterSelectionViewModel
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.drg.rustandrevolt.service.AppContextSingleton
 
 @Composable
-fun SelectCharacterControls() {
+fun SelectCharacterControls(viewModel : CharacterSelectionViewModel = hiltViewModel()) {
     val context = LocalContext.current
-    val characterName : String = context.getString(R.string.characterName)
+    viewModel.context = context
+    AppContextSingleton.setContext(context)
+
+    //Obtiene la lista de personajes y el indice actual del viewmodel
+    val characterList = viewModel.characterList
+    var currentCharacterIndex = viewModel.currentCharacterIndex
+    var currentCharacter = characterList.getOrNull(currentCharacterIndex)
+
+    var characterImageResource : Int = viewModel.currentImageIndex
 
     //Columna 2 (SlidePictureBox + label nombre personaje)
     Column (modifier = Modifier
@@ -46,14 +56,14 @@ fun SelectCharacterControls() {
             Button(modifier = Modifier
                 .align(Alignment.CenterVertically)
                 .padding(start = 15.dp)
-                , onClick = { }
+                , onClick = { viewModel.showPreviousCharacter() }
             ) {
                 Text("<-")
             }
 
             //Imagen Personaje
             Image(
-                painter = painterResource(R.drawable.imagedflt),
+                painter = painterResource(characterImageResource),
                 contentDescription = null,
                 modifier = Modifier
                     .size(width = 230.dp, height = 400.dp)
@@ -65,17 +75,24 @@ fun SelectCharacterControls() {
             Button(modifier = Modifier
                 .align(Alignment.CenterVertically)
                 .padding(end = 15.dp)
-                , onClick = { }
+                , onClick = { viewModel.showNextCharacter() }
             ) {
                 Text("->")
             }
         }
 
-        Text(
-            characterName,
-            fontSize = 20.sp,
-            modifier = Modifier
-                .align(Alignment.CenterHorizontally)
-        )
+        //***********************************
+        //Mostrar el nombre del personaje actual
+        currentCharacter?.let { character ->
+            Text(
+                character.name,
+                fontSize = 20.sp,
+                modifier = Modifier
+                    .align(Alignment.CenterHorizontally)
+            )
+        }
+        //***********************************
+
     }
 }
+

@@ -1,4 +1,4 @@
-package com.drg.rustandrevolt.screens.combat
+package com.drg.rustandrevolt.ui.screens.combat
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
@@ -21,16 +21,25 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.drg.rustandrevolt.R
+import com.drg.rustandrevolt.viewmodels.CombatViewModel
 
 @Composable
-fun GameScreen() {
+fun GameScreen(viewModel : CombatViewModel = hiltViewModel()) {
     val context = LocalContext.current
-    val enemyName : String = context.getString(R.string.enemyName)
+    viewModel.context = context
+
+    var enemyAILife = viewModel.mutableEnemyAILife
+    var enemyAIDamage = viewModel.mutableEnemyAIDamage
+    var playerDamage = viewModel.mutablePlayerDamage
+    var playerDamageRedColor = viewModel.mutablePlayerDamageRedColor
+    var enemyAIDamageRedColor = viewModel.mutableEnemyAIDamageRedColor
+    var playerImage : Int = viewModel.imagePlayerCombat
+    var enemyImage : Int = viewModel.imageEnemyCombat
 
     //Pantalla de juego
 
-    var vidaEnemigo : Float = 0.2f
 
     //Columna -> Nombre Enemigo + Vida Enemigo + box imagenes personajes
     Column(modifier = Modifier
@@ -41,15 +50,15 @@ fun GameScreen() {
         Text(text = "Pantalla juego", fontSize = 15.sp)
 
         //Texto Nombre Enemigo
-        Text(text = enemyName, fontSize = 18.sp)
+        Text(text = viewModel.characterEnemyAI.name, fontSize = 18.sp)
 
         //Vida Enemigo
         LinearProgressIndicator(
-            progress = vidaEnemigo,
+            progress = enemyAILife,
             modifier = Modifier
                 .fillMaxWidth()
                 .height(15.dp),
-            color = if (vidaEnemigo < 0.3f) Color.Red else if (vidaEnemigo < 0.6f && vidaEnemigo > 0.3f) Color.Yellow else Color.Green
+            color = if (enemyAILife < 0.25f) Color.Red else if (enemyAILife < 0.5f && enemyAILife > 0.3f) Color.Yellow else Color.Green
         )
 
         //Contenedor de Imagenes de Personajes en la batalla
@@ -66,15 +75,17 @@ fun GameScreen() {
 
             ){
                 Text(
-                    text = "-15",
+                    text = enemyAIDamage,
                     fontSize = 50.sp,
                     modifier = Modifier
                         .border(1.dp, Color.Black)
-                        .align(Alignment.CenterVertically)
+                        .align(Alignment.CenterVertically),
+                    color = if (enemyAIDamageRedColor) Color.Red else Color.Green
                 )
 
+
                 Image(
-                    painter = painterResource(R.drawable.imagedflt),
+                    painter = painterResource(enemyImage),
                     contentDescription = null,
                     modifier = Modifier
                         .size(width = 150.dp, height = 300.dp)
@@ -90,7 +101,7 @@ fun GameScreen() {
                     .border(1.dp, Color.Black).align(Alignment.BottomStart)
             ) {
                 Image(
-                    painter = painterResource(R.drawable.imageusrdflt),
+                    painter = painterResource(playerImage),
                     contentDescription = null,
                     modifier = Modifier
                         .size(width = 230.dp, height = 175.dp)
@@ -98,11 +109,12 @@ fun GameScreen() {
                         .align(Alignment.Bottom)
                 )
                 Text(
-                    text = "-5",
+                    text = playerDamage,
                     fontSize = 50.sp,
                     modifier = Modifier
                         .border(1.dp, Color.Black)
-                        .align(Alignment.CenterVertically)
+                        .align(Alignment.CenterVertically),
+                    color = if (playerDamageRedColor) Color.Red else Color.Green
                 )
             }
         }

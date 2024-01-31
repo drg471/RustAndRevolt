@@ -4,9 +4,12 @@
     <!-- Home -->
     <string name="app_name">Rust And Revolt</string>
     <string name="button_start_game">START GAME</string>
+    <string name="button_player">PLAYER</string>
     <string name="button_options">OPTIONS</string>
+    <string name="button_exit">EXIT</string>
     <!-- options -->
     <string name="button_sound_onoff">SOUND ON/OFF</string>
+    <string name="button_instructions">INSTRUCTIONS</string>
     <string name="button_return">BACK</string>
     <!-- character selection -->
     <string name="button_play">PLAY</string>
@@ -14,4 +17,5 @@
     <string name="characterName">Character Name</string>
     <!-- combat -->
     <string name="enemyName">Enemy Name</string>
+    <string name="button_end_game">END GAME</string>
 </resources>

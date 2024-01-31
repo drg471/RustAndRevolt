@@ -1,4 +1,4 @@
-package com.drg.rustandrevolt.screens.select_character
+package com.drg.rustandrevolt.ui.screens.select_character
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -22,10 +22,12 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.drg.rustandrevolt.R
+import com.drg.rustandrevolt.viewmodels.CharacterSelectionViewModel
 
 @Composable
-fun SelectCharacterTypeControls() {
+fun SelectCharacterTypeControls(viewModel : CharacterSelectionViewModel = hiltViewModel()) {
     val context = LocalContext.current
     val selectCharacter : String = context.getString(R.string.selectCharacter)
 
@@ -72,7 +74,7 @@ fun SelectCharacterTypeControls() {
                     Button(modifier = Modifier
                         .height(40.dp)
                         .width(80.dp)
-                        , onClick = { }
+                        , onClick = { viewModel.loadRebelList() }
                     ) {
                         Text("PRe")
                     }
@@ -81,7 +83,7 @@ fun SelectCharacterTypeControls() {
                     Button(modifier = Modifier
                         .height(40.dp)
                         .width(80.dp)
-                        , onClick = { }
+                        , onClick = { viewModel.loadEngineerList() }
                     ) {
                         Text("PIn")
                     }
@@ -101,7 +103,7 @@ fun SelectCharacterTypeControls() {
                         .height(40.dp)
                         .width(80.dp)
                         .align(Alignment.Bottom)
-                        , onClick = { }
+                        , onClick = { viewModel.loadMachineList() }
                     ) {
                         Text("PMa")
                     }
