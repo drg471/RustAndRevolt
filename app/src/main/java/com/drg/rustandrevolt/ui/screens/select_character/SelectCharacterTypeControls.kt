@@ -74,7 +74,7 @@ fun SelectCharacterTypeControls(viewModel : CharacterSelectionViewModel = hiltVi
                     Button(modifier = Modifier
                         .height(40.dp)
                         .width(80.dp)
-                        , onClick = { viewModel.loadRebelList() }
+                        , onClick = { viewModel.loadRebelListRoom() }
                     ) {
                         Text("PRe")
                     }

@@ -27,10 +27,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.drg.rustandrevolt.R
-import com.drg.rustandrevolt.entities.normalAttack
-import com.drg.rustandrevolt.entities.specialAttack
-import com.drg.rustandrevolt.entities.strongAttack
-import com.drg.rustandrevolt.entities.veryStrongAttack
+import com.drg.rustandrevolt.domain.normalAttack
+import com.drg.rustandrevolt.domain.specialAttack
+import com.drg.rustandrevolt.domain.strongAttack
+import com.drg.rustandrevolt.domain.veryStrongAttack
 import com.drg.rustandrevolt.viewmodels.CombatViewModel
 
 @Composable

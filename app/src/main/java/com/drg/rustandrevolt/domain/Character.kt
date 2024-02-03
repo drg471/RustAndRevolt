@@ -1,6 +1,4 @@
-package com.drg.rustandrevolt.entities
-
-import com.drg.rustandrevolt.usecases.PlayerUseCase
+package com.drg.rustandrevolt.domain
 
 private const val healPotions = 3
 const val regenerateLifeWithPotions = 20
@@ -16,10 +14,10 @@ const val veryStrongAttack = 3
 const val specialAttack = 4
 
 abstract class Character constructor (
-    var name : String,
-    var imageCardResource : String,
-    var imageCombatPlayerResource : String,
-    var imageCombatEnemyResource : String,
+    open var name : String,
+    open var imageCardResource : String,
+    open var imageCombatPlayerResource : String,
+    open var imageCombatEnemyResource : String,
     ) {
 
     var remainingHealPotions : Int = healPotions

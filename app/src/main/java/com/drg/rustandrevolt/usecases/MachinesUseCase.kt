@@ -1,8 +1,7 @@
 package com.drg.rustandrevolt.usecases
 
-import com.drg.rustandrevolt.entities.Character
-import com.drg.rustandrevolt.entities.Engineer
-import com.drg.rustandrevolt.entities.Machine
+import com.drg.rustandrevolt.domain.Character
+import com.drg.rustandrevolt.domain.Engineer
 import com.drg.rustandrevolt.repositories.MachinesRepository
 import javax.inject.Inject
 import javax.inject.Singleton

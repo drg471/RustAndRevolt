@@ -1,6 +1,6 @@
 package com.drg.rustandrevolt.service
 
-import com.drg.rustandrevolt.entities.Character
+import com.drg.rustandrevolt.domain.Character
 import com.drg.rustandrevolt.usecases.EngineersUseCase
 import com.drg.rustandrevolt.usecases.MachinesUseCase
 import com.drg.rustandrevolt.usecases.RebelsUseCase

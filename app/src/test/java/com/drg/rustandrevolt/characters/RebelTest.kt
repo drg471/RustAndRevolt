@@ -1,6 +1,6 @@
 package com.drg.rustandrevolt.character
 
-import com.drg.rustandrevolt.entities.Rebel
+import com.drg.rustandrevolt.domain.Rebel
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
