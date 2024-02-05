@@ -1,9 +1,8 @@
-package com.drg.rustandrevolt.entities
+package com.drg.rustandrevolt.domain
 
-import javax.inject.Inject
 import kotlin.random.Random
 
-class Machine (
+class Engineer (
     name : String,
     imageCardResource: String,
     imageCombatPlayerResource: String,
@@ -17,7 +16,7 @@ class Machine (
     override fun attack(objective: Character, attackType: Int) {
         super.damageAttacking  = 0
 
-        if (objective is Engineer){
+        if (objective is Rebel){
             super.damageAttacking += 2
         }
 
@@ -34,7 +33,7 @@ class Machine (
                 super.remainingVeryStrongAttacks --
             }
             specialAttack -> { // especial
-                if (objective is Rebel){
+                if (objective is Machine){
                     super.damageAttacking += 5
                 }
                 super.damageAttacking += Random.nextInt(30,35)

@@ -1,31 +1,34 @@
 package com.drg.rustandrevolt.repositories
 
+import android.util.Log
+import com.drg.rustandrevolt.domain.Character
+import com.drg.rustandrevolt.domain.Rebel
+import com.drg.rustandrevolt.domain.toEntity
+import com.drg.rustandrevolt.room.RebelDao
+import com.drg.rustandrevolt.room.toDomain
 import javax.inject.Inject
 import javax.inject.Singleton
 
-//EL REPOSITORIO SERIA PARA IR A BASE DE DATOS
+//REPOSITORIO PARA BASE DE DATOS ROOM
 @Singleton
-class RebelsRepository @Inject constructor(){
-    fun getRebels() : MutableList<MutableList<String>>{
-        val rebelsDataList : MutableList<MutableList<String>> = mutableListOf()
+class RebelsRepository @Inject constructor(
+    private val rebelDao: RebelDao
+){
+    fun getRebels() : MutableList<Character>{
+        val rebelsMutableList : MutableList<Character> = mutableListOf()
 
-        val rebel1DataList : MutableList<String> = mutableListOf(
-            "Rebelde 1",
-            "imagedflt",
-            "imageusrdflt",
-            "imagedflt"
-        )
+        for (rebel in rebelDao.getAll()){
+            rebelsMutableList.add(rebel.toDomain())
+        }
 
-        val rebel2DataList : MutableList<String> = mutableListOf(
-            "Rebelde 2",
-            "imagedflt2",
-            "imageusrdflt",
-            "imagedflt2"
-        )
+        return rebelsMutableList
+    }
 
-        rebelsDataList.add(rebel1DataList)
-        rebelsDataList.add(rebel2DataList)
+    fun saveRebel(rebel: Rebel) {
+        rebelDao.insert(rebel.toEntity())
+    }
 
-        return rebelsDataList
+    fun deleteRebel(rebel: Rebel) {
+        rebelDao.delete(rebel.toEntity())
     }
 }

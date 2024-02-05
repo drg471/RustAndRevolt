@@ -6,10 +6,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.LocalContentColor
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -18,15 +14,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.drg.rustandrevolt.R
-import com.drg.rustandrevolt.entities.Rebel
 import com.drg.rustandrevolt.ui.navigation.AppScreens
-import com.drg.rustandrevolt.ui.screens.home.HomeScreen
-import com.drg.rustandrevolt.ui.theme.RustAndRevoltTheme
-import com.drg.rustandrevolt.viewmodels.CharacterSelectionViewModel
-import dagger.hilt.android.AndroidEntryPoint
 
 @Composable
 fun SelectCharacterScreen(navigateToCombatScreen : () -> Unit) {

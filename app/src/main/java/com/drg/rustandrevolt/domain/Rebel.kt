@@ -1,13 +1,13 @@
-package com.drg.rustandrevolt.entities
+package com.drg.rustandrevolt.domain
 
-import javax.inject.Inject
+import com.drg.rustandrevolt.room.RebelEntity
 import kotlin.random.Random
 
-class Rebel (
-    name : String,
-    imageCardResource: String,
-    imageCombatPlayerResource: String,
-    imageCombatEnemyResource: String
+data class Rebel (
+    override var name : String,
+    override var imageCardResource: String,
+    override var imageCombatPlayerResource: String,
+    override var imageCombatEnemyResource: String
 ) : Character (
     name,
     imageCardResource,
@@ -49,3 +49,9 @@ class Rebel (
         }
     }
 }
+fun Rebel.toEntity() = RebelEntity(
+    name = name,
+    imageCardResource = imageCardResource,
+    imageCombatPlayerResource = imageCombatPlayerResource,
+    imageCombatEnemyResource = imageCombatEnemyResource
+)

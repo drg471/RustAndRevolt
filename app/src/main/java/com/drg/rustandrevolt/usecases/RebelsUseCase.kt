@@ -1,8 +1,8 @@
 package com.drg.rustandrevolt.usecases
 
-import com.drg.rustandrevolt.entities.Character
-import com.drg.rustandrevolt.entities.Engineer
-import com.drg.rustandrevolt.entities.Rebel
+import com.drg.rustandrevolt.domain.Character
+import com.drg.rustandrevolt.domain.Engineer
+import com.drg.rustandrevolt.domain.Rebel
 import com.drg.rustandrevolt.repositories.RebelsRepository
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -13,19 +13,37 @@ class RebelsUseCase @Inject constructor(
 ) {
     fun getAll() : MutableList<Character>{
         val rebelsDataList = rebelsRepository.getRebels()
-        val rebelsList : MutableList<Character> = mutableListOf()
+        return rebelsDataList
+    }
 
-        for (rebelDataList in rebelsDataList){
-            rebelsList.add(
-                Engineer(
-                    rebelDataList.get(0),
-                    rebelDataList.get(1),
-                    rebelDataList.get(2),
-                    rebelDataList.get(3)
-                )
-            )
+    fun delete (rebel : Rebel){
+        rebelsRepository.deleteRebel(rebel)
+    }
+
+    fun save(){
+        val rebelsDataList = getAll()
+
+        if (rebelsDataList.isNotEmpty()){
+            for (rebel in rebelsDataList){
+                delete(rebel as Rebel)
+            }
         }
 
-        return rebelsList
+        rebelsRepository.saveRebel(
+            Rebel(
+                "Rebelde One",
+                "imagedflt",
+                "imageusrdflt",
+                "imagedflt"
+            )
+        )
+        rebelsRepository.saveRebel(
+            Rebel(
+                "Rebelde 2",
+                "imagedflt2",
+                "imageusrdflt",
+                "imagedflt2"
+            )
+        )
     }
 }

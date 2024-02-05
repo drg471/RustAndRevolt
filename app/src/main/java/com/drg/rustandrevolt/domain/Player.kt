@@ -1,4 +1,4 @@
-package com.drg.rustandrevolt.entities
+package com.drg.rustandrevolt.domain
 
 import javax.inject.Inject
 import javax.inject.Singleton

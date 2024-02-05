@@ -4,16 +4,20 @@ import android.content.Context
 import android.os.Looper
 import androidx.compose.runtime.*
 import androidx.lifecycle.ViewModel
-import com.drg.rustandrevolt.entities.Character
+import com.drg.rustandrevolt.domain.Character
 import dagger.hilt.android.lifecycle.HiltViewModel
 import android.os.Handler
+import androidx.lifecycle.viewModelScope
 import com.drg.rustandrevolt.service.AppContextSingleton
 import com.drg.rustandrevolt.R
 import com.drg.rustandrevolt.service.RandomEnemyAI
-import com.drg.rustandrevolt.entities.regenerateLifeWithPotions
-import com.drg.rustandrevolt.entities.totalStrongAttacks
-import com.drg.rustandrevolt.entities.totalVeryStrongAttacks
+import com.drg.rustandrevolt.domain.regenerateLifeWithPotions
+import com.drg.rustandrevolt.domain.totalStrongAttacks
+import com.drg.rustandrevolt.domain.totalVeryStrongAttacks
 import com.drg.rustandrevolt.usecases.PlayerUseCase
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import kotlin.random.Random
 
@@ -31,10 +35,17 @@ class CombatViewModel @Inject constructor(
     var context : Context = AppContextSingleton.getContext()
 
     val characterPlayer : Character = playerUseCase.getPlayer().currentGameCharacter
-    val characterEnemyAI : Character = randomEnemyAI.getRandomEnemyAI()
+    lateinit var characterEnemyAI : Character
+    init{
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                getEnemyAiCoroutine()
+            }
+        }
+    }
 
     var imagePlayerCombat : Int = getImagePlayer(characterPlayer)
-    var imageEnemyCombat : Int = getImageEnemy(characterEnemyAI)
+    var imageEnemyCombat : Int = R.drawable.imagedflt
 
     private val handler = Handler(Looper.getMainLooper())
 
@@ -57,7 +68,9 @@ class CombatViewModel @Inject constructor(
         private set
     var mutableEnableBtnSpecialAttack by mutableStateOf(false)
         private set
-    var mutableEnemyAILife by mutableStateOf(characterEnemyAI.life.toFloat()/100)
+    var mutableEnemyAIName by mutableStateOf("")
+        private set
+    var mutableEnemyAILife by mutableStateOf(0f)
         private set
     var mutableEnemyAIDamage by mutableStateOf("")
         private set
@@ -71,6 +84,15 @@ class CombatViewModel @Inject constructor(
         private set
 
     //****************************************************************
+    suspend fun getEnemyAiCoroutine(){
+        withContext(Dispatchers.Main) {
+            characterEnemyAI = randomEnemyAI.getRandomEnemyAI()
+            imageEnemyCombat = getImageEnemy(characterEnemyAI)
+            mutableEnemyAILife = characterEnemyAI.life.toFloat() / 100
+            mutableEnemyAIName = characterEnemyAI.name
+        }
+    }
+
     fun getImagePlayer(player : Character) : Int{
         if (context!= null){
             return context!!.resources.getIdentifier(player.imageCombatPlayerResource, "drawable", context!!.packageName)

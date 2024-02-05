@@ -3,7 +3,8 @@ package com.drg.rustandrevolt.viewmodels
 import android.content.Context
 import androidx.compose.runtime.*
 import androidx.lifecycle.ViewModel
-import com.drg.rustandrevolt.entities.Character
+import androidx.lifecycle.viewModelScope
+import com.drg.rustandrevolt.domain.Character
 import com.drg.rustandrevolt.usecases.EngineersUseCase
 import com.drg.rustandrevolt.usecases.MachinesUseCase
 import com.drg.rustandrevolt.usecases.PlayerUseCase
@@ -11,6 +12,9 @@ import com.drg.rustandrevolt.usecases.RebelsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import com.drg.rustandrevolt.R
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 @HiltViewModel
@@ -35,8 +39,20 @@ class CharacterSelectionViewModel @Inject constructor(
 
     //init = inicializa el viewmodel con una lista de personajes
     init {
-        loadRebelList()
-        updatePlayerCharacter()
+
+
+        //****************************************************
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                rebelsUseCase.save()
+
+                loadRebelList()
+                updatePlayerCharacter()
+            }
+        }
+        //****************************************************
+
+
     }
 
     fun showNextCharacter() {
@@ -53,6 +69,14 @@ class CharacterSelectionViewModel @Inject constructor(
         resetDataList()
         characterList = machinesUseCase.getAll()
         updatePlayerCharacter()
+    }
+
+    fun loadRebelListRoom(){
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                loadRebelList()
+            }
+        }
     }
 
     fun loadRebelList(){
