@@ -30,6 +30,7 @@ fun GameScreen(viewModel : CombatViewModel = hiltViewModel()) {
     val context = LocalContext.current
     viewModel.context = context
 
+    var enemyAIName= viewModel.mutableEnemyAIName
     var enemyAILife = viewModel.mutableEnemyAILife
     var enemyAIDamage = viewModel.mutableEnemyAIDamage
     var playerDamage = viewModel.mutablePlayerDamage
@@ -50,7 +51,7 @@ fun GameScreen(viewModel : CombatViewModel = hiltViewModel()) {
         Text(text = "Pantalla juego", fontSize = 15.sp)
 
         //Texto Nombre Enemigo
-        Text(text = viewModel.characterEnemyAI.name, fontSize = 18.sp)
+        Text(text = enemyAIName, fontSize = 18.sp)
 
         //Vida Enemigo
         LinearProgressIndicator(
