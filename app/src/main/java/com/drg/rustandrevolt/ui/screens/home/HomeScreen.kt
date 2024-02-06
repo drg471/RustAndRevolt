@@ -16,16 +16,18 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.navigation.NavController
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.drg.rustandrevolt.R
 import com.drg.rustandrevolt.ui.theme.RustAndRevoltTheme
+import com.drg.rustandrevolt.viewmodels.HomeViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
     navigateToOptionsScreen : () -> Unit,
     navigateToSelectCharacterScreen : () -> Unit,
-    navigavigateToPlayerScreen : () -> Unit
+    navigavigateToPlayerScreen : () -> Unit,
+    viewModel: HomeViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
     val appName : String = context.getString(R.string.app_name)
