@@ -15,7 +15,7 @@ class MusicPreferences (val context: Context) {
     private val sharedPreferences: SharedPreferences =
         context.getSharedPreferences("MusicPrefs", 0)
 
-    var isMusicEnabled: Boolean by mutableStateOf(sharedPreferences.getBoolean("isMusicEnabled", false))
+    var isMusicEnabled: Boolean by mutableStateOf(sharedPreferences.getBoolean("isMusicEnabled", true))
         private set
 
     val musicPlayer: MusicPlayer = MusicPlayer(context)
@@ -30,7 +30,6 @@ class MusicPreferences (val context: Context) {
 
         if (isMusicEnabled){
             musicPlayer.play(inMenu)
-            //musicPlayer.play(R.raw.musicmenu1)
         }
         else{
             musicPlayer.stop()

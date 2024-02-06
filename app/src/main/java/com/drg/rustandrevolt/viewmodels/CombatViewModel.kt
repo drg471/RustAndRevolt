@@ -35,7 +35,6 @@ class CombatViewModel @Inject constructor(
 ) : ViewModel() {
 
     var context : Context = AppContextSingleton.getContext()
-    var inCombat : Boolean = true
 
     val characterPlayer : Character = playerUseCase.getPlayer().currentGameCharacter
     lateinit var characterEnemyAI : Character
@@ -86,9 +85,7 @@ class CombatViewModel @Inject constructor(
             }
         }
 
-        if (musicPreferences.isMusicEnabled){
-            musicPreferences.setMusicEnabledPrefs(true, false)
-        }
+        musicPreferences.setMusicEnabledPrefs(musicPreferences.isMusicEnabled, false)
     }
 
     //****************************************************************
@@ -281,14 +278,16 @@ class CombatViewModel @Inject constructor(
             }, 2500)
                             }, 2500)
 
-
-
     }
 
     fun calculateGameScore() : Int {
         var score = (characterPlayer.life * 250) + (characterPlayer.remainingHealPotions * 500) + (characterPlayer.remainingStrongAttacks * 150) + (characterPlayer.remainingVeryStrongAttacks * 250)
         playerUseCase.getPlayer().score = score
         return score
+    }
+
+    fun stopCombatMusic(){
+        musicPreferences.setMusicEnabledPrefs(musicPreferences.isMusicEnabled, true)
     }
 
     //****************************************************************
