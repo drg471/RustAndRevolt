@@ -98,6 +98,7 @@ fun PlayerControls(navigateToHomeScreen : () -> Unit, viewModel : CombatViewMode
                 .padding(top = 16.dp)
                 .height(40.dp)
                 .width(200.dp), onClick = {
+                viewModel.stopCombatMusic()
                 navigateToHomeScreen()
             }
             ) {

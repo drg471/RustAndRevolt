@@ -20,6 +20,8 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import kotlin.random.Random
+import com.drg.rustandrevolt.hilt.MyApplication.Companion.musicPreferences
+
 
 const val normalAttack = 1
 const val strongAttack = 2
@@ -36,13 +38,6 @@ class CombatViewModel @Inject constructor(
 
     val characterPlayer : Character = playerUseCase.getPlayer().currentGameCharacter
     lateinit var characterEnemyAI : Character
-    init{
-        viewModelScope.launch {
-            withContext(Dispatchers.IO) {
-                getEnemyAiCoroutine()
-            }
-        }
-    }
 
     var imagePlayerCombat : Int = getImagePlayer(characterPlayer)
     var imageEnemyCombat : Int = R.drawable.imagedflt
@@ -82,6 +77,16 @@ class CombatViewModel @Inject constructor(
         private set
     var mutableShowBtnEndGame by mutableStateOf(false)
         private set
+
+    init{
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                getEnemyAiCoroutine()
+            }
+        }
+
+        musicPreferences.setMusicEnabledPrefs(musicPreferences.isMusicEnabled, false)
+    }
 
     //****************************************************************
     suspend fun getEnemyAiCoroutine(){
@@ -273,14 +278,16 @@ class CombatViewModel @Inject constructor(
             }, 2500)
                             }, 2500)
 
-
-
     }
 
     fun calculateGameScore() : Int {
         var score = (characterPlayer.life * 250) + (characterPlayer.remainingHealPotions * 500) + (characterPlayer.remainingStrongAttacks * 150) + (characterPlayer.remainingVeryStrongAttacks * 250)
         playerUseCase.getPlayer().score = score
         return score
+    }
+
+    fun stopCombatMusic(){
+        musicPreferences.setMusicEnabledPrefs(musicPreferences.isMusicEnabled, true)
     }
 
     //****************************************************************
