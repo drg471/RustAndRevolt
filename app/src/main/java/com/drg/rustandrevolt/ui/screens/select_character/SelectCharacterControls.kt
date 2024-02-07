@@ -27,7 +27,6 @@ import com.drg.rustandrevolt.service.AppContextSingleton
 fun SelectCharacterControls(viewModel : CharacterSelectionViewModel = hiltViewModel()) {
     val context = LocalContext.current
     viewModel.context = context
-    AppContextSingleton.setContext(context)
 
     //Obtiene la lista de personajes y el indice actual del viewmodel
     val characterList = viewModel.characterList

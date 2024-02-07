@@ -12,6 +12,7 @@ import com.drg.rustandrevolt.usecases.RebelsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import com.drg.rustandrevolt.R
+import com.drg.rustandrevolt.datastore.CharacterSelectedDataStore
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -23,6 +24,7 @@ class CharacterSelectionViewModel @Inject constructor(
     private val machinesUseCase : MachinesUseCase,
     private val engineersUseCase : EngineersUseCase,
     private val playerUseCase: PlayerUseCase,
+    private val characterSelectedDataStore: CharacterSelectedDataStore,
 ) : ViewModel() {
 
     //Variables mutables para regenerar vista Compose
@@ -37,6 +39,7 @@ class CharacterSelectionViewModel @Inject constructor(
 
     var context : Context? = null
 
+
     //init = inicializa el viewmodel con una lista de personajes
     init {
 
@@ -44,8 +47,8 @@ class CharacterSelectionViewModel @Inject constructor(
         //****************************************************
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
+                characterSelectedDataStore.resetDataStore()
                 rebelsUseCase.save()
-
                 loadRebelList()
                 updatePlayerCharacter()
             }
@@ -57,24 +60,36 @@ class CharacterSelectionViewModel @Inject constructor(
 
     fun showNextCharacter() {
         currentCharacterIndex = (currentCharacterIndex + 1) % characterList.size
-        updatePlayerCharacter()
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                updatePlayerCharacter()
+            }
+        }
     }
 
     fun showPreviousCharacter() {
         currentCharacterIndex = (currentCharacterIndex - 1 + characterList.size) % characterList.size
-        updatePlayerCharacter()
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                updatePlayerCharacter()
+            }
+        }
     }
 
     fun loadMachineList(){
         resetDataList()
         characterList = machinesUseCase.getAll()
-        updatePlayerCharacter()
-    }
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                updatePlayerCharacter()
+            }
+        }    }
 
     fun loadRebelListRoom(){
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 loadRebelList()
+                updatePlayerCharacter()
             }
         }
     }
@@ -82,22 +97,28 @@ class CharacterSelectionViewModel @Inject constructor(
     fun loadRebelList(){
         resetDataList()
         characterList = rebelsUseCase.getAll()
-        updatePlayerCharacter()
     }
 
     fun loadEngineerList(){
         resetDataList()
         characterList = engineersUseCase.getAll()
-        updatePlayerCharacter()
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                updatePlayerCharacter()
+            }
+        }
     }
 
     fun resetDataList(){
-        characterList.clear()
-        currentCharacterIndex = 0
+        if (characterList.isNotEmpty()) {
+            characterList.clear()
+            currentCharacterIndex = 0
+        }
     }
 
-    fun updatePlayerCharacter(){
-        playerUseCase.setCharacter(characterList.get(currentCharacterIndex))
+
+    suspend fun updatePlayerCharacter(){
+        characterSelectedDataStore.saveCharacterName(characterList.get(currentCharacterIndex).name)
         getImage()
     }
 

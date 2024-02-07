@@ -10,6 +10,7 @@ import android.os.Handler
 import androidx.lifecycle.viewModelScope
 import com.drg.rustandrevolt.service.AppContextSingleton
 import com.drg.rustandrevolt.R
+import com.drg.rustandrevolt.datastore.CharacterSelectedDataStore
 import com.drg.rustandrevolt.service.RandomEnemyAI
 import com.drg.rustandrevolt.domain.regenerateLifeWithPotions
 import com.drg.rustandrevolt.domain.totalStrongAttacks
@@ -21,6 +22,7 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import kotlin.random.Random
 import com.drg.rustandrevolt.hilt.MyApplication.Companion.musicPreferences
+import com.drg.rustandrevolt.service.AllCharacters
 
 
 const val normalAttack = 1
@@ -32,14 +34,16 @@ const val specialAttack = 4
 class CombatViewModel @Inject constructor(
     private val playerUseCase: PlayerUseCase,
     private val randomEnemyAI: RandomEnemyAI,
+    private val allCharacters: AllCharacters,
+    private val characterSelectedDataStore: CharacterSelectedDataStore,
 ) : ViewModel() {
 
     var context : Context = AppContextSingleton.getContext()
 
-    val characterPlayer : Character = playerUseCase.getPlayer().currentGameCharacter
+    lateinit var characterPlayer : Character
     lateinit var characterEnemyAI : Character
 
-    var imagePlayerCombat : Int = getImagePlayer(characterPlayer)
+    var imagePlayerCombat : Int = R.drawable.imageusrdflt
     var imageEnemyCombat : Int = R.drawable.imagedflt
 
     private val handler = Handler(Looper.getMainLooper())
@@ -49,11 +53,13 @@ class CombatViewModel @Inject constructor(
         private set
     var mutableSeqtext by mutableStateOf("")
         private set
-    var mutablePlayerLife by mutableStateOf(characterPlayer.life.toFloat()/100)
+    var mutablePlayerLife by mutableStateOf(0f)
         private set
-    var mutablePlayerChargeSpecialAttack by mutableStateOf((characterPlayer.chargeForSpecialAttack.toFloat()/100)*2)
+    var mutablePlayerName by mutableStateOf("")
         private set
-    var mutablePlayerRemainingHealPotions by mutableStateOf(characterPlayer.remainingHealPotions)
+    var mutablePlayerChargeSpecialAttack by mutableStateOf(0f)
+        private set
+    var mutablePlayerRemainingHealPotions by mutableStateOf(0)
         private set
     var mutableEnableBtnHeal by mutableStateOf(true)
         private set
@@ -82,13 +88,23 @@ class CombatViewModel @Inject constructor(
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 getEnemyAiCoroutine()
-            }
+                getPlayerCharacterCoroutine()            }
         }
 
         musicPreferences.setMusicEnabledPrefs(musicPreferences.isMusicEnabled, false)
     }
 
     //****************************************************************
+    suspend fun getPlayerCharacterCoroutine(){
+        withContext(Dispatchers.IO) {
+            characterPlayer = allCharacters.getCharacterForName(characterSelectedDataStore.getCharacterName())
+            mutablePlayerName = characterPlayer.name
+            mutablePlayerLife = characterPlayer.life.toFloat()/100
+            mutablePlayerChargeSpecialAttack = (characterPlayer.chargeForSpecialAttack.toFloat()/100)*2
+            mutablePlayerRemainingHealPotions = characterPlayer.remainingHealPotions
+            imagePlayerCombat = getImagePlayer(characterPlayer)
+        }
+    }
     suspend fun getEnemyAiCoroutine(){
         withContext(Dispatchers.Main) {
             characterEnemyAI = randomEnemyAI.getRandomEnemyAI()

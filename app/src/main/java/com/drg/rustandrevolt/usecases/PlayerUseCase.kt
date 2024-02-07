@@ -10,12 +10,6 @@ import javax.inject.Singleton
 class PlayerUseCase @Inject constructor(
     private val playerRepository: PlayerRepository
 ) {
-    fun setCharacter (character : Character) {
-        val player : Player = playerRepository.getPlayer()
-        player.currentGameCharacter = character
-        playerRepository.setPlayer(player)
-    }
-
     fun getPlayer () : Player {
         return playerRepository.getPlayer()
     }

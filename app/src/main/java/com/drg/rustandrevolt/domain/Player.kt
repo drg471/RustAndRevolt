@@ -15,6 +15,4 @@ class Player @Inject constructor (var name : String) {
                 else -> value
             }
         }
-
-    lateinit var currentGameCharacter : Character
 }
