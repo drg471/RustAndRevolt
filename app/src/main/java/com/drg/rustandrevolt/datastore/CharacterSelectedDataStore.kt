@@ -13,22 +13,31 @@ import javax.inject.Singleton
 @Singleton
 class CharacterSelectedDataStore @Inject constructor() {
     private val dataStore = AppContextSingleton.getContext().dataStore
+    private val KEY_NAME = "name"
 
     suspend fun saveCharacterName(name: String) {
         dataStore.edit { preferences ->
-            preferences[stringPreferencesKey("name")] = name
+            preferences[stringPreferencesKey(KEY_NAME)] = name
         }
     }
 
     suspend fun getCharacterName(): String {
         val preferences = dataStore.data.first()
-        val preferencesKey = stringPreferencesKey("name")
+        val preferencesKey = stringPreferencesKey(KEY_NAME)
         return preferences[preferencesKey]!!
     }
 
     suspend fun resetDataStore() {
-        dataStore.edit { preferences ->
-            preferences.remove(stringPreferencesKey("name"))
+        if (isDataStored()) {
+            dataStore.edit { preferences ->
+                preferences.remove(stringPreferencesKey(KEY_NAME))
+            }
         }
+    }
+
+    private suspend fun isDataStored(): Boolean {
+        val preferences = dataStore.data.first()
+        val preferencesKey = stringPreferencesKey(KEY_NAME)
+        return preferences.contains(preferencesKey)
     }
 }
