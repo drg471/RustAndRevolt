@@ -40,6 +40,7 @@ fun PlayerControls(navigateToHomeScreen : () -> Unit, viewModel : CombatViewMode
 
     var playerLife = viewModel.mutablePlayerLife
     var playerChargeSpecialAttack = viewModel.mutablePlayerChargeSpecialAttack
+    var characterPlayerName = viewModel.mutablePlayerName
     var PlayerRemainingHealPotions = viewModel.mutablePlayerRemainingHealPotions
     var showSeqText = viewModel.mutableShowSeqText
     var enableBtnHeal = viewModel.mutableEnableBtnHeal
@@ -53,7 +54,7 @@ fun PlayerControls(navigateToHomeScreen : () -> Unit, viewModel : CombatViewMode
         .border(1.dp, Color.Magenta)
         .fillMaxHeight(1f)
     ){
-        Text(text = viewModel.characterPlayer.name, fontSize = 15.sp)
+        Text(text = characterPlayerName, fontSize = 15.sp)
 
         //Vida Jugador
         LinearProgressIndicator(

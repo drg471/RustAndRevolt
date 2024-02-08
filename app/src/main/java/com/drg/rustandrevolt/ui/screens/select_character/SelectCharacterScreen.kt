@@ -16,11 +16,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.rememberNavController
 import com.drg.rustandrevolt.R
+import com.drg.rustandrevolt.service.AppContextSingleton
 import com.drg.rustandrevolt.ui.navigation.AppScreens
 
 @Composable
 fun SelectCharacterScreen(navigateToCombatScreen : () -> Unit) {
     val context = LocalContext.current
+    AppContextSingleton.setContext(context)
+
     val buttonPlay : String = context.getString(R.string.button_play)
 
     //Columna principal

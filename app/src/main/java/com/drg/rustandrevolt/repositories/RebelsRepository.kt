@@ -9,7 +9,7 @@ import com.drg.rustandrevolt.room.toDomain
 import javax.inject.Inject
 import javax.inject.Singleton
 
-//REPOSITORIO PARA BASE DE DATOS ROOM
+//REPOSITORIO DE BASE DE DATOS ROOM
 @Singleton
 class RebelsRepository @Inject constructor(
     private val rebelDao: RebelDao
