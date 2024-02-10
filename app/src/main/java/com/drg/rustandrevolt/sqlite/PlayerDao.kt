@@ -48,7 +48,7 @@ class PlayerDao {
         // Consultar la base de datos para recuperar los datos del jugador
         val cursor = writablePlayerDbHelper.query(
             PlayerDBScheme.TABLE_NAME,
-            arrayOf(PlayerDBScheme.COLUMN_NAME, PlayerDBScheme.COLUMN_SCORE),
+            arrayOf(PlayerDBScheme.COLUMN_ID, PlayerDBScheme.COLUMN_NAME, PlayerDBScheme.COLUMN_SCORE),
             null, null, null, null, null
         )
 
@@ -56,21 +56,21 @@ class PlayerDao {
         if (cursor.moveToFirst()) {
             do {
                 // Verificar si la columna existe en el cursor antes de acceder a ella
-                //val idIndex = cursor.getColumnIndex(PlayerDBScheme.COLUMN_ID)
+                val idIndex = cursor.getColumnIndex(PlayerDBScheme.COLUMN_ID)
                 val nameIndex = cursor.getColumnIndex(PlayerDBScheme.COLUMN_NAME)
                 val scoreIndex = cursor.getColumnIndex(PlayerDBScheme.COLUMN_SCORE)
 
-                if (nameIndex >= 0 && scoreIndex >= 0) {
-                    //val playerId = cursor.getInt(idIndex)
+                if (nameIndex >= 0 && scoreIndex >= 0 && idIndex >= 0) {
+                    val playerId = cursor.getInt(idIndex)
                     val playerName = cursor.getString(nameIndex)
                     val playerScore = cursor.getInt(scoreIndex)
 
                     Log.d(
                         "PlayerInfo",
-                        "Player Name: $playerName, Score: $playerScore"
+                        "Player Name: $playerName, Score: $playerScore, Id: $playerId"
                     )
 
-                    PlayerEntity.id = 8989
+                    PlayerEntity.id = playerId
                     PlayerEntity.nameP = playerName
                     PlayerEntity.score = playerScore
                 }
