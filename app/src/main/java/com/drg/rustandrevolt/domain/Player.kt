@@ -6,7 +6,7 @@ import javax.inject.Singleton
 @Singleton
 class Player @Inject constructor (var name : String) {
 
-    private val id : String = ""
+    var id : Int = 0
     var score : Int = 0
         get() = field
         set (value){
