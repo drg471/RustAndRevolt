@@ -19,7 +19,13 @@ class PlayerViewModel @Inject constructor(
         private set
 
     init {
-        mutablePlayerName = playerUseCase.getPlayer().name
-        mutablePlayerScore = playerUseCase.getPlayer().score.toString()
+        if (playerUseCase.getPlayer() == null){
+            mutablePlayerName = ""
+            mutablePlayerScore = ""
+        }else{
+            mutablePlayerName = playerUseCase.getPlayer().name
+            mutablePlayerScore = playerUseCase.getPlayer().score.toString()
+        }
+
     }
 }
