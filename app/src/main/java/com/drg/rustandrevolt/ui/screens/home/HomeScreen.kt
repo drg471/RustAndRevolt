@@ -34,6 +34,8 @@ fun HomeScreen(
     val appName : String = context.getString(R.string.app_name)
     AppContextSingleton.setContext(context)
 
+    viewModel.initRetrofit()
+
     //Scaffold con una barra de aplicaciones y un cuerpo de contenido simple
     Scaffold(
         topBar = {
