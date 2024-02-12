@@ -9,17 +9,17 @@ class MachinesRepository @Inject constructor() {
         val machinesDataList : MutableList<MutableList<String>> = mutableListOf()
 
         val machine1DataList : MutableList<String> = mutableListOf(
-            "Maquina 1",
-            "imagedflt3",
-            "imageusrdflt",
-            "imagedflt3"
+            "Voltatron",
+            "maquina1",
+            "maquina1combplayer",
+            "maquina1comb"
         )
 
         val machine2DataList : MutableList<String> = mutableListOf(
-            "Maquina 2",
-            "imagedflt4",
-            "imageusrdflt",
-            "imagedflt4"
+            "Steelcrank",
+            "maquina2",
+            "maquina2combplayer",
+            "maquina2comb"
         )
 
         machinesDataList.add(machine1DataList)

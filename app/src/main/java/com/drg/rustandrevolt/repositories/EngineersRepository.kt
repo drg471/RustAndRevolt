@@ -9,17 +9,17 @@ class EngineersRepository @Inject constructor() {
         val engineersDataList : MutableList<MutableList<String>> = mutableListOf()
 
         val engineer1DataList : MutableList<String> = mutableListOf(
-            "Ingeniero 1",
-            "imagedflt5",
-            "imageusrdflt",
-            "imagedflt5"
+            "Profesor Cogsworth",
+            "ingeniero",
+            "ingenierocombplayer",
+            "ingenierocomb"
         )
 
         val engineer2DataList : MutableList<String> = mutableListOf(
-            "Ingeniero 2",
-            "imagedflt6",
-            "imageusrdflt",
-            "imagedflt6"
+            "Sable Steamshadow",
+            "ingeniera",
+            "ingenieracombplayer",
+            "ingenieracomb"
         )
 
         engineersDataList.add(engineer1DataList)

@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import com.drg.rustandrevolt.domain.Character
 import dagger.hilt.android.lifecycle.HiltViewModel
 import android.os.Handler
+import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.drg.rustandrevolt.service.AppContextSingleton
 import com.drg.rustandrevolt.R
@@ -43,12 +44,13 @@ class CombatViewModel @Inject constructor(
     lateinit var characterPlayer : Character
     lateinit var characterEnemyAI : Character
 
-    var imagePlayerCombat : Int = R.drawable.imageusrdflt
     var imageEnemyCombat : Int = R.drawable.imagedflt
 
     private val handler = Handler(Looper.getMainLooper())
 
     //Variables mutables para regenerar vista Compose
+    var imagePlayerCombat by mutableStateOf(R.drawable.imagedflt)
+        private set
     var mutableShowSeqText by mutableStateOf(false)
         private set
     var mutableSeqtext by mutableStateOf("")
@@ -103,6 +105,9 @@ class CombatViewModel @Inject constructor(
             mutablePlayerChargeSpecialAttack = (characterPlayer.chargeForSpecialAttack.toFloat()/100)*2
             mutablePlayerRemainingHealPotions = characterPlayer.remainingHealPotions
             imagePlayerCombat = getImagePlayer(characterPlayer)
+            Log.d("Player_image",characterPlayer.imageCombatPlayerResource)
+            Log.d("ID_image",R.drawable.rebeldeh.toString())
+
         }
     }
     suspend fun getEnemyAiCoroutine(){
@@ -118,7 +123,7 @@ class CombatViewModel @Inject constructor(
         if (context!= null){
             return context!!.resources.getIdentifier(player.imageCombatPlayerResource, "drawable", context!!.packageName)
         }
-        return R.drawable.imageusrdflt
+        return R.drawable.imagedflt
     }
 
     fun getImageEnemy(enemy : Character) : Int{
