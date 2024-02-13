@@ -31,6 +31,7 @@ import com.drg.rustandrevolt.viewmodels.PlayerViewModel
 @Composable
 fun PlayerScreen(navigateToHomeScreen : () -> Unit, viewModel: PlayerViewModel = hiltViewModel()) {
     val context = LocalContext.current
+    viewModel.context = context
     val playerName : String = viewModel.mutablePlayerName
     val playerScore : String = viewModel.mutablePlayerScore
     val buttonReturn : String = context.getString(R.string.button_return)
@@ -66,7 +67,10 @@ fun PlayerScreen(navigateToHomeScreen : () -> Unit, viewModel: PlayerViewModel =
             .align(Alignment.CenterHorizontally)
             .padding(top = 16.dp)
             .height(40.dp)
-            .width(200.dp), onClick = { navigateToHomeScreen() } //Vuelve a la ultima página guardada en pila
+            .width(200.dp), onClick = {
+                viewModel.buttonSound()
+                navigateToHomeScreen() //Vuelve a la ultima página guardada en pila
+            }
         ) {
             Text(buttonReturn)
         }

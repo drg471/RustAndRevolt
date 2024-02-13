@@ -14,17 +14,24 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.rememberNavController
 import com.drg.rustandrevolt.R
 import com.drg.rustandrevolt.service.AppContextSingleton
 import com.drg.rustandrevolt.ui.navigation.AppScreens
+import com.drg.rustandrevolt.viewmodels.CharacterSelectionViewModel
 
 @Composable
-fun SelectCharacterScreen(navigateToCombatScreen : () -> Unit) {
+fun SelectCharacterScreen(
+    navigateToCombatScreen : () -> Unit,
+    viewModel : CharacterSelectionViewModel = hiltViewModel()
+    ) {
     val context = LocalContext.current
     AppContextSingleton.setContext(context)
 
     val buttonPlay : String = context.getString(R.string.button_play)
+
+    viewModel.context = context
 
     //Columna principal
     Column(
@@ -45,6 +52,7 @@ fun SelectCharacterScreen(navigateToCombatScreen : () -> Unit) {
             .align(Alignment.CenterHorizontally)
             .padding(top = 16.dp),
             onClick = {
+                viewModel.buttonPlaySound()
                 navigateToCombatScreen()
             }
         ) {

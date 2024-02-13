@@ -3,6 +3,7 @@ package com.drg.rustandrevolt.sound
 import android.content.Context
 import android.media.MediaPlayer
 import com.drg.rustandrevolt.R
+import kotlin.random.Random
 
 class MusicPlayer(private val context: Context) {
 
@@ -14,9 +15,20 @@ class MusicPlayer(private val context: Context) {
         mediaPlayer = MediaPlayer()
 
         when{
-            inMenu -> resourceId = getMenuMusic()
+            inMenu -> resourceId = Music.getRandomMenuMusic()
             else -> resourceId = getCombatMusic()
         }
+        val assetFileDescriptor = context.resources.openRawResourceFd(resourceId)
+
+        mediaPlayer?.setDataSource(assetFileDescriptor.fileDescriptor, assetFileDescriptor.startOffset, assetFileDescriptor.length)
+        mediaPlayer?.prepare()
+        mediaPlayer?.start()
+    }
+
+    fun playFX(resourceId: Int) {
+        releaseMediaPlayer()
+        mediaPlayer = MediaPlayer()
+
         val assetFileDescriptor = context.resources.openRawResourceFd(resourceId)
 
         mediaPlayer?.setDataSource(assetFileDescriptor.fileDescriptor, assetFileDescriptor.startOffset, assetFileDescriptor.length)
@@ -33,9 +45,6 @@ class MusicPlayer(private val context: Context) {
         mediaPlayer = null
     }
 
-    private fun getMenuMusic(): Int{
-        return R.raw.musicmenu1
-    }
     private fun getCombatMusic(): Int{
         return R.raw.musiccomb1
     }

@@ -6,6 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.drg.rustandrevolt.retrofit.RetrofitService
 import com.drg.rustandrevolt.sharedpreferences.MusicPreferences
+import com.drg.rustandrevolt.sound.FxButtons
+import com.drg.rustandrevolt.sound.MusicPlayer
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -14,6 +16,10 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor() : ViewModel() {
     @Inject
     lateinit var retrofitService: RetrofitService
+
+    lateinit var context: Context
+
+
     fun initRetrofit(){
         //******************************************************
         //RETROFIT
@@ -26,6 +32,13 @@ class HomeViewModel @Inject constructor() : ViewModel() {
             }
         }
         //******************************************************
+    }
+
+    fun buttonSound(){
+        if (MusicPreferences.isMusicEnabledCompanion) {
+            val musicPlayer = MusicPlayer(context)
+            musicPlayer.playFX(FxButtons.FxButton1)
+        }
     }
 
 

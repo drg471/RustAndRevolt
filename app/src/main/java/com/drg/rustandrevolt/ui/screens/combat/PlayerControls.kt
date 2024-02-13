@@ -99,6 +99,7 @@ fun PlayerControls(navigateToHomeScreen : () -> Unit, viewModel : CombatViewMode
                 .padding(top = 16.dp)
                 .height(40.dp)
                 .width(200.dp), onClick = {
+                viewModel.buttonEndGameSound()
                 viewModel.stopCombatMusic()
                 navigateToHomeScreen()
             }
@@ -120,7 +121,11 @@ fun PlayerControls(navigateToHomeScreen : () -> Unit, viewModel : CombatViewMode
                     .background(Color.White)
                     .height(120.dp)
                     .width(70.dp),
-                    onClick = { viewModel.playerHealSequence() },
+                    onClick = {
+                        viewModel.buttonSelectControlSound()
+                        viewModel.potionLifeSound()
+                        viewModel.playerHealSequence()
+                              },
                     colors = ButtonDefaults.buttonColors(containerColor = Color.Green),
                     shape = RoundedCornerShape(10.dp),
                     contentPadding = PaddingValues(0.dp),
@@ -134,7 +139,11 @@ fun PlayerControls(navigateToHomeScreen : () -> Unit, viewModel : CombatViewMode
                     .background(Color.White)
                     .height(120.dp)
                     .width(70.dp),
-                    onClick = { viewModel.playerAttackSequence(normalAttack) },
+                    onClick = {
+                        viewModel.buttonSelectControlSound()
+                        viewModel.attack1Sound()
+                        viewModel.playerAttackSequence(normalAttack)
+                              },
                     colors = ButtonDefaults.buttonColors(containerColor = Color.Red),
                     shape = RoundedCornerShape(10.dp),
                     contentPadding = PaddingValues(0.dp)
@@ -147,7 +156,11 @@ fun PlayerControls(navigateToHomeScreen : () -> Unit, viewModel : CombatViewMode
                     .background(Color.White)
                     .height(120.dp)
                     .width(70.dp),
-                    onClick = { viewModel.playerAttackSequence(strongAttack) },
+                    onClick = {
+                        viewModel.buttonSelectControlSound()
+                        viewModel.attack2Sound()
+                        viewModel.playerAttackSequence(strongAttack)
+                              },
                     colors = ButtonDefaults.buttonColors(containerColor = Color.Red),
                     shape = RoundedCornerShape(10.dp),
                     contentPadding = PaddingValues(0.dp),
@@ -161,7 +174,11 @@ fun PlayerControls(navigateToHomeScreen : () -> Unit, viewModel : CombatViewMode
                     .background(Color.White)
                     .height(120.dp)
                     .width(70.dp),
-                    onClick = { viewModel.playerAttackSequence(veryStrongAttack) },
+                    onClick = {
+                        viewModel.buttonSelectControlSound()
+                        viewModel.attack3Sound()
+                        viewModel.playerAttackSequence(veryStrongAttack)
+                              },
                     colors = ButtonDefaults.buttonColors(containerColor = Color.Red),
                     shape = RoundedCornerShape(10.dp),
                     contentPadding = PaddingValues(0.dp),
@@ -175,7 +192,11 @@ fun PlayerControls(navigateToHomeScreen : () -> Unit, viewModel : CombatViewMode
                     .background(Color.White)
                     .height(120.dp)
                     .width(70.dp),
-                    onClick = { viewModel.playerAttackSequence(specialAttack) },
+                    onClick = {
+                        viewModel.buttonSelectControlSound()
+                        viewModel.superAttackSound()
+                        viewModel.playerAttackSequence(specialAttack)
+                              },
                     colors = ButtonDefaults.buttonColors(containerColor = Color.Blue),
                     shape = RoundedCornerShape(10.dp),
                     contentPadding = PaddingValues(0.dp),

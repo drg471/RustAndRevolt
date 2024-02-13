@@ -31,18 +31,18 @@ class RebelsUseCase @Inject constructor(
 
         rebelsRepository.saveRebel(
             Rebel(
-                "Rebelde One",
-                "imagedflt",
-                "imageusrdflt",
-                "imagedflt"
+                "Luna Steamweaver",
+                "rebeldem",
+                "rebeldemcombplayer",
+                "rebeldemcomb"
             )
         )
         rebelsRepository.saveRebel(
             Rebel(
-                "Rebelde 2",
-                "imagedflt2",
-                "imageusrdflt",
-                "imagedflt2"
+                "Captain Gearheart",
+                "rebeldeh",
+                "rebeldehcombplayer",
+                "rebeldehcomb"
             )
         )
     }

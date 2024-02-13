@@ -22,20 +22,26 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.drg.rustandrevolt.R
+import com.drg.rustandrevolt.viewmodels.HomeViewModel
 
 @Composable
 fun HomeScreenElements(
     paddingValues: PaddingValues,
     navigateToOptionsScreen : () -> Unit,
     navigateToSelectCharacterScreen : () -> Unit,
-    navigavigateToPlayerScreen : () -> Unit
+    navigavigateToPlayerScreen : () -> Unit,
+    viewModel: HomeViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
     val buttonStartGame : String = context.getString(R.string.button_start_game)
     val buttonPlayer : String = context.getString(R.string.button_player)
     val buttonOptions : String = context.getString(R.string.button_options)
     val buttonExit : String = context.getString(R.string.button_exit)
+
+    viewModel.context = context
+
 
     //Columna principal
     Column(
@@ -64,6 +70,7 @@ fun HomeScreenElements(
             .padding(top = 16.dp)
             .height(40.dp)
             .width(200.dp), onClick = {
+                viewModel.buttonSound()
                 navigateToSelectCharacterScreen()
             }
         ) {
@@ -76,8 +83,9 @@ fun HomeScreenElements(
             .padding(top = 16.dp)
             .height(40.dp)
             .width(200.dp), onClick = {
-            navigavigateToPlayerScreen()
-            }
+                viewModel.buttonSound()
+                navigavigateToPlayerScreen()
+        }
         ) {
             Text(buttonPlayer)
         }
@@ -88,8 +96,9 @@ fun HomeScreenElements(
             .padding(top = 16.dp)
             .height(40.dp)
             .width(200.dp), onClick = {
+                viewModel.buttonSound()
                 navigateToOptionsScreen()
-            }
+        }
         ) {
             Text(buttonOptions)
         }
@@ -102,7 +111,8 @@ fun HomeScreenElements(
             .padding(top = 16.dp)
             .height(40.dp)
             .width(200.dp), onClick = {
-            System.exit(0)
+                viewModel.buttonSound()
+                System.exit(0)
             }
         ) {
             Text(buttonExit)

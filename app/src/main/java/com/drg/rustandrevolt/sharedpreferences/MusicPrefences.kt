@@ -15,6 +15,10 @@ class MusicPreferences (val context: Context) {
     private val sharedPreferences: SharedPreferences =
         context.getSharedPreferences("MusicPrefs", 0)
 
+    companion object{
+        var isMusicEnabledCompanion: Boolean = false
+    }
+
     var isMusicEnabled: Boolean by mutableStateOf(sharedPreferences.getBoolean("isMusicEnabled", true))
         private set
 
@@ -22,6 +26,7 @@ class MusicPreferences (val context: Context) {
 
     init{
         setMusicEnabledPrefs(isMusicEnabled, true)
+        isMusicEnabledCompanion = isMusicEnabled
     }
 
     fun setMusicEnabledPrefs(enabled: Boolean, inMenu: Boolean) {
@@ -34,5 +39,7 @@ class MusicPreferences (val context: Context) {
         else{
             musicPlayer.stop()
         }
+
+        isMusicEnabledCompanion = isMusicEnabled
     }
 }

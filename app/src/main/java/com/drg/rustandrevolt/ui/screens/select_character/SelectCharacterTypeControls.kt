@@ -30,6 +30,11 @@ import com.drg.rustandrevolt.viewmodels.CharacterSelectionViewModel
 fun SelectCharacterTypeControls(viewModel : CharacterSelectionViewModel = hiltViewModel()) {
     val context = LocalContext.current
     val selectCharacter : String = context.getString(R.string.selectCharacter)
+    val characterTypeRebel : String = context.getString(R.string.characterTypeRebel)
+    val characterTypeEngineer : String = context.getString(R.string.characterTypeEngineer)
+    val characterTypeMachine : String = context.getString(R.string.characterTypeMachine)
+
+    viewModel.context = context
 
     //Columna 1 (label + botones tipos personaje)
     Column (modifier = Modifier
@@ -73,19 +78,25 @@ fun SelectCharacterTypeControls(viewModel : CharacterSelectionViewModel = hiltVi
                     //Boton Tipo Personaje Rebelde
                     Button(modifier = Modifier
                         .height(40.dp)
-                        .width(80.dp)
-                        , onClick = { viewModel.loadRebelListRoom() }
+                        .width(110.dp)
+                        , onClick = {
+                            viewModel.buttonSelectCharacterTypeSound()
+                            viewModel.loadRebelListRoom()
+                        }
                     ) {
-                        Text("PRe")
+                        Text(characterTypeRebel)
                     }
 
                     //Boton Tipo Personaje Ingeniero
                     Button(modifier = Modifier
                         .height(40.dp)
-                        .width(80.dp)
-                        , onClick = { viewModel.loadEngineerList() }
+                        .width(110.dp)
+                        , onClick = {
+                            viewModel.buttonSelectCharacterTypeSound()
+                            viewModel.loadEngineerList()
+                        }
                     ) {
-                        Text("PIn")
+                        Text(characterTypeEngineer)
                     }
                 }
 
@@ -101,11 +112,14 @@ fun SelectCharacterTypeControls(viewModel : CharacterSelectionViewModel = hiltVi
                     //Boton Tipo Personaje Maquina
                     Button(modifier = Modifier
                         .height(40.dp)
-                        .width(80.dp)
+                        .width(110.dp)
                         .align(Alignment.Bottom)
-                        , onClick = { viewModel.loadMachineList() }
+                        , onClick = {
+                            viewModel.buttonSelectCharacterTypeSound()
+                            viewModel.loadMachineList()
+                        }
                     ) {
-                        Text("PMa")
+                        Text(characterTypeMachine)
                     }
                 }
             }
