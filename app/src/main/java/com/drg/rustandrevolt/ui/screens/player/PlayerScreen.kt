@@ -1,5 +1,6 @@
 package com.drg.rustandrevolt.ui.screens.player
 
+import androidx.compose.foundation.border
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -16,6 +17,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -34,13 +36,29 @@ fun PlayerScreen(navigateToHomeScreen : () -> Unit, viewModel: PlayerViewModel =
     viewModel.context = context
     val playerName : String = viewModel.mutablePlayerName
     val playerScore : String = viewModel.mutablePlayerScore
+    val phraseOfDay : String = viewModel.phraseOfDay
     val buttonReturn : String = context.getString(R.string.button_return)
+
+    viewModel.initRetrofit()
 
     Column (modifier = Modifier
         .fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ){
+
+        //Frase del dia
+        Text(
+            text = phraseOfDay,
+            fontSize = 16.sp,
+            color = Color.Blue,
+            modifier = Modifier
+                .align(Alignment.CenterHorizontally)
+                .padding(20.dp)
+                .border(1.dp, Color.Black).padding(10.dp)
+        )
+
+        Spacer(modifier = Modifier.height(75.dp))
 
         //Nombre Player
         Text(
@@ -60,7 +78,7 @@ fun PlayerScreen(navigateToHomeScreen : () -> Unit, viewModel: PlayerViewModel =
                 .align(Alignment.CenterHorizontally)
         )
 
-        Spacer(modifier = Modifier.height(100.dp))
+        Spacer(modifier = Modifier.height(75.dp))
 
         //Boton volver a pantalla Home
         Button(modifier = Modifier
@@ -74,6 +92,7 @@ fun PlayerScreen(navigateToHomeScreen : () -> Unit, viewModel: PlayerViewModel =
         ) {
             Text(buttonReturn)
         }
+
     }
 }
 
