@@ -13,6 +13,9 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import com.drg.rustandrevolt.R
 import com.drg.rustandrevolt.datastore.CharacterSelectedDataStore
+import com.drg.rustandrevolt.sharedpreferences.MusicPreferences
+import com.drg.rustandrevolt.sound.FX
+import com.drg.rustandrevolt.sound.MusicPlayer
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -127,4 +130,27 @@ class CharacterSelectionViewModel @Inject constructor(
             currentImageIndex = context!!.resources.getIdentifier(characterList.get(currentCharacterIndex).imageCardResource, "drawable", context!!.packageName)
         }
     }
+
+    //*********************
+    //Sounds
+    fun buttonSelectCharacterTypeSound(){
+        if (MusicPreferences.isMusicEnabledCompanion) {
+            val musicPlayer = MusicPlayer(context!!)
+            musicPlayer.playFX(FX.FxButtonSelectCharacterType)
+        }
+    }
+    fun buttonPlaySound(){
+        if (MusicPreferences.isMusicEnabledCompanion){
+            val musicPlayer = MusicPlayer(context!!)
+            musicPlayer.playFX(FX.FxButtonPlay)
+        }
+    }
+
+    fun buttonChangeCharacterSound(){
+        if (MusicPreferences.isMusicEnabledCompanion) {
+            val musicPlayer = MusicPlayer(context!!)
+            musicPlayer.playFX(FX.FxButtonChangeCharacter)
+        }
+    }
+    //*********************
 }

@@ -15,6 +15,9 @@
     <string name="button_play">JUGAR</string>
     <string name="selectCharacter">Selección Personaje</string>
     <string name="characterName">Nombre Personaje</string>
+    <string name="characterTypeEngineer">Ingeniero</string>
+    <string name="characterTypeRebel">Rebelde</string>
+    <string name="characterTypeMachine">Máquina</string>
     <!-- combate -->
     <string name="enemyName">Nombre Enemigo</string>
     <string name="button_end_game">FIN PARTIDA</string>

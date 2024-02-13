@@ -24,6 +24,9 @@ import javax.inject.Inject
 import kotlin.random.Random
 import com.drg.rustandrevolt.hilt.MyApplication.Companion.musicPreferences
 import com.drg.rustandrevolt.service.AllCharacters
+import com.drg.rustandrevolt.sharedpreferences.MusicPreferences
+import com.drg.rustandrevolt.sound.FX
+import com.drg.rustandrevolt.sound.MusicPlayer
 
 
 const val normalAttack = 1
@@ -307,8 +310,25 @@ class CombatViewModel @Inject constructor(
         return score
     }
 
+    //****************************************************************
+    //Music & Sounds
+
     fun stopCombatMusic(){
         musicPreferences.setMusicEnabledPrefs(musicPreferences.isMusicEnabled, true)
+    }
+
+    fun buttonSelectControlSound(){
+        if (MusicPreferences.isMusicEnabledCompanion) {
+            val musicPlayer = MusicPlayer(context!!)
+            musicPlayer.playFX(FX.FxButtonSelectPlayerControl)
+        }
+    }
+
+    fun buttonEndGameSound(){
+        if (MusicPreferences.isMusicEnabledCompanion) {
+            val musicPlayer = MusicPlayer(context!!)
+            musicPlayer.playFX(FX.FxButtonEndGame)
+        }
     }
 
     //****************************************************************

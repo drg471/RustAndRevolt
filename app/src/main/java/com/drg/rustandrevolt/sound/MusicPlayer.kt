@@ -25,6 +25,17 @@ class MusicPlayer(private val context: Context) {
         mediaPlayer?.start()
     }
 
+    fun playFX(resourceId: Int) {
+        releaseMediaPlayer()
+        mediaPlayer = MediaPlayer()
+
+        val assetFileDescriptor = context.resources.openRawResourceFd(resourceId)
+
+        mediaPlayer?.setDataSource(assetFileDescriptor.fileDescriptor, assetFileDescriptor.startOffset, assetFileDescriptor.length)
+        mediaPlayer?.prepare()
+        mediaPlayer?.start()
+    }
+
     fun stop() {
         releaseMediaPlayer()
     }

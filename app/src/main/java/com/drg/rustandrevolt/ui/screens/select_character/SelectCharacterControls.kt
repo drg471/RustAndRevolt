@@ -55,7 +55,10 @@ fun SelectCharacterControls(viewModel : CharacterSelectionViewModel = hiltViewMo
             Button(modifier = Modifier
                 .align(Alignment.CenterVertically)
                 .padding(start = 15.dp)
-                , onClick = { viewModel.showPreviousCharacter() }
+                , onClick = {
+                    viewModel.buttonChangeCharacterSound()
+                    viewModel.showPreviousCharacter()
+                }
             ) {
                 Text("<-")
             }
@@ -74,7 +77,10 @@ fun SelectCharacterControls(viewModel : CharacterSelectionViewModel = hiltViewMo
             Button(modifier = Modifier
                 .align(Alignment.CenterVertically)
                 .padding(end = 15.dp)
-                , onClick = { viewModel.showNextCharacter() }
+                , onClick = {
+                    viewModel.buttonChangeCharacterSound()
+                    viewModel.showNextCharacter()
+                }
             ) {
                 Text("->")
             }

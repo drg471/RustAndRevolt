@@ -20,16 +20,21 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.drg.rustandrevolt.R
 import com.drg.rustandrevolt.hilt.MyApplication.Companion.musicPreferences
 import com.drg.rustandrevolt.ui.theme.RustAndRevoltTheme
+import com.drg.rustandrevolt.viewmodels.HomeViewModel
+import com.drg.rustandrevolt.viewmodels.OptionsViewModel
 
 @Composable
 fun OptionsScreen(
     navigateToHomeScreen : () -> Unit,
-    navigateToInstructionsScreen : () -> Unit
+    navigateToInstructionsScreen : () -> Unit,
+    viewModel: OptionsViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
+    viewModel.context = context
 
     val buttonSoundOnOff : String = context.getString(R.string.button_sound_onoff)
     val buttonInstructions : String = context.getString(R.string.button_instructions)
@@ -48,6 +53,7 @@ fun OptionsScreen(
             Switch(
                 checked = musicPreferences.isMusicEnabled,
                 onCheckedChange = { isChecked ->
+                    viewModel.buttonSound()
                     musicPreferences.setMusicEnabledPrefs(isChecked, true)
                 },
                 modifier = Modifier.padding(top = 10.dp)
@@ -60,7 +66,10 @@ fun OptionsScreen(
             .align(Alignment.CenterHorizontally)
             .padding(top = 16.dp)
             .height(40.dp)
-            .width(200.dp), onClick = { navigateToInstructionsScreen() }
+            .width(200.dp), onClick = {
+                viewModel.buttonSound()
+                navigateToInstructionsScreen()
+            }
         ) {
             Text(buttonInstructions)
         }
@@ -70,7 +79,10 @@ fun OptionsScreen(
             .align(Alignment.CenterHorizontally)
             .padding(top = 16.dp)
             .height(40.dp)
-            .width(200.dp), onClick = { navigateToHomeScreen() } //Vuelve a la ultima página guardada en pila
+            .width(200.dp), onClick = {
+                viewModel.buttonSound()
+                navigateToHomeScreen()
+            } //Vuelve a la ultima página guardada en pila
         ) {
             Text(buttonReturn)
         }
