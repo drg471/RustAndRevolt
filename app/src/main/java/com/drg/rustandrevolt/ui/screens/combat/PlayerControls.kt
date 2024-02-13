@@ -123,6 +123,7 @@ fun PlayerControls(navigateToHomeScreen : () -> Unit, viewModel : CombatViewMode
                     .width(70.dp),
                     onClick = {
                         viewModel.buttonSelectControlSound()
+                        viewModel.potionLifeSound()
                         viewModel.playerHealSequence()
                               },
                     colors = ButtonDefaults.buttonColors(containerColor = Color.Green),
@@ -140,6 +141,7 @@ fun PlayerControls(navigateToHomeScreen : () -> Unit, viewModel : CombatViewMode
                     .width(70.dp),
                     onClick = {
                         viewModel.buttonSelectControlSound()
+                        viewModel.attack1Sound()
                         viewModel.playerAttackSequence(normalAttack)
                               },
                     colors = ButtonDefaults.buttonColors(containerColor = Color.Red),
@@ -156,6 +158,7 @@ fun PlayerControls(navigateToHomeScreen : () -> Unit, viewModel : CombatViewMode
                     .width(70.dp),
                     onClick = {
                         viewModel.buttonSelectControlSound()
+                        viewModel.attack2Sound()
                         viewModel.playerAttackSequence(strongAttack)
                               },
                     colors = ButtonDefaults.buttonColors(containerColor = Color.Red),
@@ -173,6 +176,7 @@ fun PlayerControls(navigateToHomeScreen : () -> Unit, viewModel : CombatViewMode
                     .width(70.dp),
                     onClick = {
                         viewModel.buttonSelectControlSound()
+                        viewModel.attack3Sound()
                         viewModel.playerAttackSequence(veryStrongAttack)
                               },
                     colors = ButtonDefaults.buttonColors(containerColor = Color.Red),
@@ -190,6 +194,7 @@ fun PlayerControls(navigateToHomeScreen : () -> Unit, viewModel : CombatViewMode
                     .width(70.dp),
                     onClick = {
                         viewModel.buttonSelectControlSound()
+                        viewModel.superAttackSound()
                         viewModel.playerAttackSequence(specialAttack)
                               },
                     colors = ButtonDefaults.buttonColors(containerColor = Color.Blue),

@@ -6,7 +6,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import com.drg.rustandrevolt.sharedpreferences.MusicPreferences
-import com.drg.rustandrevolt.sound.FX
+import com.drg.rustandrevolt.sound.FxButtons
 import com.drg.rustandrevolt.sound.MusicPlayer
 import com.drg.rustandrevolt.usecases.PlayerUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -37,7 +37,7 @@ class PlayerViewModel @Inject constructor(
     fun buttonSound(){
         if (MusicPreferences.isMusicEnabledCompanion) {
             val musicPlayer = MusicPlayer(context)
-            musicPlayer.playFX(FX.FxButton1)
+            musicPlayer.playFX(FxButtons.FxButton1)
         }
     }
 }

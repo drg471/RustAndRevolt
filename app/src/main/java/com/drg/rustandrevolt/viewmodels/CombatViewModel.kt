@@ -25,7 +25,8 @@ import kotlin.random.Random
 import com.drg.rustandrevolt.hilt.MyApplication.Companion.musicPreferences
 import com.drg.rustandrevolt.service.AllCharacters
 import com.drg.rustandrevolt.sharedpreferences.MusicPreferences
-import com.drg.rustandrevolt.sound.FX
+import com.drg.rustandrevolt.sound.FxButtons
+import com.drg.rustandrevolt.sound.FxPlayerCards
 import com.drg.rustandrevolt.sound.MusicPlayer
 
 
@@ -190,6 +191,8 @@ class CombatViewModel @Inject constructor(
                 mutableEnemyAIDamage = "+${regenerateLifeWithPotions}"
                 mutableEnemyAILife = characterEnemyAI.life.toFloat()/100
 
+                potionLifeSound()
+
                 handler.postDelayed({
                     mutableEnemyAIDamage = ""
                     mutableEnemyAIDamageRedColor = true
@@ -207,9 +210,17 @@ class CombatViewModel @Inject constructor(
 
         //Atack
         when{
-            characterEnemyAI.checkEspecialAttack() -> attackOption = specialAttack
-            else -> attackOption = getEnemyAiTypeAttack() //Realiza ataque aleatorio
+            characterEnemyAI.checkEspecialAttack() -> {
+                attackOption = specialAttack
+                superAttackSound()
+            }
+            else -> {
+                //Realiza ataque aleatorio
+                attackOption = getEnemyAiTypeAttack()
+                attackEnemySound(attackOption)
+            }
         }
+
 
         characterEnemyAI.attack(characterPlayer, attackOption)
 
@@ -320,14 +331,58 @@ class CombatViewModel @Inject constructor(
     fun buttonSelectControlSound(){
         if (MusicPreferences.isMusicEnabledCompanion) {
             val musicPlayer = MusicPlayer(context!!)
-            musicPlayer.playFX(FX.FxButtonSelectPlayerControl)
+            musicPlayer.playFX(FxButtons.FxButtonSelectPlayerControl)
         }
     }
 
     fun buttonEndGameSound(){
         if (MusicPreferences.isMusicEnabledCompanion) {
             val musicPlayer = MusicPlayer(context!!)
-            musicPlayer.playFX(FX.FxButtonEndGame)
+            musicPlayer.playFX(FxButtons.FxButtonEndGame)
+        }
+    }
+
+    //**************
+    //FX card Sounds
+    fun potionLifeSound(){
+        if (MusicPreferences.isMusicEnabledCompanion) {
+            val musicPlayer = MusicPlayer(context!!)
+            musicPlayer.playFX(FxPlayerCards.fxPotionLife)
+        }
+    }
+
+    fun attack1Sound(){
+        if (MusicPreferences.isMusicEnabledCompanion) {
+            val musicPlayer = MusicPlayer(context!!)
+            musicPlayer.playFX(FxPlayerCards.fxCardAttack1)
+        }
+    }
+
+    fun attack2Sound(){
+        if (MusicPreferences.isMusicEnabledCompanion) {
+            val musicPlayer = MusicPlayer(context!!)
+            musicPlayer.playFX(FxPlayerCards.fxCardAttack2)
+        }
+    }
+
+    fun attack3Sound(){
+        if (MusicPreferences.isMusicEnabledCompanion) {
+            val musicPlayer = MusicPlayer(context!!)
+            musicPlayer.playFX(FxPlayerCards.fxCardAttack3)
+        }
+    }
+
+    fun superAttackSound(){
+        if (MusicPreferences.isMusicEnabledCompanion) {
+            val musicPlayer = MusicPlayer(context!!)
+            musicPlayer.playFX(FxPlayerCards.fxCardSuperAttack)
+        }
+    }
+
+    fun attackEnemySound(index: Int){
+        if (MusicPreferences.isMusicEnabledCompanion) {
+            val musicPlayer = MusicPlayer(context!!)
+            musicPlayer.playFX(FxPlayerCards.fxList.get(index-1))
         }
     }
 
