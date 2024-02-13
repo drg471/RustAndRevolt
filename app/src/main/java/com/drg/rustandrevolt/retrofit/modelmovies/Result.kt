@@ -1,4 +1,4 @@
-package com.drg.rustandrevolt.retrofit.model
+package com.drg.rustandrevolt.retrofit.modelmovies
 
 data class MovieResult(
     val adult: Boolean,

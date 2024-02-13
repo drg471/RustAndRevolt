@@ -1,7 +1,6 @@
 package com.drg.rustandrevolt.retrofit
 
-import android.app.Application
-import com.drg.rustandrevolt.retrofit.model.RemoteResult
+import com.drg.rustandrevolt.retrofit.modelmovies.RemoteResult
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -13,7 +12,7 @@ import retrofit2.http.Query
 import javax.inject.Singleton
 
 @Singleton
-interface RetrofitService {
+interface RetrofitMoviesService {
     @GET("discover/movie?sort_by=popularity.desc")
     suspend fun listPopularMovies(
         @Query("api_key") apiKey: String,
@@ -23,13 +22,13 @@ interface RetrofitService {
 
 @Module
 @InstallIn(SingletonComponent::class)
-object RetrofitServiceFactory{
+object RetrofitMoviesServiceFactory{
     @Provides
     @Singleton
-    fun makeRetrofitService(): RetrofitService{
+    fun makeRetrofitService(): RetrofitMoviesService {
         return Retrofit.Builder()
             .baseUrl("https://api.themoviedb.org/3/")
             .addConverterFactory(GsonConverterFactory.create())
-            .build().create(RetrofitService::class.java)
+            .build().create(RetrofitMoviesService::class.java)
     }
 }
