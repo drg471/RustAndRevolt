@@ -1,5 +1,6 @@
 package com.drg.rustandrevolt.ui.screens.home
 
+import android.graphics.Typeface
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -13,6 +14,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -20,11 +22,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.drg.rustandrevolt.R
 import com.drg.rustandrevolt.viewmodels.HomeViewModel
+import androidx.compose.ui.text.font.FontFamily
 
 @Composable
 fun HomeScreenElements(
@@ -42,23 +47,26 @@ fun HomeScreenElements(
 
     viewModel.context = context
 
+    val typeface = Font(R.font.rumble_brave)
+    val backgroundColor = 0xFF02474c //#02474c
+    val buttonColor = 0xFFf1883b //#f1883b
+
 
     //Columna principal
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .border(1.dp, Color.Red)
             .padding(paddingValues)
+            .background(Color(color = backgroundColor))
         , Arrangement.Center
     ) {
 
         //Imagen Logo
         Image(
-            painter = painterResource(R.drawable.logodflt),
+            painter = painterResource(R.drawable.rnr_logo11),
             contentDescription = null,
             modifier = Modifier
                 .size(width = 300.dp, height = 300.dp)
-                .border(1.dp, Color.Black)
                 .align(Alignment.CenterHorizontally)
         )
 
@@ -72,9 +80,17 @@ fun HomeScreenElements(
             .width(200.dp), onClick = {
                 viewModel.buttonSound()
                 navigateToSelectCharacterScreen()
-            }
+            },
+            colors = ButtonDefaults.buttonColors(Color(buttonColor))
         ) {
-            Text(buttonStartGame)
+            Text(
+                text = buttonStartGame,
+                style = TextStyle(
+                    fontFamily = FontFamily(typeface),
+                    fontSize = 18.sp,
+                    letterSpacing = 2.sp
+                )
+            )
         }
 
         //Boton Player
@@ -85,9 +101,17 @@ fun HomeScreenElements(
             .width(200.dp), onClick = {
                 viewModel.buttonSound()
                 navigavigateToPlayerScreen()
-        }
+            },
+            colors = ButtonDefaults.buttonColors(Color(buttonColor))
         ) {
-            Text(buttonPlayer)
+            Text(
+                text = buttonPlayer,
+                style = TextStyle(
+                    fontFamily = FontFamily(typeface),
+                    fontSize = 18.sp,
+                    letterSpacing = 2.sp
+                )
+            )
         }
 
         //Boton Opciones
@@ -98,9 +122,17 @@ fun HomeScreenElements(
             .width(200.dp), onClick = {
                 viewModel.buttonSound()
                 navigateToOptionsScreen()
-        }
+            },
+            colors = ButtonDefaults.buttonColors(Color(buttonColor))
         ) {
-            Text(buttonOptions)
+            Text(
+                text = buttonOptions,
+                style = TextStyle(
+                    fontFamily = FontFamily(typeface),
+                    fontSize = 18.sp,
+                    letterSpacing = 2.sp
+                )
+            )
         }
 
         Spacer(modifier = Modifier.height(20.dp))
@@ -113,9 +145,17 @@ fun HomeScreenElements(
             .width(200.dp), onClick = {
                 viewModel.buttonSound()
                 System.exit(0)
-            }
+            },
+            colors = ButtonDefaults.buttonColors(Color(buttonColor))
         ) {
-            Text(buttonExit)
+            Text(
+                text = buttonExit,
+                style = TextStyle(
+                    fontFamily = FontFamily(typeface),
+                    fontSize = 18.sp,
+                    letterSpacing = 2.sp
+                )
+            )
         }
     }
 }

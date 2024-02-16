@@ -88,7 +88,11 @@ class CombatViewModel @Inject constructor(
     var mutablePlayerDamage by mutableStateOf("")
         private set
     var mutableShowBtnEndGame by mutableStateOf(false)
-        private set
+
+    var mutablePotionImage by mutableStateOf(R.drawable.c_potiongreencarta)
+    var mutableStrongAttackImage by mutableStateOf(R.drawable.c_punonegrocartarojamas)
+    var mutableVeryStrongAttackImage by mutableStateOf(R.drawable.c_punonegrocartarojamasmas)
+    var mutableSpecialAttackImage by mutableStateOf(R.drawable.c_superataquecartabn)
 
     init{
         viewModelScope.launch {
@@ -154,6 +158,8 @@ class CombatViewModel @Inject constructor(
             mutablePlayerDamageRedColor = true
             enableBtnsPlayerControl()
         }, 1500) // 1500 milisegundos
+
+        if (mutablePlayerRemainingHealPotions == 0) mutablePotionImage = R.drawable.c_potiongreencartablanconegro
     }
 
     fun playerAttackSequence (attackType : Int){
@@ -175,6 +181,10 @@ class CombatViewModel @Inject constructor(
             }
         }, 1500)
 
+        if (characterPlayer.remainingStrongAttacks == 0) mutableStrongAttackImage = R.drawable.c_punoblanconegrocartarojamas
+        if (characterPlayer.remainingVeryStrongAttacks == 0) mutableVeryStrongAttackImage = R.drawable.c_punoblanconegrocartarojamasmas
+        if (characterPlayer.chargeForSpecialAttack >= 50) mutableSpecialAttackImage = R.drawable.c_superataquecarta
+        else mutableSpecialAttackImage = R.drawable.c_superataquecartabn
     }
     //****************************************************************
     //ENEMY AI
