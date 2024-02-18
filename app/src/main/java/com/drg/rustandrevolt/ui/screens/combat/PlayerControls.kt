@@ -30,6 +30,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -38,6 +39,7 @@ import com.drg.rustandrevolt.domain.normalAttack
 import com.drg.rustandrevolt.domain.specialAttack
 import com.drg.rustandrevolt.domain.strongAttack
 import com.drg.rustandrevolt.domain.veryStrongAttack
+import com.drg.rustandrevolt.ui.screens.home.TYPEFACE
 import com.drg.rustandrevolt.viewmodels.CombatViewModel
 
 @Composable
@@ -62,10 +64,24 @@ fun PlayerControls(navigateToHomeScreen : () -> Unit, viewModel : CombatViewMode
 
     Column (modifier = Modifier
         .fillMaxWidth()
-        .border(1.dp, Color.Magenta)
+        .border(3.dp, Color.Black)
         .fillMaxHeight(1f)
+        .padding(10.dp)
     ){
-        Text(text = characterPlayerName, fontSize = 15.sp)
+        Text(
+            text = characterPlayerName,
+            color = Color.White,
+            style = TextStyle(
+                fontFamily = FontFamily(TYPEFACE),
+                fontSize = 18.sp,
+                letterSpacing = 2.sp,
+                shadow = Shadow(
+                    color = Color.Black, // Color del borde
+                    blurRadius = 4f, // Radio del desenfoque
+                    offset = Offset(2f, 2f) // Desplazamiento del borde
+                )
+            )
+        )
 
         //Vida Jugador
         LinearProgressIndicator(
@@ -91,14 +107,15 @@ fun PlayerControls(navigateToHomeScreen : () -> Unit, viewModel : CombatViewMode
 
         Spacer(modifier = Modifier
             .fillMaxWidth()
-            .height(25.dp))
+            .height(20.dp))
 
         if (showSeqText){
             //Texto mensajes secuencias
             Row(modifier = Modifier
                 .fillMaxSize()
-                .border(1.dp, Color.Magenta)
-                , verticalAlignment = Alignment.CenterVertically
+                .border(3.dp, Color.Black)
+                .background(Color.White),
+                verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
                     text = viewModel.mutableSeqtext,
@@ -127,9 +144,8 @@ fun PlayerControls(navigateToHomeScreen : () -> Unit, viewModel : CombatViewMode
         else{
             //Fila de botones
             Row(modifier = Modifier
-                .fillMaxWidth()
-                .border(1.dp, Color.Black)
-                ,horizontalArrangement = Arrangement.SpaceBetween
+                .fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
             ) {
 
                 //Botón de Vida
@@ -171,7 +187,6 @@ fun PlayerControls(navigateToHomeScreen : () -> Unit, viewModel : CombatViewMode
 
                 //Botón de Ataque 1
                 Button(modifier = Modifier
-                    .background(Color.White)
                     .height(120.dp)
                     .width(70.dp),
                     onClick = {
@@ -195,7 +210,6 @@ fun PlayerControls(navigateToHomeScreen : () -> Unit, viewModel : CombatViewMode
 
                 //Botón de Ataque 2
                 Button(modifier = Modifier
-                    .background(Color.White)
                     .height(120.dp)
                     .width(70.dp),
                     onClick = {
@@ -220,7 +234,6 @@ fun PlayerControls(navigateToHomeScreen : () -> Unit, viewModel : CombatViewMode
 
                 //Botón de Ataque 3
                 Button(modifier = Modifier
-                    .background(Color.White)
                     .height(120.dp)
                     .width(70.dp),
                     onClick = {
@@ -245,7 +258,6 @@ fun PlayerControls(navigateToHomeScreen : () -> Unit, viewModel : CombatViewMode
 
                 //Botón de Ataque Especial
                 Button(modifier = Modifier
-                    .background(Color.White)
                     .height(120.dp)
                     .width(70.dp),
                     onClick = {

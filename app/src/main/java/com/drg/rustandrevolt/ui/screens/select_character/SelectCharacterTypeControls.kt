@@ -13,17 +13,25 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shadow
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.drg.rustandrevolt.R
+import com.drg.rustandrevolt.ui.screens.home.BACKGROUND_COLOR
+import com.drg.rustandrevolt.ui.screens.home.BUTTON_COLOR
+import com.drg.rustandrevolt.ui.screens.home.TYPEFACE
 import com.drg.rustandrevolt.viewmodels.CharacterSelectionViewModel
 
 @Composable
@@ -47,24 +55,30 @@ fun SelectCharacterTypeControls(viewModel : CharacterSelectionViewModel = hiltVi
         Text(text = "Columna 1")
         Text(
             text = selectCharacter,
-            fontSize = 24.sp,
+            color = Color.White,
+            style = TextStyle(
+                fontFamily = FontFamily(TYPEFACE),
+                fontSize = 30.sp,
+                letterSpacing = 2.sp,
+                shadow = Shadow(
+                    color = Color.Black, // Color del borde
+                    blurRadius = 4f, // Radio del desenfoque
+                    offset = Offset(2f, 2f) // Desplazamiento del borde
+                )
+            ),
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)
         )
 
         //Contenedor de botones de tipos de personaje
         Box(modifier = Modifier
-            .background(Color.Yellow)
+            .background(Color(BACKGROUND_COLOR))
             .align(Alignment.CenterHorizontally)
             .size(width = 250.dp, height = 150.dp)
             .border(1.dp, Color.Blue)
         ){
             //Columna de botones de seleccion del tipo
             Column {
-                Text(modifier = Modifier
-                    .align(Alignment.CenterHorizontally),
-                    text = "Botones tipo personaje"
-                )
 
                 Spacer(modifier = Modifier
                     .fillMaxWidth()
@@ -78,25 +92,41 @@ fun SelectCharacterTypeControls(viewModel : CharacterSelectionViewModel = hiltVi
                     //Boton Tipo Personaje Rebelde
                     Button(modifier = Modifier
                         .height(40.dp)
-                        .width(110.dp)
-                        , onClick = {
+                        .width(112.dp),
+                        colors = ButtonDefaults.buttonColors(Color(BUTTON_COLOR)),
+                        onClick = {
                             viewModel.buttonSelectCharacterTypeSound()
                             viewModel.loadRebelListRoom()
                         }
                     ) {
-                        Text(characterTypeRebel)
+                        Text(
+                            text = characterTypeRebel,
+                            style = TextStyle(
+                                fontFamily = FontFamily(TYPEFACE),
+                                fontSize = 15.sp,
+                                letterSpacing = 2.sp
+                            )
+                        )
                     }
 
                     //Boton Tipo Personaje Ingeniero
                     Button(modifier = Modifier
                         .height(40.dp)
-                        .width(110.dp)
-                        , onClick = {
+                        .width(114.dp),
+                        colors = ButtonDefaults.buttonColors(Color(BUTTON_COLOR)),
+                        onClick = {
                             viewModel.buttonSelectCharacterTypeSound()
                             viewModel.loadEngineerList()
                         }
                     ) {
-                        Text(characterTypeEngineer)
+                        Text(
+                            text = characterTypeEngineer,
+                            style = TextStyle(
+                                fontFamily = FontFamily(TYPEFACE),
+                                fontSize = 15.sp,
+                                letterSpacing = 2.sp
+                            )
+                        )
                     }
                 }
 
@@ -112,14 +142,22 @@ fun SelectCharacterTypeControls(viewModel : CharacterSelectionViewModel = hiltVi
                     //Boton Tipo Personaje Maquina
                     Button(modifier = Modifier
                         .height(40.dp)
-                        .width(110.dp)
-                        .align(Alignment.Bottom)
-                        , onClick = {
+                        .width(112.dp)
+                        .align(Alignment.Bottom),
+                        colors = ButtonDefaults.buttonColors(Color(BUTTON_COLOR)),
+                        onClick = {
                             viewModel.buttonSelectCharacterTypeSound()
                             viewModel.loadMachineList()
                         }
                     ) {
-                        Text(characterTypeMachine)
+                        Text(
+                            text = characterTypeMachine,
+                            style = TextStyle(
+                                fontFamily = FontFamily(TYPEFACE),
+                                fontSize = 15.sp,
+                                letterSpacing = 2.sp
+                            )
+                        )
                     }
                 }
             }

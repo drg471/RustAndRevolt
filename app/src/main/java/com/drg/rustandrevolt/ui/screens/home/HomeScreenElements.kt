@@ -1,9 +1,7 @@
 package com.drg.rustandrevolt.ui.screens.home
 
-import android.graphics.Typeface
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -31,6 +29,11 @@ import com.drg.rustandrevolt.R
 import com.drg.rustandrevolt.viewmodels.HomeViewModel
 import androidx.compose.ui.text.font.FontFamily
 
+val BACKGROUND_COLOR = 0xFF02474c //#02474c
+val BUTTON_COLOR = 0xFFf1883b //#f1883b
+val TYPEFACE = Font(R.font.rumble_brave)
+
+
 @Composable
 fun HomeScreenElements(
     paddingValues: PaddingValues,
@@ -47,30 +50,26 @@ fun HomeScreenElements(
 
     viewModel.context = context
 
-    val typeface = Font(R.font.rumble_brave)
-    val backgroundColor = 0xFF02474c //#02474c
-    val buttonColor = 0xFFf1883b //#f1883b
-
 
     //Columna principal
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(paddingValues)
-            .background(Color(color = backgroundColor))
+            .padding()
+            .background(Color(color = BACKGROUND_COLOR))
         , Arrangement.Center
     ) {
 
         //Imagen Logo
         Image(
-            painter = painterResource(R.drawable.rnr_logo11),
+            painter = painterResource(R.drawable.rnrlogo),
             contentDescription = null,
             modifier = Modifier
-                .size(width = 300.dp, height = 300.dp)
+                .size(width = 350.dp, height = 350.dp)
                 .align(Alignment.CenterHorizontally)
         )
 
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(10.dp))
 
         //Boton Iniciar Partida
         Button(modifier = Modifier
@@ -81,12 +80,12 @@ fun HomeScreenElements(
                 viewModel.buttonSound()
                 navigateToSelectCharacterScreen()
             },
-            colors = ButtonDefaults.buttonColors(Color(buttonColor))
+            colors = ButtonDefaults.buttonColors(Color(BUTTON_COLOR))
         ) {
             Text(
                 text = buttonStartGame,
                 style = TextStyle(
-                    fontFamily = FontFamily(typeface),
+                    fontFamily = FontFamily(TYPEFACE),
                     fontSize = 18.sp,
                     letterSpacing = 2.sp
                 )
@@ -102,12 +101,12 @@ fun HomeScreenElements(
                 viewModel.buttonSound()
                 navigavigateToPlayerScreen()
             },
-            colors = ButtonDefaults.buttonColors(Color(buttonColor))
+            colors = ButtonDefaults.buttonColors(Color(BUTTON_COLOR))
         ) {
             Text(
                 text = buttonPlayer,
                 style = TextStyle(
-                    fontFamily = FontFamily(typeface),
+                    fontFamily = FontFamily(TYPEFACE),
                     fontSize = 18.sp,
                     letterSpacing = 2.sp
                 )
@@ -123,12 +122,12 @@ fun HomeScreenElements(
                 viewModel.buttonSound()
                 navigateToOptionsScreen()
             },
-            colors = ButtonDefaults.buttonColors(Color(buttonColor))
+            colors = ButtonDefaults.buttonColors(Color(BUTTON_COLOR))
         ) {
             Text(
                 text = buttonOptions,
                 style = TextStyle(
-                    fontFamily = FontFamily(typeface),
+                    fontFamily = FontFamily(TYPEFACE),
                     fontSize = 18.sp,
                     letterSpacing = 2.sp
                 )
@@ -146,12 +145,12 @@ fun HomeScreenElements(
                 viewModel.buttonSound()
                 System.exit(0)
             },
-            colors = ButtonDefaults.buttonColors(Color(buttonColor))
+            colors = ButtonDefaults.buttonColors(Color(BUTTON_COLOR))
         ) {
             Text(
                 text = buttonExit,
                 style = TextStyle(
-                    fontFamily = FontFamily(typeface),
+                    fontFamily = FontFamily(TYPEFACE),
                     fontSize = 18.sp,
                     letterSpacing = 2.sp
                 )
