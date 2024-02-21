@@ -45,30 +45,30 @@ fun SelectCharacterControls(viewModel : CharacterSelectionViewModel = hiltViewMo
     //Columna 2 (SlidePictureBox + label nombre personaje)
     Column (modifier = Modifier
         .fillMaxWidth()
-        .border(1.dp, Color.Green)
+//        .border(1.dp, Color.Green)
         .fillMaxHeight(0.85f)
     ){
-        Text(text = "Columna 2")
+//        Text(text = "Columna 2")
 
         Row (
             modifier = Modifier
                 .fillMaxWidth()
                 .fillMaxHeight(0.90f)
-                .border(1.dp, Color.Black)
+//                .border(1.dp, Color.Black)
                 .align(Alignment.CenterHorizontally),
             Arrangement.SpaceBetween
         ) {
             //Boton Atras
             Button(modifier = Modifier
                 .align(Alignment.CenterVertically)
-                .padding(start = 15.dp),
+                .padding(start = 10.dp),
                 colors = ButtonDefaults.buttonColors(Color(BUTTON_COLOR)),
                 onClick = {
                     viewModel.buttonChangeCharacterSound()
                     viewModel.showPreviousCharacter()
                 }
             ) {
-                Text("<-")
+                Text(text = "<", fontSize = 24.sp)
             }
 
             //Imagen Personaje
@@ -83,14 +83,15 @@ fun SelectCharacterControls(viewModel : CharacterSelectionViewModel = hiltViewMo
 
             //Boton Adelante
             Button(modifier = Modifier
-                .align(Alignment.CenterVertically),
+                .align(Alignment.CenterVertically)
+                .padding(end = 10.dp),
                 colors = ButtonDefaults.buttonColors(Color(BUTTON_COLOR)),
                 onClick = {
                     viewModel.buttonChangeCharacterSound()
                     viewModel.showNextCharacter()
                 }
             ) {
-                Text("->")
+                Text(">", fontSize = 24.sp)
             }
         }
 

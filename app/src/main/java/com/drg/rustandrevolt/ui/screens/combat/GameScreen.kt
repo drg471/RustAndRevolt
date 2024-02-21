@@ -19,6 +19,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.paint
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shadow
@@ -32,6 +33,13 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.drg.rustandrevolt.R
 import com.drg.rustandrevolt.ui.screens.home.TYPEFACE
 import com.drg.rustandrevolt.viewmodels.CombatViewModel
+import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.ImageShader
+import androidx.compose.ui.graphics.TileMode
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.imageResource
 
 @Composable
 fun GameScreen(viewModel : CombatViewModel = hiltViewModel()) {
@@ -49,96 +57,110 @@ fun GameScreen(viewModel : CombatViewModel = hiltViewModel()) {
 
     //Pantalla de juego
 
-
-    //Columna -> Nombre Enemigo + Vida Enemigo + box imagenes personajes
-    Column(modifier = Modifier
+    Box(modifier = Modifier
         .fillMaxWidth()
-        .border(1.dp, Color.Red)
         .fillMaxHeight(0.7f)
-        .background(Color.White)
+        .border(3.dp, Color.Black)
+        .paint(
+            painterResource(id = R.drawable.cmb_background1),
+            contentScale = ContentScale.FillBounds)
     ) {
-        //Text(text = "Pantalla juego", fontSize = 15.sp)
-
-        //Texto Nombre Enemigo
-        Text(
-            text = enemyAIName,
-            color = Color.White,
-            style = TextStyle(
-                fontFamily = FontFamily(TYPEFACE),
-                fontSize = 20.sp,
-                letterSpacing = 2.sp,
-                shadow = Shadow(
-                    color = Color.Black, // Color del borde
-                    blurRadius = 10f, // Radio del desenfoque
-                    offset = Offset(1f, 1f) // Desplazamiento del borde
-                )
+        //Columna -> Nombre Enemigo + Vida Enemigo + box imagenes personajes
+        Column(modifier = Modifier
+            .fillMaxSize()
+        ) {
+            //Texto Nombre Enemigo
+            Text(
+                text = enemyAIName,
+                color = Color.White,
+                style = TextStyle(
+                    fontFamily = FontFamily(TYPEFACE),
+                    fontSize = 20.sp,
+                    letterSpacing = 2.sp,
+                    shadow = Shadow(
+                        color = Color.Black, // Color del borde
+                        blurRadius = 10f, // Radio del desenfoque
+                        offset = Offset(1f, 1f) // Desplazamiento del borde
+                    )
+                ),
+                modifier = Modifier.padding(8.dp)
             )
-        )
 
-        //Vida Enemigo
-        LinearProgressIndicator(
-            progress = enemyAILife,
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(15.dp),
-            color = if (enemyAILife < 0.25f) Color.Red else if (enemyAILife < 0.5f && enemyAILife > 0.3f) Color.Yellow else Color.Green
-        )
-
-        //Contenedor de Imagenes de Personajes en la batalla
-        Box(
-            modifier = Modifier.fillMaxSize()
-        ){
-            //Fila Imagen enemigo + daño
-            Row (
+            Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(300.dp)
-                    .border(1.dp, Color.Black),
-                horizontalArrangement = Arrangement.End
-
-            ){
-                Text(
-                    text = enemyAIDamage,
-                    fontSize = 50.sp,
+                    .padding(horizontal = 10.dp) // Añadimos margen horizontal de 16dp
+            ) {
+                LinearProgressIndicator(
+                    progress = enemyAILife,
                     modifier = Modifier
-                        .border(1.dp, Color.Black)
-                        .align(Alignment.CenterVertically),
-                    color = if (enemyAIDamageRedColor) Color.Red else Color.Green
-                )
-
-
-                Image(
-                    painter = painterResource(enemyImage),
-                    contentDescription = null,
-                    modifier = Modifier
-                        .size(width = 150.dp, height = 300.dp)
-                        .border(1.dp, Color.Black)
+                        .weight(1f) // Ocupa el espacio restante
+                        .height(15.dp),
+                    color = when {
+                        enemyAILife < 0.25f -> Color.Red
+                        enemyAILife < 0.5f -> Color.Yellow
+                        else -> Color.Green
+                    }
                 )
             }
 
-            //Fila Imagen jugador + daño
-            Row (
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(210.dp)
-                    .border(1.dp, Color.Black).align(Alignment.BottomStart)
-            ) {
-                Image(
-                    painter = painterResource(playerImage),
-                    contentDescription = null,
+            //Contenedor de Imagenes de Personajes en la batalla
+            Box(
+                modifier = Modifier.fillMaxSize()
+            ){
+                //Fila Imagen enemigo + daño
+                Row (
                     modifier = Modifier
-                        .size(width = 230.dp, height = 175.dp)
-                        .border(1.dp, Color.Black)
-                        .align(Alignment.Bottom)
-                )
-                Text(
-                    text = playerDamage,
-                    fontSize = 50.sp,
+                        .fillMaxWidth()
+                        .height(300.dp)
+                        .border(1.dp, Color.Black),
+                    horizontalArrangement = Arrangement.End
+
+                ){
+                    Text(
+                        text = enemyAIDamage,
+                        fontSize = 50.sp,
+                        modifier = Modifier
+                            .border(1.dp, Color.Black)
+                            .align(Alignment.CenterVertically),
+                        color = if (enemyAIDamageRedColor) Color.Red else Color.Green
+                    )
+
+
+                    Image(
+                        painter = painterResource(enemyImage),
+                        contentDescription = null,
+                        modifier = Modifier
+                            .size(width = 150.dp, height = 300.dp)
+                            .border(1.dp, Color.Black)
+                    )
+                }
+
+                //Fila Imagen jugador + daño
+                Row (
                     modifier = Modifier
+                        .fillMaxWidth()
+                        .height(210.dp)
                         .border(1.dp, Color.Black)
-                        .align(Alignment.CenterVertically),
-                    color = if (playerDamageRedColor) Color.Red else Color.Green
-                )
+                        .align(Alignment.BottomStart)
+                ) {
+                    Image(
+                        painter = painterResource(playerImage),
+                        contentDescription = null,
+                        modifier = Modifier
+                            .size(width = 230.dp, height = 175.dp)
+                            .border(1.dp, Color.Black)
+                            .align(Alignment.Bottom)
+                    )
+                    Text(
+                        text = playerDamage,
+                        fontSize = 50.sp,
+                        modifier = Modifier
+                            .border(1.dp, Color.Black)
+                            .align(Alignment.CenterVertically),
+                        color = if (playerDamageRedColor) Color.Red else Color.Green
+                    )
+                }
             }
         }
     }

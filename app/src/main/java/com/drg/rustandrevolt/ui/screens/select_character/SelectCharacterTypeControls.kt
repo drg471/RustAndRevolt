@@ -47,12 +47,15 @@ fun SelectCharacterTypeControls(viewModel : CharacterSelectionViewModel = hiltVi
     //Columna 1 (label + botones tipos personaje)
     Column (modifier = Modifier
         .fillMaxWidth()
-        .border(1.dp, Color.Blue)
+//        .border(1.dp, Color.Blue)
         .fillMaxHeight(0.25f)
     ){
 
         //Titulo - Seleccion de Personaje
-        Text(text = "Columna 1")
+//        Text(text = "Columna 1")
+
+        Spacer(modifier = Modifier.fillMaxWidth().height(10.dp))
+
         Text(
             text = selectCharacter,
             color = Color.White,
@@ -75,7 +78,7 @@ fun SelectCharacterTypeControls(viewModel : CharacterSelectionViewModel = hiltVi
             .background(Color(BACKGROUND_COLOR))
             .align(Alignment.CenterHorizontally)
             .size(width = 250.dp, height = 150.dp)
-            .border(1.dp, Color.Blue)
+//            .border(1.dp, Color.Blue)
         ){
             //Columna de botones de seleccion del tipo
             Column {

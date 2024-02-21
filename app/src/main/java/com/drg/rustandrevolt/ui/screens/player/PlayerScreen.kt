@@ -58,11 +58,7 @@ fun PlayerScreen(navigateToHomeScreen : () -> Unit, viewModel: PlayerViewModel =
         //Frase del dia
         Text(
             text = phraseOfDay,
-            style = TextStyle(
-                fontFamily = FontFamily(TYPEFACE),
-                fontSize = 16.sp,
-                color = Color.Black
-            ),
+            fontSize = 16.sp,
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)
                 .background(Color.White)

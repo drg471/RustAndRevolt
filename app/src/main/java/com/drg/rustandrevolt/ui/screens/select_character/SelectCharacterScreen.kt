@@ -44,7 +44,7 @@ fun SelectCharacterScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .border(1.dp, Color.Red)
+//            .border(1.dp, Color.Red)
             .background(Color(color = BACKGROUND_COLOR)),
     ) {
 

@@ -39,6 +39,7 @@ import com.drg.rustandrevolt.domain.normalAttack
 import com.drg.rustandrevolt.domain.specialAttack
 import com.drg.rustandrevolt.domain.strongAttack
 import com.drg.rustandrevolt.domain.veryStrongAttack
+import com.drg.rustandrevolt.ui.screens.home.BUTTON_COLOR
 import com.drg.rustandrevolt.ui.screens.home.TYPEFACE
 import com.drg.rustandrevolt.viewmodels.CombatViewModel
 
@@ -120,6 +121,7 @@ fun PlayerControls(navigateToHomeScreen : () -> Unit, viewModel : CombatViewMode
                 Text(
                     text = viewModel.mutableSeqtext,
                     fontSize = 20.sp,
+                    color = Color.Black,
                     modifier = Modifier
                         .padding(10.dp)
                 )
@@ -131,13 +133,22 @@ fun PlayerControls(navigateToHomeScreen : () -> Unit, viewModel : CombatViewMode
                 .align(Alignment.CenterHorizontally)
                 .padding(top = 16.dp)
                 .height(40.dp)
-                .width(200.dp), onClick = {
+                .width(200.dp),
+                colors = ButtonDefaults.buttonColors(Color(BUTTON_COLOR)),
+                onClick = {
                 viewModel.buttonEndGameSound()
                 viewModel.stopCombatMusic()
                 navigateToHomeScreen()
             }
             ) {
-                Text(buttonEndGame)
+                Text(
+                    text = buttonEndGame,
+                    style = TextStyle(
+                        fontFamily = FontFamily(TYPEFACE),
+                        fontSize = 18.sp,
+                        letterSpacing = 2.sp
+                    )
+                )
             }
 
         }
