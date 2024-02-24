@@ -90,7 +90,7 @@ fun PlayerControls(navigateToHomeScreen : () -> Unit, viewModel : CombatViewMode
             modifier = Modifier
                 .fillMaxWidth()
                 .height(15.dp),
-            color = if (playerLife < 0.25f) Color.Red else if (playerLife < 0.5f && playerLife > 0.3f) Color.Yellow else Color.Green,
+            color = if (playerLife <= 0.25f) Color.Red else if (playerLife in 0.3f..0.5f) Color.Yellow else Color.Green,
         )
 
         Spacer(modifier = Modifier

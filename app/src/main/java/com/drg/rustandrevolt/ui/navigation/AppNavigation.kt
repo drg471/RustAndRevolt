@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.drg.rustandrevolt.ui.legal.LegalScreen
 import com.drg.rustandrevolt.ui.screens.combat.CombatScreen
 import com.drg.rustandrevolt.ui.screens.home.HomeScreen
 import com.drg.rustandrevolt.ui.screens.instructions.InstructionsScreen
@@ -42,6 +43,12 @@ fun AppNavigation(){
             }
             InstructionsScreen(navigateToHomeScreen)
         }
+        composable(route = AppScreens.LegalScreen.route){ navBackStackEntry ->
+            val navigateToHomeScreen: () -> Unit = {
+                navController.navigate(AppScreens.HomeScreen.route)
+            }
+            LegalScreen(navigateToHomeScreen)
+        }
         composable(route = AppScreens.OptionsScreen.route){ navBackStackEntry ->
             val navigateToHomeScreen: () -> Unit = {
                 navController.navigate(AppScreens.HomeScreen.route)
@@ -49,7 +56,10 @@ fun AppNavigation(){
             val navigateToInstructionsScreen: () -> Unit = {
                 navController.navigate(AppScreens.InstructionsScreen.route)
             }
-            OptionsScreen(navigateToHomeScreen,navigateToInstructionsScreen)
+            val navigateToLegalScreen: () -> Unit = {
+                navController.navigate(AppScreens.LegalScreen.route)
+            }
+            OptionsScreen(navigateToHomeScreen,navigateToInstructionsScreen, navigateToLegalScreen)
         }
         composable(route = AppScreens.SelectCharacterScreen.route){ navBackStackEntry ->
             val navigateToCombatScreen : () -> Unit = {

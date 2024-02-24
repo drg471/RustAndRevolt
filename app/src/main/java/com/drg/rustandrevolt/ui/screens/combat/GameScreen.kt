@@ -1,5 +1,6 @@
 package com.drg.rustandrevolt.ui.screens.combat
 
+import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -8,12 +9,14 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -69,6 +72,9 @@ fun GameScreen(viewModel : CombatViewModel = hiltViewModel()) {
         Column(modifier = Modifier
             .fillMaxSize()
         ) {
+
+            Spacer(modifier = Modifier.height(10.dp))
+
             //Texto Nombre Enemigo
             Text(
                 text = enemyAIName,
@@ -83,7 +89,9 @@ fun GameScreen(viewModel : CombatViewModel = hiltViewModel()) {
                         offset = Offset(1f, 1f) // Desplazamiento del borde
                     )
                 ),
-                modifier = Modifier.padding(8.dp)
+                modifier = Modifier
+                    .align(Alignment.End)
+                    .padding(end = 10.dp)
             )
 
             Row(
@@ -92,16 +100,17 @@ fun GameScreen(viewModel : CombatViewModel = hiltViewModel()) {
                     .padding(horizontal = 10.dp) // Añadimos margen horizontal de 16dp
             ) {
                 LinearProgressIndicator(
-                    progress = enemyAILife,
+                    progress = enemyAILife, // (1.0f) Invertir la dirección de llenado
                     modifier = Modifier
                         .weight(1f) // Ocupa el espacio restante
                         .height(15.dp),
                     color = when {
-                        enemyAILife < 0.25f -> Color.Red
-                        enemyAILife < 0.5f -> Color.Yellow
+                        enemyAILife <= 0.25f -> Color.Red
+                        enemyAILife <= 0.5f -> Color.Yellow
                         else -> Color.Green
                     }
                 )
+                Log.i("enemyAILife", enemyAILife.toString())
             }
 
             //Contenedor de Imagenes de Personajes en la batalla

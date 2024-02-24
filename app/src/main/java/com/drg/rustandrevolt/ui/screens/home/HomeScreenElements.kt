@@ -30,6 +30,7 @@ import com.drg.rustandrevolt.viewmodels.HomeViewModel
 import androidx.compose.ui.text.font.FontFamily
 
 val BACKGROUND_COLOR = 0xFF02474c //#02474c
+val SEC_BACKGROUND_COLOR = 0xFF006679 //#006679
 val BUTTON_COLOR = 0xFFf1883b //#f1883b
 val TYPEFACE = Font(R.font.rumble_brave)
 

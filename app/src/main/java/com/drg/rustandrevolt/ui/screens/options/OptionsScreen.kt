@@ -43,6 +43,7 @@ import com.drg.rustandrevolt.viewmodels.OptionsViewModel
 fun OptionsScreen(
     navigateToHomeScreen : () -> Unit,
     navigateToInstructionsScreen : () -> Unit,
+    navigateToLegalScreen : () -> Unit,
     viewModel: OptionsViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
@@ -51,6 +52,7 @@ fun OptionsScreen(
     val buttonSoundOnOff : String = context.getString(R.string.button_sound_onoff)
     val buttonInstructions : String = context.getString(R.string.button_instructions)
     val buttonReturn : String = context.getString(R.string.button_return)
+    val buttonLegal : String = context.getString(R.string.button_legal)
 
     Column (modifier = Modifier
         .fillMaxSize()
@@ -60,7 +62,11 @@ fun OptionsScreen(
     ){
 
 
-        Row(){
+        Row(
+            modifier = Modifier,
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically
+        ){
             //Switch Quitar Sonido App
             Text(
                 text = buttonSoundOnOff,
@@ -72,7 +78,7 @@ fun OptionsScreen(
                 )
             )
 
-            Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.height(10.dp).width(10.dp))
 
             CustomColoredSwitch(
                 checked = musicPreferences.isMusicEnabled,
@@ -106,6 +112,30 @@ fun OptionsScreen(
                 )
             )
         }
+
+        //Boton Legal
+        Button(modifier = Modifier
+            .align(Alignment.CenterHorizontally)
+            .padding(top = 16.dp)
+            .height(40.dp)
+            .width(200.dp),
+            colors = ButtonDefaults.buttonColors(Color(BUTTON_COLOR))
+            , onClick = {
+                viewModel.buttonSound()
+                navigateToLegalScreen()
+            }
+        ) {
+            Text(
+                text = buttonLegal,
+                style = TextStyle(
+                    fontFamily = FontFamily(TYPEFACE),
+                    fontSize = 18.sp,
+                    letterSpacing = 2.sp
+                )
+            )
+        }
+
+        Spacer(modifier = Modifier.height(50.dp))
 
         //Boton volver a pantalla Home
         Button(modifier = Modifier
@@ -164,7 +194,8 @@ fun OptionsScreenPreview() {
         ) {
             OptionsScreen(
                 navigateToHomeScreen = {},
-                navigateToInstructionsScreen = {}
+                navigateToInstructionsScreen = {},
+                navigateToLegalScreen = {}
             )
         }
     }
