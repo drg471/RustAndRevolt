@@ -61,13 +61,14 @@ fun OptionsScreen(
         horizontalAlignment = Alignment.CenterHorizontally
     ){
 
+        var isVibration = viewModel.isVibration
 
+        //Switch Quitar Sonido App
         Row(
             modifier = Modifier,
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
         ){
-            //Switch Quitar Sonido App
             Text(
                 text = buttonSoundOnOff,
                 style = TextStyle(
@@ -85,6 +86,34 @@ fun OptionsScreen(
                 onCheckedChange = { isChecked ->
                     viewModel.buttonSound()
                     musicPreferences.setMusicEnabledPrefs(isChecked, true)
+                },
+                modifier = Modifier.padding(top = 10.dp),
+            )
+        }
+
+        //Switch Quitar Vibracion App
+        Row(
+            modifier = Modifier,
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically
+        ){
+            Text(
+                text = "Vibración Off/On",
+                style = TextStyle(
+                    fontFamily = FontFamily(TYPEFACE),
+                    fontSize = 18.sp,
+                    letterSpacing = 2.sp,
+                    color = Color.White
+                )
+            )
+
+            Spacer(modifier = Modifier.height(10.dp).width(10.dp))
+
+            CustomColoredSwitch(
+                checked = isVibration,
+                onCheckedChange = { isChecked ->
+                    viewModel.activateVibration(isChecked)
+                    //musicPreferences.setMusicEnabledPrefs(isChecked, true)
                 },
                 modifier = Modifier.padding(top = 10.dp),
             )

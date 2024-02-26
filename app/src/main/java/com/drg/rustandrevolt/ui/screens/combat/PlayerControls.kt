@@ -274,6 +274,7 @@ fun PlayerControls(navigateToHomeScreen : () -> Unit, viewModel : CombatViewMode
                     onClick = {
                         viewModel.buttonSelectControlSound()
                         viewModel.superAttackSound()
+                        viewModel.vibrateEspecialAttack()
                         viewModel.playerAttackSequence(specialAttack)
                     },
                     colors = ButtonDefaults.buttonColors(containerColor = Color.Red),

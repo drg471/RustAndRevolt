@@ -12,6 +12,7 @@ import androidx.lifecycle.viewModelScope
 import com.drg.rustandrevolt.service.AppContextSingleton
 import com.drg.rustandrevolt.R
 import com.drg.rustandrevolt.datastore.CharacterSelectedDataStore
+import com.drg.rustandrevolt.datastore.Vibrator
 import com.drg.rustandrevolt.service.RandomEnemyAI
 import com.drg.rustandrevolt.domain.regenerateLifeWithPotions
 import com.drg.rustandrevolt.domain.totalStrongAttacks
@@ -41,6 +42,7 @@ class CombatViewModel @Inject constructor(
     private val randomEnemyAI: RandomEnemyAI,
     private val allCharacters: AllCharacters,
     private val characterSelectedDataStore: CharacterSelectedDataStore,
+    private val vibrator: Vibrator,
 ) : ViewModel() {
 
     var context : Context = AppContextSingleton.getContext()
@@ -102,6 +104,8 @@ class CombatViewModel @Inject constructor(
         }
 
         musicPreferences.setMusicEnabledPrefs(musicPreferences.isMusicEnabled, false)
+
+        vibrator.context = context
     }
 
     //****************************************************************
@@ -394,6 +398,10 @@ class CombatViewModel @Inject constructor(
             val musicPlayer = MusicPlayer(context!!)
             musicPlayer.playFX(FxPlayerCards.fxList.get(index-1))
         }
+    }
+
+    fun vibrateEspecialAttack(){
+        vibrator.start(1000)
     }
 
     //****************************************************************
