@@ -25,6 +25,7 @@ import javax.inject.Inject
 import kotlin.random.Random
 import com.drg.rustandrevolt.hilt.MyApplication.Companion.musicPreferences
 import com.drg.rustandrevolt.service.AllCharacters
+import com.drg.rustandrevolt.service.BackgroundCombat
 import com.drg.rustandrevolt.sharedpreferences.MusicPreferences
 import com.drg.rustandrevolt.sound.FxButtons
 import com.drg.rustandrevolt.sound.FxPlayerCards
@@ -96,6 +97,8 @@ class CombatViewModel @Inject constructor(
     var mutableVeryStrongAttackImage by mutableStateOf(R.drawable.c_punonegrocartarojamasmas)
     var mutableSpecialAttackImage by mutableStateOf(R.drawable.c_superataquecartabn)
 
+    var mutableBackground by mutableStateOf(0)
+
     init{
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
@@ -104,7 +107,7 @@ class CombatViewModel @Inject constructor(
         }
 
         musicPreferences.setMusicEnabledPrefs(musicPreferences.isMusicEnabled, false)
-
+        getBackground()
         vibrator.context = context
     }
 
@@ -402,6 +405,10 @@ class CombatViewModel @Inject constructor(
 
     fun vibrateEspecialAttack(){
         vibrator.start(1000)
+    }
+
+    fun getBackground(){
+        mutableBackground = BackgroundCombat.getRandomBackground()
     }
 
     //****************************************************************

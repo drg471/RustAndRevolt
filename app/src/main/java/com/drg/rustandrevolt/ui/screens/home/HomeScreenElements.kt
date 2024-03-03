@@ -49,9 +49,6 @@ fun HomeScreenElements(
     val buttonOptions : String = context.getString(R.string.button_options)
     val buttonExit : String = context.getString(R.string.button_exit)
 
-    viewModel.context = context
-
-
     //Columna principal
     Column(
         modifier = Modifier

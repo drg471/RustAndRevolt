@@ -19,12 +19,11 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor() : ViewModel() {
+class HomeViewModel @Inject constructor(
+    private val musicPlayer: MusicPlayer,
+) : ViewModel() {
     @Inject
     lateinit var retrofitMoviesService: RetrofitMoviesService
-
-    lateinit var context: Context
-
 
     fun initRetrofit(){
         viewModelScope.launch() {
@@ -40,7 +39,6 @@ class HomeViewModel @Inject constructor() : ViewModel() {
 
     fun buttonSound(){
         if (MusicPreferences.isMusicEnabledCompanion) {
-            val musicPlayer = MusicPlayer(context)
             musicPlayer.playFX(FxButtons.FxButton1)
         }
     }

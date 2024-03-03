@@ -43,43 +43,45 @@ import androidx.compose.ui.graphics.ImageShader
 import androidx.compose.ui.graphics.TileMode
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.imageResource
+import androidx.compose.ui.text.font.FontWeight
 
 @Composable
-fun GameScreen(viewModel : CombatViewModel = hiltViewModel()) {
+fun GameScreen(viewModel: CombatViewModel = hiltViewModel()) {
     val context = LocalContext.current
     viewModel.context = context
 
-    var enemyAIName= viewModel.mutableEnemyAIName
+    var enemyAIName = viewModel.mutableEnemyAIName
     var enemyAILife = viewModel.mutableEnemyAILife
     var enemyAIDamage = viewModel.mutableEnemyAIDamage
     var playerDamage = viewModel.mutablePlayerDamage
     var playerDamageRedColor = viewModel.mutablePlayerDamageRedColor
     var enemyAIDamageRedColor = viewModel.mutableEnemyAIDamageRedColor
-    var playerImage : Int = viewModel.imagePlayerCombat
-    var enemyImage : Int = viewModel.imageEnemyCombat
+    var playerImage: Int = viewModel.imagePlayerCombat
+    var enemyImage: Int = viewModel.imageEnemyCombat
+    var background: Int = viewModel.mutableBackground
 
     //Pantalla de juego
 
-    Box(modifier = Modifier
-        .fillMaxWidth()
-        .fillMaxHeight(0.7f)
-        .border(3.dp, Color.Black)
-        .paint(
-            painterResource(id = R.drawable.cmb_background1),
-            contentScale = ContentScale.FillBounds)
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .fillMaxHeight(0.7f)
+            .border(3.dp, Color.Black)
+            .paint(
+                painterResource(id = background),
+                contentScale = ContentScale.FillBounds
+            )
     ) {
         //Columna -> Nombre Enemigo + Vida Enemigo + box imagenes personajes
-        Column(modifier = Modifier
-            .fillMaxSize()
+        Column(
+            modifier = Modifier.fillMaxSize()
         ) {
 
             Spacer(modifier = Modifier.height(10.dp))
 
             //Texto Nombre Enemigo
             Text(
-                text = enemyAIName,
-                color = Color.White,
-                style = TextStyle(
+                text = enemyAIName, color = Color.White, style = TextStyle(
                     fontFamily = FontFamily(TYPEFACE),
                     fontSize = 20.sp,
                     letterSpacing = 2.sp,
@@ -88,8 +90,7 @@ fun GameScreen(viewModel : CombatViewModel = hiltViewModel()) {
                         blurRadius = 10f, // Radio del desenfoque
                         offset = Offset(1f, 1f) // Desplazamiento del borde
                     )
-                ),
-                modifier = Modifier
+                ), modifier = Modifier
                     .align(Alignment.End)
                     .padding(end = 10.dp)
             )
@@ -103,8 +104,7 @@ fun GameScreen(viewModel : CombatViewModel = hiltViewModel()) {
                     progress = enemyAILife, // (1.0f) Invertir la dirección de llenado
                     modifier = Modifier
                         .weight(1f) // Ocupa el espacio restante
-                        .height(15.dp),
-                    color = when {
+                        .height(15.dp), color = when {
                         enemyAILife <= 0.25f -> Color.Red
                         enemyAILife <= 0.5f -> Color.Yellow
                         else -> Color.Green
@@ -116,58 +116,76 @@ fun GameScreen(viewModel : CombatViewModel = hiltViewModel()) {
             //Contenedor de Imagenes de Personajes en la batalla
             Box(
                 modifier = Modifier.fillMaxSize()
-            ){
+            ) {
                 //Fila Imagen enemigo + daño
-                Row (
+                Row(
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(300.dp)
-                        .border(1.dp, Color.Black),
+                        .padding(0.dp,0.dp,20.dp,0.dp),
+//                        .border(1.dp, Color.Black)
                     horizontalArrangement = Arrangement.End
 
-                ){
+                ) {
                     Text(
-                        text = enemyAIDamage,
-                        fontSize = 50.sp,
+                        text = enemyAIDamage, color = if (enemyAIDamageRedColor) Color.Red else Color.Green, style = TextStyle(
+                            fontSize = 65.sp,
+                            letterSpacing = 2.sp,
+                            shadow = Shadow(
+                                color = Color.White, // Color del borde
+                                blurRadius = 10f, // Radio del desenfoque
+                                offset = Offset(1f, 1f) // Desplazamiento del borde
+                            )
+                        ),
                         modifier = Modifier
-                            .border(1.dp, Color.Black)
+//                            .border(1.dp, Color.Black)
                             .align(Alignment.CenterVertically),
-                        color = if (enemyAIDamageRedColor) Color.Red else Color.Green
                     )
 
 
                     Image(
                         painter = painterResource(enemyImage),
                         contentDescription = null,
-                        modifier = Modifier
-                            .size(width = 150.dp, height = 300.dp)
-                            .border(1.dp, Color.Black)
+                        modifier = Modifier.size(width = 150.dp, height = 300.dp)
+//                            .border(1.dp, Color.Black)
                     )
                 }
 
                 //Fila Imagen jugador + daño
-                Row (
+                Row(
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(210.dp)
-                        .border(1.dp, Color.Black)
+//                        .border(1.dp, Color.Black)
                         .align(Alignment.BottomStart)
                 ) {
-                    Image(
-                        painter = painterResource(playerImage),
-                        contentDescription = null,
+                    Box(
                         modifier = Modifier
                             .size(width = 230.dp, height = 175.dp)
-                            .border(1.dp, Color.Black)
+//                            .border(1.dp, Color.Black)
                             .align(Alignment.Bottom)
-                    )
+                    ) {
+                        Image(
+                            painter = painterResource(playerImage),
+                            contentDescription = null,
+                            modifier = Modifier.fillMaxSize(),
+                            contentScale = ContentScale.Crop
+                        )
+                    }
                     Text(
-                        text = playerDamage,
-                        fontSize = 50.sp,
+                        text = playerDamage, color = if (playerDamageRedColor) Color.Red else Color.Green, style = TextStyle(
+                            fontSize = 55.sp,
+                            letterSpacing = 2.sp,
+                            shadow = Shadow(
+                                color = Color.White, // Color del borde
+                                blurRadius = 10f, // Radio del desenfoque
+                                offset = Offset(1f, 1f) // Desplazamiento del borde
+                            )
+                        ),
+                        //fontWeight = FontWeight.Bold,
                         modifier = Modifier
-                            .border(1.dp, Color.Black)
+//                            .border(1.dp, Color.Black)
                             .align(Alignment.CenterVertically),
-                        color = if (playerDamageRedColor) Color.Red else Color.Green
                     )
                 }
             }

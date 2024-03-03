@@ -28,6 +28,7 @@
     <string name="characterTypeMachine">Máquina</string>
     <!-- combate -->
     <string name="enemyName">Nombre Enemigo</string>
+    <string name="loadingText">Cargando...</string>
     <string name="button_end_game">FIN PARTIDA</string>
     <!-- instrucciones -->
     <string name="game_instructions1">El juego es un combate por turnos que consta de tres tipos de personajes: Rebeldes, Máquinas e Ingenieros.</string>

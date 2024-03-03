@@ -18,4 +18,15 @@ object Music {
         var random = Random.nextInt(0, musicMenuList.size)
         return musicMenuList.get(random)
     }
+
+    private var musicCombatList: List<Int> = listOf(
+        R.raw.musiccomb1,
+        R.raw.musiccomb2,
+        R.raw.musiccomb3
+    )
+
+    fun getRandomCombatMusic(): Int{
+        var random = Random.nextInt(0, musicCombatList.size)
+        return musicCombatList.get(random)
+    }
 }
