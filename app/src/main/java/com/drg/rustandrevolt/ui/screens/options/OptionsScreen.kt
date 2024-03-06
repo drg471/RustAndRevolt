@@ -22,10 +22,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.drg.rustandrevolt.R
-import com.drg.rustandrevolt.hilt.MyApplication.Companion.musicPreferences
+import com.drg.rustandrevolt.MyApplication.Companion.musicPreferences
 import com.drg.rustandrevolt.ui.theme.RustAndRevoltTheme
-import com.drg.rustandrevolt.viewmodels.HomeViewModel
-import com.drg.rustandrevolt.viewmodels.OptionsViewModel
 
 @Composable
 fun OptionsScreen(

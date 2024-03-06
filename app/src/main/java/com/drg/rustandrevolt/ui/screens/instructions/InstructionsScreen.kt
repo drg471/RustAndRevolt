@@ -24,14 +24,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
 import com.drg.rustandrevolt.R
-import com.drg.rustandrevolt.ui.screens.home.HomeScreen
 import com.drg.rustandrevolt.ui.theme.RustAndRevoltTheme
-import com.drg.rustandrevolt.usecases.PlayerUseCase
-import com.drg.rustandrevolt.viewmodels.PlayerViewModel
 
 @Composable
 fun InstructionsScreen(navigateToHomeScreen : () -> Unit) {

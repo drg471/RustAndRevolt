@@ -17,9 +17,8 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.rememberNavController
 import com.drg.rustandrevolt.R
-import com.drg.rustandrevolt.service.AppContextSingleton
+import com.drg.rustandrevolt.domain.service.AppContextSingleton
 import com.drg.rustandrevolt.ui.navigation.AppScreens
-import com.drg.rustandrevolt.viewmodels.CharacterSelectionViewModel
 
 @Composable
 fun SelectCharacterScreen(

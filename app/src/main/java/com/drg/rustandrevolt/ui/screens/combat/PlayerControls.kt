@@ -31,23 +31,12 @@ import com.drg.rustandrevolt.domain.normalAttack
 import com.drg.rustandrevolt.domain.specialAttack
 import com.drg.rustandrevolt.domain.strongAttack
 import com.drg.rustandrevolt.domain.veryStrongAttack
-import com.drg.rustandrevolt.viewmodels.CombatViewModel
 
 @Composable
-fun PlayerControls(navigateToHomeScreen : () -> Unit, viewModel : CombatViewModel = hiltViewModel()) {
+fun PlayerControls(navigateToHomeScreen : () -> Unit) {
     val context = LocalContext.current
     val buttonEndGame : String = context.getString(R.string.button_end_game)
 
-    var playerLife = viewModel.mutablePlayerLife
-    var playerChargeSpecialAttack = viewModel.mutablePlayerChargeSpecialAttack
-    var characterPlayerName = viewModel.mutablePlayerName
-    var PlayerRemainingHealPotions = viewModel.mutablePlayerRemainingHealPotions
-    var showSeqText = viewModel.mutableShowSeqText
-    var enableBtnHeal = viewModel.mutableEnableBtnHeal
-    var enableBtnStrongAttack = viewModel.mutableEnableBtnStrongAttack
-    var enableBtnVeryStrongAttack = viewModel.mutableEnableBtnVeryStrongAttack
-    var enableBtnSpecialAttack = viewModel.mutableEnableBtnSpecialAttack
-    var enableBtnEndGame = viewModel.mutableShowBtnEndGame
 
     Column (modifier = Modifier
         .fillMaxWidth()

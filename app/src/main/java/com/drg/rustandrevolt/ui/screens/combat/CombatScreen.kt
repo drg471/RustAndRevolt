@@ -7,18 +7,36 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.rememberNavController
 import com.drg.rustandrevolt.ui.navigation.AppScreens
-import com.drg.rustandrevolt.ui.screens.home.HomeScreen
-import com.drg.rustandrevolt.ui.screens.select_character.SelectCharacterScreen
 
 @Composable
-fun CombatScreen(navigateToHomeScreen : () -> Unit) {
+fun CombatScreen(
+    viewModel : CombatViewModel = hiltViewModel(),
+    navigateToHomeScreen : () -> Unit) {
+    val state = viewModel.state.collectAsState()
+    CombatContent(
+        state,
+        navigateToHomeScreen
+    )
+}
 
+@Composable
+fun CombatContent(
+    state: CombatState,
+    navigateToHomeScreen: () -> Unit
+){
+    when(state){
+        CombatState.Loading -> TODO()
+        is CombatState.Playing -> TODO()
+        is CombatState.StopPlaying -> TODO()
+    }
     //Columna Principal
     Column (modifier = Modifier
         .fillMaxSize()
