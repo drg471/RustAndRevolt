@@ -1,6 +1,6 @@
 package com.drg.rustandrevolt.domain
 
-import com.drg.rustandrevolt.room.RebelEntity
+import com.drg.rustandrevolt.data.sources.room.RebelEntity
 import kotlin.random.Random
 
 data class Rebel (

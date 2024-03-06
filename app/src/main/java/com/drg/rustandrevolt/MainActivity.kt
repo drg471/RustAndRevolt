@@ -8,8 +8,8 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
-import com.drg.rustandrevolt.sqlite.PlayerDBScheme
-import com.drg.rustandrevolt.sqlite.PlayerDbHelper
+import com.drg.rustandrevolt.data.sources.sqlite.PlayerDBScheme
+import com.drg.rustandrevolt.data.sources.sqlite.PlayerDbHelper
 import com.drg.rustandrevolt.ui.navigation.AppNavigation
 import com.drg.rustandrevolt.ui.theme.RustAndRevoltTheme
 import dagger.hilt.android.AndroidEntryPoint

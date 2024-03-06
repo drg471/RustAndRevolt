@@ -19,9 +19,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.drg.rustandrevolt.viewmodels.CharacterSelectionViewModel
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.drg.rustandrevolt.service.AppContextSingleton
 
 @Composable
 fun SelectCharacterControls(viewModel : CharacterSelectionViewModel = hiltViewModel()) {
