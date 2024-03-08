@@ -32,14 +32,18 @@ import com.drg.rustandrevolt.ui.screens.home.BUTTON_COLOR
 import com.drg.rustandrevolt.ui.screens.home.TYPEFACE
 
 @Composable
-fun SelectCharacterTypeControls(viewModel : CharacterSelectionViewModel = hiltViewModel()) {
+fun SelectCharacterTypeControls(
+    buttonSelectCharacterTypeSound: () -> Unit,
+    loadRebelListRoom: () -> Unit,
+    loadEngineerList: () -> Unit,
+    loadMachineList: () -> Unit,
+) {
     val context = LocalContext.current
     val selectCharacter : String = context.getString(R.string.selectCharacter)
     val characterTypeRebel : String = context.getString(R.string.characterTypeRebel)
     val characterTypeEngineer : String = context.getString(R.string.characterTypeEngineer)
     val characterTypeMachine : String = context.getString(R.string.characterTypeMachine)
 
-    viewModel.context = context
 
     //Columna 1 (label + botones tipos personaje)
     Column (modifier = Modifier
@@ -95,8 +99,8 @@ fun SelectCharacterTypeControls(viewModel : CharacterSelectionViewModel = hiltVi
                         .width(112.dp),
                         colors = ButtonDefaults.buttonColors(Color(BUTTON_COLOR)),
                         onClick = {
-                            viewModel.buttonSelectCharacterTypeSound()
-                            viewModel.loadRebelListRoom()
+                            buttonSelectCharacterTypeSound()
+                            loadRebelListRoom()
                         }
                     ) {
                         Text(
@@ -115,8 +119,8 @@ fun SelectCharacterTypeControls(viewModel : CharacterSelectionViewModel = hiltVi
                         .width(114.dp),
                         colors = ButtonDefaults.buttonColors(Color(BUTTON_COLOR)),
                         onClick = {
-                            viewModel.buttonSelectCharacterTypeSound()
-                            viewModel.loadEngineerList()
+                            buttonSelectCharacterTypeSound()
+                            loadEngineerList()
                         }
                     ) {
                         Text(
@@ -146,8 +150,8 @@ fun SelectCharacterTypeControls(viewModel : CharacterSelectionViewModel = hiltVi
                         .align(Alignment.Bottom),
                         colors = ButtonDefaults.buttonColors(Color(BUTTON_COLOR)),
                         onClick = {
-                            viewModel.buttonSelectCharacterTypeSound()
-                            viewModel.loadMachineList()
+                            buttonSelectCharacterTypeSound()
+                            loadMachineList()
                         }
                     ) {
                         Text(

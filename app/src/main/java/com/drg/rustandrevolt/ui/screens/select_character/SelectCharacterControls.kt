@@ -25,20 +25,22 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.drg.rustandrevolt.domain.Character
 import com.drg.rustandrevolt.ui.screens.home.BUTTON_COLOR
 import com.drg.rustandrevolt.ui.screens.home.TYPEFACE
 
 @Composable
-fun SelectCharacterControls(viewModel : CharacterSelectionViewModel = hiltViewModel()) {
+fun SelectCharacterControls(
+    characterList: MutableList<Character>,
+    currentCharacterIndex: Int,
+    currentImageIndex: Int,
+    showPreviousCharacter: () -> Unit,
+    showNextCharacter: () -> Unit,
+    buttonChangeCharacterSound: () -> Unit
+) {
     val context = LocalContext.current
-    viewModel.context = context
 
-    //Obtiene la lista de personajes y el indice actual del viewmodel
-    val characterList = viewModel.characterList
-    var currentCharacterIndex = viewModel.currentCharacterIndex
     var currentCharacter = characterList.getOrNull(currentCharacterIndex)
-
-    var characterImageResource : Int = viewModel.currentImageIndex
 
     //Columna 2 (SlidePictureBox + label nombre personaje)
     Column (modifier = Modifier
@@ -62,8 +64,8 @@ fun SelectCharacterControls(viewModel : CharacterSelectionViewModel = hiltViewMo
                 .padding(start = 10.dp),
                 colors = ButtonDefaults.buttonColors(Color(BUTTON_COLOR)),
                 onClick = {
-                    viewModel.buttonChangeCharacterSound()
-                    viewModel.showPreviousCharacter()
+                    buttonChangeCharacterSound()
+                    showPreviousCharacter()
                 }
             ) {
                 Text(text = "<", fontSize = 24.sp)
@@ -71,7 +73,7 @@ fun SelectCharacterControls(viewModel : CharacterSelectionViewModel = hiltViewMo
 
             //Imagen Personaje
             Image(
-                painter = painterResource(characterImageResource),
+                painter = painterResource(currentImageIndex),
                 contentDescription = null,
                 modifier = Modifier
                     .size(width = 230.dp, height = 400.dp)
@@ -85,8 +87,8 @@ fun SelectCharacterControls(viewModel : CharacterSelectionViewModel = hiltViewMo
                 .padding(end = 10.dp),
                 colors = ButtonDefaults.buttonColors(Color(BUTTON_COLOR)),
                 onClick = {
-                    viewModel.buttonChangeCharacterSound()
-                    viewModel.showNextCharacter()
+                    buttonChangeCharacterSound()
+                    showNextCharacter()
                 }
             ) {
                 Text(">", fontSize = 24.sp)

@@ -17,6 +17,8 @@ import com.drg.rustandrevolt.data.sources.sharedpreferences.MusicPreferences
 import com.drg.rustandrevolt.sound.FxButtons
 import com.drg.rustandrevolt.sound.MusicPlayer
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -30,23 +32,18 @@ class CharacterSelectionViewModel @Inject constructor(
     private val characterSelectedDataStore: CharacterSelectedDataStore,
 ) : ViewModel() {
 
-    //Variables mutables para regenerar vista Compose
-    var characterList by mutableStateOf<MutableList<Character>>(mutableListOf())
-        private set
-    var currentCharacterIndex by mutableStateOf(0) //cero = Valor inicial
-        private set
+    private val _state = MutableStateFlow<CharacterSelectionState>(CharacterSelectionState.Loading)
+    val state: StateFlow<CharacterSelectionState> = _state
 
-    var imageCardDefault : Int = R.drawable.imagedflt
-    var currentImageIndex by mutableStateOf(imageCardDefault) //cero = Valor inicial
-        private set
+    var characterList: MutableList<Character> = mutableListOf()
+    var currentCharacterIndex: Int = 0
+    var currentImageIndex: Int = 0 //cero = Valor inicial
 
     var context : Context? = null
 
 
     //init = inicializa el viewmodel con una lista de personajes
     init {
-
-
         //****************************************************
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
@@ -57,12 +54,12 @@ class CharacterSelectionViewModel @Inject constructor(
             }
         }
         //****************************************************
-
-
     }
 
     fun showNextCharacter() {
         currentCharacterIndex = (currentCharacterIndex + 1) % characterList.size
+        setCurrentImage()
+        _state.value = CharacterSelectionState.Success(characterList, currentCharacterIndex, currentImageIndex)
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 updatePlayerCharacter()
@@ -72,6 +69,8 @@ class CharacterSelectionViewModel @Inject constructor(
 
     fun showPreviousCharacter() {
         currentCharacterIndex = (currentCharacterIndex - 1 + characterList.size) % characterList.size
+        setCurrentImage()
+        _state.value = CharacterSelectionState.Success(characterList, currentCharacterIndex, currentImageIndex)
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 updatePlayerCharacter()
@@ -82,6 +81,9 @@ class CharacterSelectionViewModel @Inject constructor(
     fun loadMachineList(){
         resetDataList()
         characterList = machinesUseCase.getAll()
+        currentCharacterIndex = 0
+        setCurrentImage()
+        _state.value = CharacterSelectionState.Success(characterList, currentCharacterIndex, currentImageIndex)
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 updatePlayerCharacter()
@@ -100,11 +102,17 @@ class CharacterSelectionViewModel @Inject constructor(
     fun loadRebelList(){
         resetDataList()
         characterList = rebelsUseCase.getAll()
+        currentCharacterIndex = 0
+        setCurrentImage()
+        _state.value = CharacterSelectionState.Success(characterList, currentCharacterIndex, currentImageIndex)
     }
 
     fun loadEngineerList(){
         resetDataList()
         characterList = engineersUseCase.getAll()
+        currentCharacterIndex = 0
+        setCurrentImage()
+        _state.value = CharacterSelectionState.Success(characterList, currentCharacterIndex, currentImageIndex)
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 updatePlayerCharacter()
@@ -113,19 +121,19 @@ class CharacterSelectionViewModel @Inject constructor(
     }
 
     fun resetDataList(){
-        if (characterList.isNotEmpty()) {
-            characterList.clear()
-            currentCharacterIndex = 0
-        }
+        currentImageIndex = 0
+        currentCharacterIndex = 0
+        characterList = mutableListOf()
+        _state.value = CharacterSelectionState.Success(characterList, currentCharacterIndex, currentImageIndex)
     }
 
 
     suspend fun updatePlayerCharacter(){
         characterSelectedDataStore.saveCharacterName(characterList.get(currentCharacterIndex).name)
-        getImage()
+        setCurrentImage()
     }
 
-    fun getImage(){
+    fun setCurrentImage(){
         if (context!= null){
             currentImageIndex = context!!.resources.getIdentifier(characterList.get(currentCharacterIndex).imageCardResource, "drawable", context!!.packageName)
         }
@@ -153,4 +161,13 @@ class CharacterSelectionViewModel @Inject constructor(
         }
     }
     //*********************
+}
+
+sealed class CharacterSelectionState{
+    object Loading: CharacterSelectionState()
+    data class Success(
+        val characterList: MutableList<Character>,
+        val currentCharacterIndex: Int,
+        val currentImageIndex: Int
+    ): CharacterSelectionState()
 }

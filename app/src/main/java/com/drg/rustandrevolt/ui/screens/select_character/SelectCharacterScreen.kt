@@ -8,6 +8,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -33,10 +34,12 @@ fun SelectCharacterScreen(
     ) {
     val context = LocalContext.current
     AppContextSingleton.setContext(context)
+    viewModel.context = context
+
+    val state = viewModel.state.collectAsState(CharacterSelectionState.Loading)
 
     val buttonPlay : String = context.getString(R.string.button_play)
 
-    viewModel.context = context
 
     //Columna principal
     Column(
@@ -46,11 +49,29 @@ fun SelectCharacterScreen(
             .background(Color(color = BACKGROUND_COLOR)),
     ) {
 
-        //Controles seleccion tipo de personajes
-        SelectCharacterTypeControls()
+        when (val value = state.value){
+            is CharacterSelectionState.Loading -> {}
 
-        //Controles seleccion tipos de personajes
-        SelectCharacterControls()
+            is CharacterSelectionState.Success -> {
+                //Controles seleccion tipo de personajes
+                SelectCharacterTypeControls(
+                    buttonSelectCharacterTypeSound = { viewModel.buttonSelectCharacterTypeSound() },
+                    loadRebelListRoom = { viewModel.loadRebelListRoom() },
+                    loadEngineerList = { viewModel.loadEngineerList() },
+                    loadMachineList = { viewModel.loadMachineList() }
+                )
+
+                //Controles seleccion tipos de personajes
+                SelectCharacterControls(
+                    value.characterList,
+                    value.currentCharacterIndex,
+                    value.currentImageIndex,
+                    showPreviousCharacter = {viewModel.showPreviousCharacter()},
+                    showNextCharacter = {viewModel.showNextCharacter()},
+                    buttonChangeCharacterSound = {viewModel.buttonChangeCharacterSound()}
+                )
+            }
+        }
 
         //Boton Jugar
         Button(modifier = Modifier
