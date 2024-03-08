@@ -24,9 +24,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.drg.rustandrevolt.viewmodels.CharacterSelectionViewModel
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.drg.rustandrevolt.service.AppContextSingleton
 import com.drg.rustandrevolt.ui.screens.home.BUTTON_COLOR
 import com.drg.rustandrevolt.ui.screens.home.TYPEFACE
 

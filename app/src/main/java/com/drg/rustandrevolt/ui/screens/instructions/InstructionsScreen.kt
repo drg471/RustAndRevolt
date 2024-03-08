@@ -5,7 +5,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
@@ -15,9 +14,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.text.BasicTextField
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.LocalContentColor
@@ -34,22 +30,15 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
 import com.drg.rustandrevolt.R
 import com.drg.rustandrevolt.ui.screens.home.BACKGROUND_COLOR
 import com.drg.rustandrevolt.ui.screens.home.BUTTON_COLOR
-import com.drg.rustandrevolt.ui.screens.home.HomeScreen
 import com.drg.rustandrevolt.ui.screens.home.SEC_BACKGROUND_COLOR
 import com.drg.rustandrevolt.ui.screens.home.TYPEFACE
 import com.drg.rustandrevolt.ui.theme.RustAndRevoltTheme
-import com.drg.rustandrevolt.usecases.PlayerUseCase
-import com.drg.rustandrevolt.viewmodels.PlayerViewModel
 
 @Composable
 fun InstructionsScreen(navigateToHomeScreen: () -> Unit) {

@@ -1,7 +1,6 @@
 package com.drg.rustandrevolt.ui.screens.select_character
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -21,12 +20,11 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.rememberNavController
 import com.drg.rustandrevolt.R
-import com.drg.rustandrevolt.service.AppContextSingleton
+import com.drg.rustandrevolt.domain.service.AppContextSingleton
 import com.drg.rustandrevolt.ui.navigation.AppScreens
 import com.drg.rustandrevolt.ui.screens.home.BACKGROUND_COLOR
 import com.drg.rustandrevolt.ui.screens.home.BUTTON_COLOR
 import com.drg.rustandrevolt.ui.screens.home.TYPEFACE
-import com.drg.rustandrevolt.viewmodels.CharacterSelectionViewModel
 
 @Composable
 fun SelectCharacterScreen(

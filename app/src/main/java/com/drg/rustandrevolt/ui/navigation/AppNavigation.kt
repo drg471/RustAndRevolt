@@ -4,7 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.drg.rustandrevolt.ui.legal.LegalScreen
+import com.drg.rustandrevolt.ui.screens.legal.LegalScreen
 import com.drg.rustandrevolt.ui.screens.combat.CombatScreen
 import com.drg.rustandrevolt.ui.screens.home.HomeScreen
 import com.drg.rustandrevolt.ui.screens.instructions.InstructionsScreen
