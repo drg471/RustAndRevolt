@@ -14,6 +14,7 @@ import javax.inject.Inject
 import com.drg.rustandrevolt.R
 import com.drg.rustandrevolt.data.sources.datastore.CharacterSelectedDataStore
 import com.drg.rustandrevolt.data.sources.sharedpreferences.MusicPreferences
+import com.drg.rustandrevolt.domain.service.CharacterCurrentImage
 import com.drg.rustandrevolt.sound.FxButtons
 import com.drg.rustandrevolt.sound.MusicPlayer
 import kotlinx.coroutines.Dispatchers
@@ -30,6 +31,8 @@ class CharacterSelectionViewModel @Inject constructor(
     private val engineersUseCase : EngineersUseCase,
     private val playerUseCase: PlayerUseCase,
     private val characterSelectedDataStore: CharacterSelectedDataStore,
+    private val musicPlayer: MusicPlayer,
+    private val characterCurrentImage: CharacterCurrentImage,
 ) : ViewModel() {
 
     private val _state = MutableStateFlow<CharacterSelectionState>(CharacterSelectionState.Loading)
@@ -38,8 +41,6 @@ class CharacterSelectionViewModel @Inject constructor(
     var characterList: MutableList<Character> = mutableListOf()
     var currentCharacterIndex: Int = 0
     var currentImageIndex: Int = 0 //cero = Valor inicial
-
-    var context : Context? = null
 
 
     //init = inicializa el viewmodel con una lista de personajes
@@ -134,29 +135,24 @@ class CharacterSelectionViewModel @Inject constructor(
     }
 
     fun setCurrentImage(){
-        if (context!= null){
-            currentImageIndex = context!!.resources.getIdentifier(characterList.get(currentCharacterIndex).imageCardResource, "drawable", context!!.packageName)
-        }
+        currentImageIndex = characterCurrentImage.getCurrentImageIndex(characterList, currentCharacterIndex)
     }
 
     //*********************
     //Sounds
     fun buttonSelectCharacterTypeSound(){
         if (MusicPreferences.isMusicEnabledCompanion) {
-            val musicPlayer = MusicPlayer(context!!)
             musicPlayer.playFX(FxButtons.FxButtonSelectCharacterType)
         }
     }
     fun buttonPlaySound(){
         if (MusicPreferences.isMusicEnabledCompanion){
-            val musicPlayer = MusicPlayer(context!!)
             musicPlayer.playFX(FxButtons.FxButtonPlay)
         }
     }
 
     fun buttonChangeCharacterSound(){
         if (MusicPreferences.isMusicEnabledCompanion) {
-            val musicPlayer = MusicPlayer(context!!)
             musicPlayer.playFX(FxButtons.FxButtonChangeCharacter)
         }
     }

@@ -34,7 +34,6 @@ fun SelectCharacterScreen(
     ) {
     val context = LocalContext.current
     AppContextSingleton.setContext(context)
-    viewModel.context = context
 
     val state = viewModel.state.collectAsState(CharacterSelectionState.Loading)
 
