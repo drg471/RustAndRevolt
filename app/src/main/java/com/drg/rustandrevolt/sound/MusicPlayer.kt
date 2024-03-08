@@ -3,9 +3,13 @@ package com.drg.rustandrevolt.sound
 import android.content.Context
 import android.media.MediaPlayer
 import com.drg.rustandrevolt.R
+import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
 import kotlin.random.Random
 
-class MusicPlayer(private val context: Context) {
+class MusicPlayer @Inject constructor(
+    @ApplicationContext private val context: Context
+) {
 
     private var mediaPlayer: MediaPlayer? = null
     private var resourceId: Int = 0
@@ -16,7 +20,7 @@ class MusicPlayer(private val context: Context) {
 
         when{
             inMenu -> resourceId = Music.getRandomMenuMusic()
-            else -> resourceId = getCombatMusic()
+            else -> resourceId = Music.getRandomCombatMusic()
         }
         val assetFileDescriptor = context.resources.openRawResourceFd(resourceId)
 
@@ -43,9 +47,5 @@ class MusicPlayer(private val context: Context) {
     private fun releaseMediaPlayer() {
         mediaPlayer?.release()
         mediaPlayer = null
-    }
-
-    private fun getCombatMusic(): Int{
-        return R.raw.musiccomb1
     }
 }

@@ -2,7 +2,6 @@ package com.drg.rustandrevolt.ui.screens.home
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -13,6 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -20,11 +20,20 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.drg.rustandrevolt.R
 import com.drg.rustandrevolt.viewmodels.HomeViewModel
+import androidx.compose.ui.text.font.FontFamily
+
+val BACKGROUND_COLOR = 0xFF02474c //#02474c
+val SEC_BACKGROUND_COLOR = 0xFF006679 //#006679
+val BUTTON_COLOR = 0xFFf1883b //#f1883b
+val TYPEFACE = Font(R.font.rumble_brave)
+
 
 @Composable
 fun HomeScreenElements(
@@ -40,29 +49,25 @@ fun HomeScreenElements(
     val buttonOptions : String = context.getString(R.string.button_options)
     val buttonExit : String = context.getString(R.string.button_exit)
 
-    viewModel.context = context
-
-
     //Columna principal
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .border(1.dp, Color.Red)
-            .padding(paddingValues)
+            .padding()
+            .background(Color(color = BACKGROUND_COLOR))
         , Arrangement.Center
     ) {
 
         //Imagen Logo
         Image(
-            painter = painterResource(R.drawable.logodflt),
+            painter = painterResource(R.drawable.rnrlogo),
             contentDescription = null,
             modifier = Modifier
-                .size(width = 300.dp, height = 300.dp)
-                .border(1.dp, Color.Black)
+                .size(width = 350.dp, height = 350.dp)
                 .align(Alignment.CenterHorizontally)
         )
 
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(10.dp))
 
         //Boton Iniciar Partida
         Button(modifier = Modifier
@@ -72,9 +77,17 @@ fun HomeScreenElements(
             .width(200.dp), onClick = {
                 viewModel.buttonSound()
                 navigateToSelectCharacterScreen()
-            }
+            },
+            colors = ButtonDefaults.buttonColors(Color(BUTTON_COLOR))
         ) {
-            Text(buttonStartGame)
+            Text(
+                text = buttonStartGame,
+                style = TextStyle(
+                    fontFamily = FontFamily(TYPEFACE),
+                    fontSize = 18.sp,
+                    letterSpacing = 2.sp
+                )
+            )
         }
 
         //Boton Player
@@ -85,9 +98,17 @@ fun HomeScreenElements(
             .width(200.dp), onClick = {
                 viewModel.buttonSound()
                 navigavigateToPlayerScreen()
-        }
+            },
+            colors = ButtonDefaults.buttonColors(Color(BUTTON_COLOR))
         ) {
-            Text(buttonPlayer)
+            Text(
+                text = buttonPlayer,
+                style = TextStyle(
+                    fontFamily = FontFamily(TYPEFACE),
+                    fontSize = 18.sp,
+                    letterSpacing = 2.sp
+                )
+            )
         }
 
         //Boton Opciones
@@ -98,9 +119,17 @@ fun HomeScreenElements(
             .width(200.dp), onClick = {
                 viewModel.buttonSound()
                 navigateToOptionsScreen()
-        }
+            },
+            colors = ButtonDefaults.buttonColors(Color(BUTTON_COLOR))
         ) {
-            Text(buttonOptions)
+            Text(
+                text = buttonOptions,
+                style = TextStyle(
+                    fontFamily = FontFamily(TYPEFACE),
+                    fontSize = 18.sp,
+                    letterSpacing = 2.sp
+                )
+            )
         }
 
         Spacer(modifier = Modifier.height(20.dp))
@@ -113,9 +142,17 @@ fun HomeScreenElements(
             .width(200.dp), onClick = {
                 viewModel.buttonSound()
                 System.exit(0)
-            }
+            },
+            colors = ButtonDefaults.buttonColors(Color(BUTTON_COLOR))
         ) {
-            Text(buttonExit)
+            Text(
+                text = buttonExit,
+                style = TextStyle(
+                    fontFamily = FontFamily(TYPEFACE),
+                    fontSize = 18.sp,
+                    letterSpacing = 2.sp
+                )
+            )
         }
     }
 }

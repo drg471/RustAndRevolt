@@ -1,8 +1,10 @@
 package com.drg.rustandrevolt.ui.screens.combat
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -21,8 +23,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shadow
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -31,6 +39,8 @@ import com.drg.rustandrevolt.domain.normalAttack
 import com.drg.rustandrevolt.domain.specialAttack
 import com.drg.rustandrevolt.domain.strongAttack
 import com.drg.rustandrevolt.domain.veryStrongAttack
+import com.drg.rustandrevolt.ui.screens.home.BUTTON_COLOR
+import com.drg.rustandrevolt.ui.screens.home.TYPEFACE
 import com.drg.rustandrevolt.viewmodels.CombatViewModel
 
 @Composable
@@ -48,13 +58,31 @@ fun PlayerControls(navigateToHomeScreen : () -> Unit, viewModel : CombatViewMode
     var enableBtnVeryStrongAttack = viewModel.mutableEnableBtnVeryStrongAttack
     var enableBtnSpecialAttack = viewModel.mutableEnableBtnSpecialAttack
     var enableBtnEndGame = viewModel.mutableShowBtnEndGame
+    var potionImage = viewModel.mutablePotionImage
+    var strongAttackImage = viewModel.mutableStrongAttackImage
+    var veryStrongAttackImage = viewModel.mutableVeryStrongAttackImage
+    var specialAttackImage = viewModel.mutableSpecialAttackImage
 
     Column (modifier = Modifier
         .fillMaxWidth()
-        .border(1.dp, Color.Magenta)
+        .border(3.dp, Color.Black)
         .fillMaxHeight(1f)
+        .padding(10.dp)
     ){
-        Text(text = characterPlayerName, fontSize = 15.sp)
+        Text(
+            text = characterPlayerName,
+            color = Color.White,
+            style = TextStyle(
+                fontFamily = FontFamily(TYPEFACE),
+                fontSize = 18.sp,
+                letterSpacing = 2.sp,
+                shadow = Shadow(
+                    color = Color.Black, // Color del borde
+                    blurRadius = 4f, // Radio del desenfoque
+                    offset = Offset(2f, 2f) // Desplazamiento del borde
+                )
+            )
+        )
 
         //Vida Jugador
         LinearProgressIndicator(
@@ -62,7 +90,7 @@ fun PlayerControls(navigateToHomeScreen : () -> Unit, viewModel : CombatViewMode
             modifier = Modifier
                 .fillMaxWidth()
                 .height(15.dp),
-            color = if (playerLife < 0.25f) Color.Red else if (playerLife < 0.5f && playerLife > 0.3f) Color.Yellow else Color.Green,
+            color = if (playerLife <= 0.25f) Color.Red else if (playerLife in 0.3f..0.5f) Color.Yellow else Color.Green,
         )
 
         Spacer(modifier = Modifier
@@ -80,16 +108,23 @@ fun PlayerControls(navigateToHomeScreen : () -> Unit, viewModel : CombatViewMode
 
         Spacer(modifier = Modifier
             .fillMaxWidth()
-            .height(25.dp))
+            .height(20.dp))
 
         if (showSeqText){
             //Texto mensajes secuencias
             Row(modifier = Modifier
                 .fillMaxSize()
-                .border(1.dp, Color.Magenta)
-                , verticalAlignment = Alignment.CenterVertically
+                .border(3.dp, Color.Black)
+                .background(Color.White),
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                Text(text = viewModel.mutableSeqtext, fontSize = 20.sp)
+                Text(
+                    text = viewModel.mutableSeqtext,
+                    fontSize = 20.sp,
+                    color = Color.Black,
+                    modifier = Modifier
+                        .padding(10.dp)
+                )
             }
         }
         else if (enableBtnEndGame){
@@ -98,27 +133,34 @@ fun PlayerControls(navigateToHomeScreen : () -> Unit, viewModel : CombatViewMode
                 .align(Alignment.CenterHorizontally)
                 .padding(top = 16.dp)
                 .height(40.dp)
-                .width(200.dp), onClick = {
+                .width(200.dp),
+                colors = ButtonDefaults.buttonColors(Color(BUTTON_COLOR)),
+                onClick = {
                 viewModel.buttonEndGameSound()
                 viewModel.stopCombatMusic()
                 navigateToHomeScreen()
             }
             ) {
-                Text(buttonEndGame)
+                Text(
+                    text = buttonEndGame,
+                    style = TextStyle(
+                        fontFamily = FontFamily(TYPEFACE),
+                        fontSize = 18.sp,
+                        letterSpacing = 2.sp
+                    )
+                )
             }
 
         }
         else{
             //Fila de botones
             Row(modifier = Modifier
-                .fillMaxWidth()
-                .border(1.dp, Color.Black)
-                ,horizontalArrangement = Arrangement.SpaceBetween
+                .fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
             ) {
 
                 //Botón de Vida
                 Button(modifier = Modifier
-                    .background(Color.White)
                     .height(120.dp)
                     .width(70.dp),
                     onClick = {
@@ -131,12 +173,31 @@ fun PlayerControls(navigateToHomeScreen : () -> Unit, viewModel : CombatViewMode
                     contentPadding = PaddingValues(0.dp),
                     enabled = enableBtnHeal
                 ) {
-                    Text("Vida (x${PlayerRemainingHealPotions})")
+                    Box(modifier = Modifier.fillMaxSize()) {
+                        Image(
+                            painter = painterResource(potionImage),
+                            contentDescription = null,
+                            modifier = Modifier.fillMaxSize(),
+                            contentScale = ContentScale.FillBounds
+                        )
+                        Text(
+                            "x${PlayerRemainingHealPotions}",
+                            modifier = Modifier.align(Alignment.BottomCenter),
+                            fontSize = 22.sp,
+                            color = Color.White, // Color del texto
+                            style = TextStyle(
+                                shadow = Shadow(
+                                    color = Color.Black, // Color del borde
+                                    blurRadius = 4f, // Radio del desenfoque
+                                    offset = Offset(2f, 2f) // Desplazamiento del borde
+                                )
+                            )
+                            )
+                    }
                 }
 
                 //Botón de Ataque 1
                 Button(modifier = Modifier
-                    .background(Color.White)
                     .height(120.dp)
                     .width(70.dp),
                     onClick = {
@@ -148,12 +209,18 @@ fun PlayerControls(navigateToHomeScreen : () -> Unit, viewModel : CombatViewMode
                     shape = RoundedCornerShape(10.dp),
                     contentPadding = PaddingValues(0.dp)
                 ) {
-                    Text("Atq1")
+                    Box(modifier = Modifier.fillMaxSize()) {
+                        Image(
+                            painter = painterResource(id = R.drawable.c_punonegrocartaroja),
+                            contentDescription = null,
+                            modifier = Modifier.fillMaxSize(),
+                            contentScale = ContentScale.FillBounds
+                        )
+                    }
                 }
 
                 //Botón de Ataque 2
                 Button(modifier = Modifier
-                    .background(Color.White)
                     .height(120.dp)
                     .width(70.dp),
                     onClick = {
@@ -166,12 +233,18 @@ fun PlayerControls(navigateToHomeScreen : () -> Unit, viewModel : CombatViewMode
                     contentPadding = PaddingValues(0.dp),
                     enabled = enableBtnStrongAttack
                 ) {
-                    Text("Atq2")
+                    Box(modifier = Modifier.fillMaxSize()) {
+                        Image(
+                            painter = painterResource(strongAttackImage),
+                            contentDescription = null,
+                            modifier = Modifier.fillMaxSize(),
+                            contentScale = ContentScale.FillBounds
+                        )
+                    }
                 }
 
                 //Botón de Ataque 3
                 Button(modifier = Modifier
-                    .background(Color.White)
                     .height(120.dp)
                     .width(70.dp),
                     onClick = {
@@ -184,25 +257,40 @@ fun PlayerControls(navigateToHomeScreen : () -> Unit, viewModel : CombatViewMode
                     contentPadding = PaddingValues(0.dp),
                     enabled = enableBtnVeryStrongAttack
                 ) {
-                    Text("Atq3")
+                    Box(modifier = Modifier.fillMaxSize()) {
+                        Image(
+                            painter = painterResource(veryStrongAttackImage),
+                            contentDescription = null,
+                            modifier = Modifier.fillMaxSize(),
+                            contentScale = ContentScale.FillBounds
+                        )
+                    }
                 }
 
                 //Botón de Ataque Especial
                 Button(modifier = Modifier
-                    .background(Color.White)
                     .height(120.dp)
                     .width(70.dp),
                     onClick = {
                         viewModel.buttonSelectControlSound()
                         viewModel.superAttackSound()
+                        viewModel.vibrateEspecialAttack()
                         viewModel.playerAttackSequence(specialAttack)
-                              },
-                    colors = ButtonDefaults.buttonColors(containerColor = Color.Blue),
+                    },
+                    colors = ButtonDefaults.buttonColors(containerColor = Color.Red),
                     shape = RoundedCornerShape(10.dp),
                     contentPadding = PaddingValues(0.dp),
-                    content = { Text("SAtq") },
                     enabled = enableBtnSpecialAttack
-                )
+                ) {
+                    Box(modifier = Modifier.fillMaxSize()) {
+                        Image(
+                            painter = painterResource(specialAttackImage),
+                            contentDescription = null,
+                            modifier = Modifier.fillMaxSize(),
+                            contentScale = ContentScale.FillBounds
+                        )
+                    }
+                }
             }
         }
     }

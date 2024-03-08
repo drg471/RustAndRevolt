@@ -10,7 +10,15 @@
     <!-- opciones -->
     <string name="button_sound_onoff">SONIDO OFF/ON</string>
     <string name="button_instructions">INSTRUCCIONES</string>
+    <string name="button_legal">LEGAL</string>
     <string name="button_return">VOLVER</string>
+    <!-- instrucciones -->
+    <string name="tittleInstructions">Instrucciones</string>
+    <!-- legal -->
+    <string name="tittleLegal">Legal</string>
+    <string name="legal_text1">Esta aplicación ha sido concebida en el contexto de un proyecto estudiantil, sin ánimo de lucro.</string>
+    <string name="legal_text2">Todos los recursos empleados en esta aplicación, incluyendo imágenes, íconos, fuentes y sonidos, han sido adquiridos de fuentes web que no poseen derechos de autor o han sido generados mediante inteligencia artificial. En caso de que usted sea titular de algún derecho sobre alguno de estos elementos, le instamos a ponerse en contacto con nosotros para su pronta retirada, en cumplimiento con las normativas legales aplicables.</string>
+    <string name="legal_text3">Rust and Revolt. [DR.Games]</string>
     <!-- seleccíón personaje -->
     <string name="button_play">JUGAR</string>
     <string name="selectCharacter">Selección Personaje</string>
@@ -20,5 +28,14 @@
     <string name="characterTypeMachine">Máquina</string>
     <!-- combate -->
     <string name="enemyName">Nombre Enemigo</string>
+    <string name="loadingText">Cargando...</string>
     <string name="button_end_game">FIN PARTIDA</string>
+    <!-- instrucciones -->
+    <string name="game_instructions1">El juego es un combate por turnos que consta de tres tipos de personajes: Rebeldes, Máquinas e Ingenieros.</string>
+    <string name="game_instructions2">Cada personaje tiene habilidades de ataque que varían en intensidad: Ataque Normal, Ataque Fuerte, Ataque Muy Fuerte y Ataque Especial.</string>
+    <string name="game_instructions3">Los Rebeldes tienen ventaja sobre las Máquinas, las Máquinas sobre los Ingenieros y los Ingenieros sobre los Rebeldes.</string>
+    <string name="game_instructions4">Los ataques especiales infligen daño significativo, consumen 50 de carga y recargan con cada ataque.</string>
+    <string name="game_instructions5">Cada personaje tiene una vida máxima de 100 puntos y puede curarse usando pociones de curación que regeneran 20 puntos de vida.</string>
+    <string name="game_instructions6">El juego termina cuando la vida de uno de los personajes llega a cero.</string>
+
 </resources>

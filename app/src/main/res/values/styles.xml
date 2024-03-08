@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="CustomFont">
+        <item name="android:fontFamily">@font/rumble_brave</item>
+    </style>
+</resources>

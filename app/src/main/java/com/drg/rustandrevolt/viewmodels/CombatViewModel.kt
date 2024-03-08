@@ -12,6 +12,7 @@ import androidx.lifecycle.viewModelScope
 import com.drg.rustandrevolt.service.AppContextSingleton
 import com.drg.rustandrevolt.R
 import com.drg.rustandrevolt.datastore.CharacterSelectedDataStore
+import com.drg.rustandrevolt.datastore.Vibrator
 import com.drg.rustandrevolt.service.RandomEnemyAI
 import com.drg.rustandrevolt.domain.regenerateLifeWithPotions
 import com.drg.rustandrevolt.domain.totalStrongAttacks
@@ -24,6 +25,7 @@ import javax.inject.Inject
 import kotlin.random.Random
 import com.drg.rustandrevolt.hilt.MyApplication.Companion.musicPreferences
 import com.drg.rustandrevolt.service.AllCharacters
+import com.drg.rustandrevolt.service.BackgroundCombat
 import com.drg.rustandrevolt.sharedpreferences.MusicPreferences
 import com.drg.rustandrevolt.sound.FxButtons
 import com.drg.rustandrevolt.sound.FxPlayerCards
@@ -41,6 +43,7 @@ class CombatViewModel @Inject constructor(
     private val randomEnemyAI: RandomEnemyAI,
     private val allCharacters: AllCharacters,
     private val characterSelectedDataStore: CharacterSelectedDataStore,
+    private val vibrator: Vibrator,
 ) : ViewModel() {
 
     var context : Context = AppContextSingleton.getContext()
@@ -88,7 +91,13 @@ class CombatViewModel @Inject constructor(
     var mutablePlayerDamage by mutableStateOf("")
         private set
     var mutableShowBtnEndGame by mutableStateOf(false)
-        private set
+
+    var mutablePotionImage by mutableStateOf(R.drawable.c_potiongreencarta)
+    var mutableStrongAttackImage by mutableStateOf(R.drawable.c_punonegrocartarojamas)
+    var mutableVeryStrongAttackImage by mutableStateOf(R.drawable.c_punonegrocartarojamasmas)
+    var mutableSpecialAttackImage by mutableStateOf(R.drawable.c_superataquecartabn)
+
+    var mutableBackground by mutableStateOf(0)
 
     init{
         viewModelScope.launch {
@@ -98,6 +107,8 @@ class CombatViewModel @Inject constructor(
         }
 
         musicPreferences.setMusicEnabledPrefs(musicPreferences.isMusicEnabled, false)
+        getBackground()
+        vibrator.context = context
     }
 
     //****************************************************************
@@ -154,6 +165,8 @@ class CombatViewModel @Inject constructor(
             mutablePlayerDamageRedColor = true
             enableBtnsPlayerControl()
         }, 1500) // 1500 milisegundos
+
+        if (mutablePlayerRemainingHealPotions == 0) mutablePotionImage = R.drawable.c_potiongreencartablanconegro
     }
 
     fun playerAttackSequence (attackType : Int){
@@ -175,6 +188,10 @@ class CombatViewModel @Inject constructor(
             }
         }, 1500)
 
+        if (characterPlayer.remainingStrongAttacks == 0) mutableStrongAttackImage = R.drawable.c_punoblanconegrocartarojamas
+        if (characterPlayer.remainingVeryStrongAttacks == 0) mutableVeryStrongAttackImage = R.drawable.c_punoblanconegrocartarojamasmas
+        if (characterPlayer.chargeForSpecialAttack >= 50) mutableSpecialAttackImage = R.drawable.c_superataquecarta
+        else mutableSpecialAttackImage = R.drawable.c_superataquecartabn
     }
     //****************************************************************
     //ENEMY AI
@@ -384,6 +401,14 @@ class CombatViewModel @Inject constructor(
             val musicPlayer = MusicPlayer(context!!)
             musicPlayer.playFX(FxPlayerCards.fxList.get(index-1))
         }
+    }
+
+    fun vibrateEspecialAttack(){
+        vibrator.start(1000)
+    }
+
+    fun getBackground(){
+        mutableBackground = BackgroundCombat.getRandomBackground()
     }
 
     //****************************************************************
