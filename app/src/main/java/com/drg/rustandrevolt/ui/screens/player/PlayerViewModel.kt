@@ -1,9 +1,5 @@
 package com.drg.rustandrevolt.ui.screens.player
 
-import android.content.Context
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.drg.rustandrevolt.data.sources.network.RetrofitPhraseService
@@ -12,38 +8,39 @@ import com.drg.rustandrevolt.sound.FxButtons
 import com.drg.rustandrevolt.sound.MusicPlayer
 import com.drg.rustandrevolt.domain.usecases.PlayerUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class PlayerViewModel @Inject constructor(
-    playerUseCase: PlayerUseCase
+    playerUseCase: PlayerUseCase,
+    private val musicPlayer: MusicPlayer
 ) : ViewModel() {
 
     @Inject
     lateinit var retrofitPhraseService: RetrofitPhraseService
-    var phraseOfDay by mutableStateOf("")
 
-    var mutablePlayerName by mutableStateOf("")
-        private set
-    var mutablePlayerScore by mutableStateOf("")
-        private set
+    private val _statePlayer = MutableStateFlow<PlayerState>(PlayerState.LoadingPlayer)
+    val statePlayer: StateFlow<PlayerState> = _statePlayer
 
-    lateinit var context: Context
+    private val _statePhraseOfDay = MutableStateFlow<PhraseOfDayState>(PhraseOfDayState.LoadingPhraseOfDay)
+    val statePhraseOfDay : StateFlow<PhraseOfDayState> = _statePhraseOfDay
+
+    var phraseOfDay: String = ""
+    var mutablePlayerName: String = ""
+    var mutablePlayerScore: String = ""
 
     init {
-        if (playerUseCase.getPlayer() == null){
-            mutablePlayerName = ""
-            mutablePlayerScore = ""
-        }else{
-            mutablePlayerName = playerUseCase.getPlayer().name
-            mutablePlayerScore = playerUseCase.getPlayer().score.toString()
-        }
+        mutablePlayerName = playerUseCase.getPlayer().name
+        mutablePlayerScore = playerUseCase.getPlayer().score.toString()
+
+        _statePlayer.value = PlayerState.SuccesPlayer(mutablePlayerName, mutablePlayerScore)
     }
 
     fun buttonSound(){
         if (MusicPreferences.isMusicEnabledCompanion) {
-            val musicPlayer = MusicPlayer(context)
             musicPlayer.playFX(FxButtons.FxButton1)
         }
     }
@@ -52,6 +49,22 @@ class PlayerViewModel @Inject constructor(
         viewModelScope.launch() {
             //RETROFIT PhraseOfDay
             phraseOfDay = retrofitPhraseService.getPhraseOfDay().phrase
+            _statePhraseOfDay.value = PhraseOfDayState.SuccesPhraseOfDay(phraseOfDay)
         }
     }
+}
+
+sealed class PlayerState{
+    object LoadingPlayer: PlayerState()
+    data class SuccesPlayer(
+        val playerName: String,
+        val playerScore: String
+    ): PlayerState()
+}
+
+sealed class PhraseOfDayState{
+    object LoadingPhraseOfDay: PhraseOfDayState()
+    data class SuccesPhraseOfDay(
+        val phraseOfDay: String
+    ): PhraseOfDayState()
 }
