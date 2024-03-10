@@ -8,6 +8,7 @@ import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import com.drg.rustandrevolt.dataStore
 import com.drg.rustandrevolt.domain.service.AppContextSingleton
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
@@ -16,9 +17,11 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class Vibrator @Inject constructor() {
-    lateinit var context: Context
-    private val dataStore = AppContextSingleton.getContext().dataStore
+class Vibrator @Inject constructor(
+    @ApplicationContext private val context: Context,
+) {
+
+    private val dataStore = context.dataStore
     private val KEY_NAME = "vibration"
     private val coroutineScope = CoroutineScope(Dispatchers.Default)
     fun start(durationMiliSeconds: Long) {

@@ -36,7 +36,6 @@ import androidx.compose.ui.layout.ContentScale
 @Composable
 fun GameScreen(viewModel: CombatViewModel = hiltViewModel()) {
     val context = LocalContext.current
-    viewModel.context = context
 
     var enemyAIName = viewModel.mutableEnemyAIName
     var enemyAILife = viewModel.mutableEnemyAILife
