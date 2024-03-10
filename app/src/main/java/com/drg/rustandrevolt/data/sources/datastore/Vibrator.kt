@@ -7,7 +7,6 @@ import android.os.Vibrator
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import com.drg.rustandrevolt.dataStore
-import com.drg.rustandrevolt.domain.service.AppContextSingleton
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

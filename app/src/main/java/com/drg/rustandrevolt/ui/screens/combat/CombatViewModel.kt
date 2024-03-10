@@ -9,7 +9,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import android.os.Handler
 import android.util.Log
 import androidx.lifecycle.viewModelScope
-import com.drg.rustandrevolt.domain.service.AppContextSingleton
 import com.drg.rustandrevolt.R
 import com.drg.rustandrevolt.data.sources.datastore.CharacterSelectedDataStore
 import com.drg.rustandrevolt.data.sources.datastore.Vibrator

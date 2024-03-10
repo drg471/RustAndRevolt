@@ -21,7 +21,6 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.rememberNavController
 import com.drg.rustandrevolt.R
-import com.drg.rustandrevolt.domain.service.AppContextSingleton
 import com.drg.rustandrevolt.ui.navigation.AppScreens
 import com.drg.rustandrevolt.ui.screens.home.BACKGROUND_COLOR
 import com.drg.rustandrevolt.ui.screens.home.BUTTON_COLOR
@@ -33,7 +32,6 @@ fun SelectCharacterScreen(
     viewModel : CharacterSelectionViewModel = hiltViewModel()
     ) {
     val context = LocalContext.current
-    AppContextSingleton.setContext(context)
 
     val state = viewModel.state.collectAsState(CharacterSelectionState.Loading)
 

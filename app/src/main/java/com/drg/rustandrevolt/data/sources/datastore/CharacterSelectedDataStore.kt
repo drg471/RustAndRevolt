@@ -1,16 +1,19 @@
 package com.drg.rustandrevolt.data.sources.datastore
 
+import android.content.Context
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import com.drg.rustandrevolt.dataStore
-import com.drg.rustandrevolt.domain.service.AppContextSingleton
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.first
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class CharacterSelectedDataStore @Inject constructor() {
-    private val dataStore = AppContextSingleton.getContext().dataStore
+class CharacterSelectedDataStore @Inject constructor(
+    @ApplicationContext private val context: Context
+) {
+    private val dataStore = context.dataStore
     private val KEY_NAME = "name"
 
     suspend fun saveCharacterName(name: String) {

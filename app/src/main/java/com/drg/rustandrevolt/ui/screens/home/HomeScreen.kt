@@ -16,7 +16,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.drg.rustandrevolt.R
-import com.drg.rustandrevolt.domain.service.AppContextSingleton
 import com.drg.rustandrevolt.ui.theme.RustAndRevoltTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -29,7 +28,6 @@ fun HomeScreen(
 ) {
     val context = LocalContext.current
     val appName : String = context.getString(R.string.app_name)
-    AppContextSingleton.setContext(context)
 
     viewModel.initRetrofit()
 
