@@ -16,10 +16,10 @@ import javax.inject.Inject
 
 @HiltViewModel
 class OptionsViewModel @Inject constructor(
+    private val musicPlayer: MusicPlayer,
     private val vibrator: Vibrator
 ) : ViewModel() {
 
-    lateinit var context: Context
     var isVibration by mutableStateOf(false)
         private set
 
@@ -31,7 +31,6 @@ class OptionsViewModel @Inject constructor(
 
     fun buttonSound(){
         if (MusicPreferences.isMusicEnabledCompanion){
-            val musicPlayer = MusicPlayer(context)
             musicPlayer.playFX(FxButtons.FxButton1)
         }
     }

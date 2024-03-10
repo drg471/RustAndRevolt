@@ -44,7 +44,6 @@ fun OptionsScreen(
     viewModel: OptionsViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
-    viewModel.context = context
 
     val buttonSoundOnOff : String = context.getString(R.string.button_sound_onoff)
     val buttonInstructions : String = context.getString(R.string.button_instructions)
