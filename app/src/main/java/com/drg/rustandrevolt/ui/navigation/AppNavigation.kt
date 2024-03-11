@@ -38,16 +38,16 @@ fun AppNavigation(){
             PlayerScreen(navigateToHomeScreen)
         }
         composable(route = AppScreens.InstructionsScreen.route){ navBackStackEntry ->
-            val navigateToHomeScreen: () -> Unit = {
-                navController.navigate(AppScreens.HomeScreen.route)
+            val navigateToOptionsScreen: () -> Unit = {
+                navController.navigate(AppScreens.OptionsScreen.route)
             }
-            InstructionsScreen(navigateToHomeScreen)
+            InstructionsScreen(navigateToOptionsScreen)
         }
         composable(route = AppScreens.LegalScreen.route){ navBackStackEntry ->
-            val navigateToHomeScreen: () -> Unit = {
-                navController.navigate(AppScreens.HomeScreen.route)
+            val navigateToOptionsScreen: () -> Unit = {
+                navController.navigate(AppScreens.OptionsScreen.route)
             }
-            LegalScreen(navigateToHomeScreen)
+            LegalScreen(navigateToOptionsScreen)
         }
         composable(route = AppScreens.OptionsScreen.route){ navBackStackEntry ->
             val navigateToHomeScreen: () -> Unit = {

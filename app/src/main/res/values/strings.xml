@@ -8,6 +8,7 @@
     <string name="button_options">OPCIONES</string>
     <string name="button_exit">SALIR</string>
     <!-- opciones -->
+    <string name="options_tittle">OPCIONES</string>
     <string name="button_sound_onoff">SONIDO OFF/ON</string>
     <string name="button_instructions">INSTRUCCIONES</string>
     <string name="button_legal">LEGAL</string>

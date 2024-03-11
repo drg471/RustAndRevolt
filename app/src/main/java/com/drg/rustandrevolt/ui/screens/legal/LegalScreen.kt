@@ -42,7 +42,7 @@ import com.drg.rustandrevolt.ui.screens.home.TYPEFACE
 import com.drg.rustandrevolt.ui.theme.RustAndRevoltTheme
 
 @Composable
-fun LegalScreen(navigateToHomeScreen: () -> Unit) {
+fun LegalScreen(navigateToOptionsScreen: () -> Unit) {
     val context = LocalContext.current
 
     val buttonReturn: String = context.getString(R.string.button_return)
@@ -105,7 +105,7 @@ fun LegalScreen(navigateToHomeScreen: () -> Unit) {
             .height(40.dp)
             .width(200.dp),
             colors = ButtonDefaults.buttonColors(Color(BUTTON_COLOR)),
-            onClick = { navigateToHomeScreen() } //Vuelve a la ultima página guardada en pila
+            onClick = { navigateToOptionsScreen() }
         ) {
             Text(
                 text = buttonReturn,

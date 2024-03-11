@@ -41,7 +41,7 @@ import com.drg.rustandrevolt.ui.screens.home.TYPEFACE
 import com.drg.rustandrevolt.ui.theme.RustAndRevoltTheme
 
 @Composable
-fun InstructionsScreen(navigateToHomeScreen: () -> Unit) {
+fun InstructionsScreen(navigateToOptionsScreen: () -> Unit) {
     val context = LocalContext.current
 
     val buttonReturn: String = context.getString(R.string.button_return)
@@ -109,7 +109,7 @@ fun InstructionsScreen(navigateToHomeScreen: () -> Unit) {
             .height(40.dp)
             .width(200.dp),
             colors = ButtonDefaults.buttonColors(Color(BUTTON_COLOR)),
-            onClick = { navigateToHomeScreen() } //Vuelve a la ultima página guardada en pila
+            onClick = { navigateToOptionsScreen() }
         ) {
             Text(
                 text = buttonReturn,
@@ -164,7 +164,7 @@ fun InstructionsScreenPreview() {
             contentColor = LocalContentColor.current
         ) {
             InstructionsScreen(
-                navigateToHomeScreen = {},
+                navigateToOptionsScreen = {},
             )
         }
     }
