@@ -6,7 +6,6 @@ import com.drg.rustandrevolt.data.repositories.MachinesRepository
 import javax.inject.Inject
 import javax.inject.Singleton
 
-@Singleton
 class MachinesUseCase @Inject constructor(
     private val machineRepository: MachinesRepository
 ) {

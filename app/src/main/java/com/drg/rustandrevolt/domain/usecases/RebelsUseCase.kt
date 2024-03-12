@@ -6,7 +6,6 @@ import com.drg.rustandrevolt.data.repositories.RebelsRepository
 import javax.inject.Inject
 import javax.inject.Singleton
 
-@Singleton
 class RebelsUseCase @Inject constructor(
     private val rebelsRepository : RebelsRepository
 ) {
