@@ -41,7 +41,6 @@ import com.drg.rustandrevolt.domain.strongAttack
 import com.drg.rustandrevolt.domain.veryStrongAttack
 import com.drg.rustandrevolt.ui.screens.home.BUTTON_COLOR
 import com.drg.rustandrevolt.ui.screens.home.TYPEFACE
-import com.drg.rustandrevolt.viewmodels.CombatViewModel
 
 @Composable
 fun PlayerControls(navigateToHomeScreen : () -> Unit, viewModel : CombatViewModel = hiltViewModel()) {

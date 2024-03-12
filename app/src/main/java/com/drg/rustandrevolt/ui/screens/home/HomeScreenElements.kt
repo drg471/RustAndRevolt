@@ -26,7 +26,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.drg.rustandrevolt.R
-import com.drg.rustandrevolt.viewmodels.HomeViewModel
 import androidx.compose.ui.text.font.FontFamily
 
 val BACKGROUND_COLOR = 0xFF02474c //#02474c

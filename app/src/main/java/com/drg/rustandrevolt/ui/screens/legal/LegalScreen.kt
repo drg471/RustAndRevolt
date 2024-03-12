@@ -1,4 +1,4 @@
-package com.drg.rustandrevolt.ui.screens.instructions
+package com.drg.rustandrevolt.ui.screens.legal
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -41,26 +42,21 @@ import com.drg.rustandrevolt.ui.screens.home.TYPEFACE
 import com.drg.rustandrevolt.ui.theme.RustAndRevoltTheme
 
 @Composable
-fun InstructionsScreen(navigateToOptionsScreen: () -> Unit) {
+fun LegalScreen(navigateToOptionsScreen: () -> Unit) {
     val context = LocalContext.current
 
     val buttonReturn: String = context.getString(R.string.button_return)
-    val tittleInstructions: String = context.getString(R.string.tittleInstructions)
-    val gameInstructions1: String = context.getString(R.string.game_instructions1)
-    val gameInstructions2: String = context.getString(R.string.game_instructions2)
-    val gameInstructions3: String = context.getString(R.string.game_instructions3)
-    val gameInstructions4: String = context.getString(R.string.game_instructions4)
-    val gameInstructions5: String = context.getString(R.string.game_instructions5)
-    val gameInstructions6: String = context.getString(R.string.game_instructions6)
+    val tittleLegal: String = context.getString(R.string.tittleLegal)
+    val legalText1: String = context.getString(R.string.legal_text1)
+    val legalText2: String = context.getString(R.string.legal_text2)
+    val legalText3: String = context.getString(R.string.legal_text3)
+
 
     //Instrucciones
     val items = listOf(
-        Item(text = gameInstructions1, image = R.drawable.inst_1),
-        Item(text = gameInstructions2, image = R.drawable.inst_2),
-        Item(text = gameInstructions3, image = R.drawable.inst_3),
-        Item(text = gameInstructions4, image = R.drawable.inst_4),
-        Item(text = gameInstructions5, image = R.drawable.inst_5),
-        Item(text = gameInstructions6, image = R.drawable.rnrlogo),
+        Item(text = legalText1),
+        Item(text = legalText2),
+        Item(text = legalText3),
     )
 
     Column(
@@ -71,7 +67,7 @@ fun InstructionsScreen(navigateToOptionsScreen: () -> Unit) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = tittleInstructions,
+            text = tittleLegal,
             color = Color.White,
             style = TextStyle(
                 fontFamily = FontFamily(TYPEFACE),
@@ -136,21 +132,11 @@ fun ItemRow(item: Item) {
         )
 
         Spacer(modifier = Modifier.height(15.dp))
-
-        Image(
-            painter = painterResource(id = item.image),
-            contentDescription = null,
-            modifier = Modifier
-                .height(80.dp)
-                .width(180.dp)
-                .align(Alignment.CenterHorizontally)
-        )
     }
 }
 
 data class Item(
-    val text: String,
-    val image: Int
+    val text: String
 )
 
 @Composable
@@ -163,9 +149,7 @@ fun InstructionsScreenPreview() {
             color = MaterialTheme.colorScheme.background,
             contentColor = LocalContentColor.current
         ) {
-            InstructionsScreen(
-                navigateToOptionsScreen = {},
-            )
+
         }
     }
 }

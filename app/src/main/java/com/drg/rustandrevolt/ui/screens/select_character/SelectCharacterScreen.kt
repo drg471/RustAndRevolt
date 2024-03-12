@@ -1,7 +1,6 @@
 package com.drg.rustandrevolt.ui.screens.select_character
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -9,6 +8,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -21,12 +21,10 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.rememberNavController
 import com.drg.rustandrevolt.R
-import com.drg.rustandrevolt.service.AppContextSingleton
 import com.drg.rustandrevolt.ui.navigation.AppScreens
 import com.drg.rustandrevolt.ui.screens.home.BACKGROUND_COLOR
 import com.drg.rustandrevolt.ui.screens.home.BUTTON_COLOR
 import com.drg.rustandrevolt.ui.screens.home.TYPEFACE
-import com.drg.rustandrevolt.viewmodels.CharacterSelectionViewModel
 
 @Composable
 fun SelectCharacterScreen(
@@ -34,11 +32,11 @@ fun SelectCharacterScreen(
     viewModel : CharacterSelectionViewModel = hiltViewModel()
     ) {
     val context = LocalContext.current
-    AppContextSingleton.setContext(context)
+
+    val state = viewModel.state.collectAsState(CharacterSelectionState.Loading)
 
     val buttonPlay : String = context.getString(R.string.button_play)
 
-    viewModel.context = context
 
     //Columna principal
     Column(
@@ -48,11 +46,29 @@ fun SelectCharacterScreen(
             .background(Color(color = BACKGROUND_COLOR)),
     ) {
 
-        //Controles seleccion tipo de personajes
-        SelectCharacterTypeControls()
+        when (val value = state.value){
+            is CharacterSelectionState.Loading -> {}
 
-        //Controles seleccion tipos de personajes
-        SelectCharacterControls()
+            is CharacterSelectionState.Success -> {
+                //Controles seleccion tipo de personajes
+                SelectCharacterTypeControls(
+                    buttonSelectCharacterTypeSound = { viewModel.buttonSelectCharacterTypeSound() },
+                    loadRebelListRoom = { viewModel.loadRebelListRoom() },
+                    loadEngineerList = { viewModel.loadEngineerList() },
+                    loadMachineList = { viewModel.loadMachineList() }
+                )
+
+                //Controles seleccion tipos de personajes
+                SelectCharacterControls(
+                    value.characterList,
+                    value.currentCharacterIndex,
+                    value.currentImageIndex,
+                    showPreviousCharacter = {viewModel.showPreviousCharacter()},
+                    showNextCharacter = {viewModel.showNextCharacter()},
+                    buttonChangeCharacterSound = {viewModel.buttonChangeCharacterSound()}
+                )
+            }
+        }
 
         //Boton Jugar
         Button(modifier = Modifier

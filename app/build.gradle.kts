@@ -57,7 +57,6 @@ android {
     }
 }
 
-
 dependencies {
     val room_version = "2.5.0"
 

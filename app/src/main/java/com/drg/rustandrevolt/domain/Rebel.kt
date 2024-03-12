@@ -1,6 +1,6 @@
 package com.drg.rustandrevolt.domain
 
-import com.drg.rustandrevolt.room.RebelEntity
+import com.drg.rustandrevolt.data.sources.room.RebelEntity
 import kotlin.random.Random
 
 data class Rebel (
@@ -18,26 +18,38 @@ data class Rebel (
         super.damageAttacking  = 0
 
         if (objective is Machine){
-            super.damageAttacking += 2
+            super.damageAttacking += EXTRA_ATTACK_DAMAGE
         }
 
         when (attackType){
             normalAttack -> { // normal
-                super.damageAttacking += Random.nextInt(3,7)
+                super.damageAttacking += Random.nextInt(
+                    NORMAL_ATTACK_DAMAGE_MIN,
+                    NORMAL_ATTACK_DAMAGE_MAX
+                )
             }
             strongAttack -> { // fuerte
-                super.damageAttacking += Random.nextInt(7,13)
+                super.damageAttacking += Random.nextInt(
+                    STRONG_ATTACK_DAMAGE_MIN,
+                    STRONG_ATTACK_DAMAGE_MAX
+                )
                 super.remainingStrongAttacks --
             }
             veryStrongAttack -> { // +fuerte
-                super.damageAttacking += Random.nextInt(13,25)
+                super.damageAttacking += Random.nextInt(
+                    VERYSTRONG_ATTACK_DAMAGE_MIN,
+                    VERYSTRONG_ATTACK_DAMAGE_MAX
+                )
                 super.remainingVeryStrongAttacks --
             }
             specialAttack -> { // especial
                 if (objective is Engineer){
-                    super.damageAttacking += 5
+                    super.damageAttacking += EXTRA_SPECIAL_DAMAGE
                 }
-                super.damageAttacking += Random.nextInt(30,35)
+                super.damageAttacking += Random.nextInt(
+                    SPECIAL_ATTACK_DAMAGE_MIN,
+                    SPECIAL_ATTACK_DAMAGE_MAX
+                )
                 super.chargeForSpecialAttack = 0
             }
         }
