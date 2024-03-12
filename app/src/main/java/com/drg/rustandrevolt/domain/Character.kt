@@ -13,6 +13,17 @@ const val strongAttack = 2
 const val veryStrongAttack = 3
 const val specialAttack = 4
 
+const val NORMAL_ATTACK_DAMAGE_MIN = 3
+const val NORMAL_ATTACK_DAMAGE_MAX = 7
+const val STRONG_ATTACK_DAMAGE_MIN = 7
+const val STRONG_ATTACK_DAMAGE_MAX = 13
+const val VERYSTRONG_ATTACK_DAMAGE_MIN = 13
+const val VERYSTRONG_ATTACK_DAMAGE_MAX = 25
+const val SPECIAL_ATTACK_DAMAGE_MIN = 30
+const val SPECIAL_ATTACK_DAMAGE_MAX = 35
+const val EXTRA_ATTACK_DAMAGE = 2
+const val EXTRA_SPECIAL_DAMAGE = 5
+
 abstract class Character constructor (
     open var name : String,
     open var imageCardResource : String,
