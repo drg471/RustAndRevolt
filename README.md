@@ -45,7 +45,7 @@ En el desarrollo de esta aplicación, se han empleado diversas tecnologías y he
 - El juego termina cuando la vida de uno de los personajes llega a cero.
 
 
-###Imágenes
+### Imágenes
 
 <img src="https://github.com/drg471/RustAndRevolt/assets/113433396/25057cb0-ff8f-4223-8ea4-af31ddc2f07d" width="300">
 
