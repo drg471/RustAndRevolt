@@ -15,6 +15,7 @@ En el desarrollo de esta aplicación, se han empleado diversas tecnologías y he
 
 - **Kotlin:** Lenguaje de programación principal utilizado para desarrollar la aplicación.
 - **Jetpack Compose:** Framework de UI moderno y declarativo utilizado para construir la interfaz de usuario.
+- **Hilt:** Biblioteca de inyección de dependencias para simplificar y estandarizar la gestión de dependencias.
 - **StateFlow:** Biblioteca utilizada para la gestión del estado en la aplicación de manera reactiva.
 - **Room DB y SQLite DB:** Bibliotecas de persistencia de datos utilizadas para el almacenamiento local de información.
 - **DataStore y Shared Preferences:** Mecanismos de almacenamiento de datos utilizados para guardar preferencias y configuraciones de la aplicación.
